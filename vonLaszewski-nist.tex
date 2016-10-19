@@ -1,0 +1,43 @@
+%&pdfLaTeX
+% !TEX encoding = UTF-8 Unicode
+\documentclass{acm_proc_article-sp}
+
+
+\usepackage{ifxetex}
+\ifxetex
+\usepackage{fontspec}
+\setmainfont[Mapping=tex-text]{STIXGeneral}
+\else
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\fi
+\usepackage{textcomp}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{ulem}
+\usepackage{amssymb}
+%\usepackage{fancyhdr}
+%\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\footrulewidth}{0pt}
+\usepackage{color}
+\usepackage{xcolor,colortbl}
+\newcommand{\grey}{\cellcolor{lightgray}}  %{0.9}
+\newcommand{\blue}{\cellcolor{gray}}  %{0.9}
+
+\usepackage{url}
+
+%\pagestyle{fancy}
+%\rhead{}
+%\rfoot{}
+%\chead{}
+%\cfoot{}
+%\fancyfoot[LE]{\thepage{}}
+%\fancyfoot[LO]{\thepage{}}
+
+
+\makeatletter
+\def\@copyrightspace{\relax}
+\makeatother
+\input{content}
+\end{document}
