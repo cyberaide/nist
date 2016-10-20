@@ -1,0 +1,369 @@
+
+
+\section{Background}
+
+\subsection{Deployment}
+
+Big Data Software Stack is built with various software packages from different layers (and it’s increasing), therefore accomplishing these multiple software deployment is challenging
+\subsection{Documentation}
+installation and configuration steps should be documented in every particular to guarantee successful deployment
+\subsection{Repeatable and Automated Deployment}
+Same results are expected by offering repeatable deployments when a new system is built
+Potentially targeting different infrastructures via virtual clusters
+\subsection{Cross-Platform Configuration}
+It ensures working, executable software deployment on multiple platforms, distributions and versions
+DevOps can be used to support this workflow
+
+
+\section{51 NIST Benchmarking Examples for Big Data}
+
+\begin{description}
+\item[Government Operation:] National Archives and Records Administration, Census Bureau
+\item[Commercial:] Finance in Cloud, Cloud Backup, Mendeley (Citations), Netflix, Web Search, Digital Materials, Cargo shipping (as in UPS)
+\item[Defense:] Sensors, Image surveillance, Situation Assessment Healthcare
+\item[Life Sciences:] Medical records, Graph and Probabilistic analysis, Pathology, Bioimaging, Genomics, Epidemiology, People Activity models, BiodiversityDeep Learning and Social Media: Driving Car, Geolocate images/cameras, Twitter, Crowd Sourcing, Network Science, NIST benchmark datasets
+\item[The Ecosystem for Research:] Metadata, Collaboration, Language Translation, Light source experiments
+\item[Astronomy and Physics:] Sky Surveys compared to simulation, Large Hadron Collider at CERN, Belle Accelerator II in JapanEarth,
+\item[Environmental and Polar Science:] Radar Scattering in Atmosphere, Earthquake, Ocean, Earth Observation, Ice sheet Radar scattering, Earth radar mapping, Climate simulation datasets, Atmospheric turbulence identification, Subsurface Biogeochemistry (microbes to watersheds), AmeriFlux and FLUXNET gas sensors
+\item[Energy:] Smart grid
+\end{description}
+
+\section{Ansible}
+
+\subsection{Overlap of Technologies}
+6 projects from the 51 NIST use cases
+81 other projects surveyed as part of classes taught at Indiana University
+Findings
+We found 62 roles(*) from which many are repeatedly used in various projects. 
+We have chosen Ansible to implement the deployment descriptions because 
+
+(*) we will define later what a role is
+
+\subsection{Why Ansible?}
+Expandable: Leverages Python (default) but modules can be written in any language
+Simplicity: 
+Agentless: no setup required on managed node
+Security: Allows deployment from user space; uses ssh for authentication
+Flexibility: only requires ssh access to privileged user
+Transparency: YAML Based script files express the steps of installing and configuring software
+Modularity: Single Ansible Role (should) contain all required commands and variables to deploy software package independently
+Sharing and portability: roles are available from source (github, bitbucket, gitlab, etc) or the Ansible Galaxy portal
+
+\subsection{Ansible for NIST deployments}
+6 NIST examples
+19 roles for Fingerprint 
+5 roles for Face detection 
+27 roles for the other four NIST use cases
+Twitter Analysis
+Analytics for Healthcare Data/Health Informatics
+Spatial Big Data/Spatial Statistics/Geographic Information Systems
+Data Warehousing and Data Mining
+36 Projects from class, Spring '16 
+41 roles
+45 Projects from class, Fall '15
+62 roles, 39 datasets
+
+\subsection{Relationship between Roles and Projects}
+\subsection{Features of Ansible fostering reproducibility}
+Ansible provides a structured environment for defined sets of tasks to execute on a number of nodes. Tasks are ideally idempotent.
+There are two basic methods for organizing tasks:
+Playbooks: main entry points, specific to environments
+Roles: reusable abstraction (analogous to functions)
+Playbooks provide the primary entry point, and consist of tasks that are either defined directly in the playbook, or externally via roles.
+Roles are groups of related tasks that can be distributed and reused independently of playbooks.
+The Inventory file identifies the nodes controlled by Ansible.
+\subsection{Using Roles and Playbooks: Face Detection Example }
+
+
+\subsection{Ansible: Inventory, IaaS, PaaS}
+The inventory file for Ansible groups the IP addresses of the infrastructure into named sets.
+On the right are two examples of inventory files:
+Top: a static inventory for a cluster with two nodes in the "webservers" group and one node in the "databases" group.
+Bottom: a dynamic inventory in which a script is called to define the nodes. The output must be specifically-formatted JSON for Ansible.
+\begin{Verbatim}
+[webservers]
+10.0.0.1
+10.0.0.2
+[databases]
+10.0.0.3
+#!/use/bin/env bash
+
+python dynamic-nodes-setup.py
+\end{Verbatim}
+
+\subsection{Ansible: Roles}
+Roles are primarily defined as a collection of related tasks to accomplish a single goal.  These tasks can be configured via variables, that may be overridden when the role is used in a playbook.
+On the top right is an example directory structure defining a role for Apache Spark: Tasks are defined in the tasks/main.yml file, Variables are defined in defaults/main.yml
+On bottom right is an elided set of the entries in tasks/main.yml. These tasks use the ``get\_url'', and ``unarchive'' modules and optionally builds from source when spark\_package\_type is "src"
+\begin{Verbatim}
+spark
+- defaults
+   - main.yml
+- LICENSE
+- README.md
+- tasks
+    - build.yml
+    - main.yml
+\end{Verbatim}
+
+\begin{Verbatim}
+---
+
+- name: download
+  get_url:
+    url: "{{ spark_url }}"
+    dest: "{{ ansible_env.PWD }}/{{ _spark_package_name }}"
+    sha256sum: "{{ spark_sha256 }}"
+  
+- name: extract
+  unarchive:
+    dest: "{{ spark_install_dest }}"
+    src: "{{ ansible_env.PWD }}/{{ _spark_package_name }}"
+    copy: no
+    creates: "{{ spark_install_dest }}/{{ _spark_directory }}"
+  
+- include: build.yml
+  when: spark_package_type == 'src'
+
+# ...
+
+Ansible: Playbooks
+An example playbook is shown to the right.
+
+Name: description of this play
+
+Hosts: the set of nodes on which to operate, named in the inventory file
+
+Become: escalate privileges
+
+Roles: list of roles to apply, with overridden variables as needed.
+---
+
+- name: install and configure spark
+  hosts: frontendnodes
+  become: yes
+  roles:
+    - role: java
+    - role: maven
+    - role: spark
+      spark_version: 1.6.0
+      spark_package_type: bin
+\end{Verbatim}
+
+
+\subsection{Ansible: Role Repositories}
+
+There are two primary mechanisms available to redistribute roles
+
+Ansible Galaxy is the primary hub for sharing roles. The
+ansible-galaxy tool can install these roles. Useful for using
+externally-developed roles
+
+Directly from the source code repositories. In the case of using Git,
+these repositories can be installed as git submodules. Useful for
+internally-developed roles
+
+We have found that installing roles as git submodules allows the
+flexibility to both use roles developed elsewhere as well as make
+modifications and even contribute those changes upstream.
+
+\subsection{Ansible: Vetting Roles}
+An important aspect of developing roles is the vetting step.
+In a production environment, each role must be 
+examined for security vulnerabilities as well as to 
+ensure that they will function as expected. 
+Externally-developed roles may need to be adapted to work in the target environment. When a role is defined, variables to modify the deployment behavior need to be exposed.  We have found that many roles made available only expose a subset of the application's available configuration options and may not work outside the author's environment.
+
+Projects
+List of Projects
+27 roles are collected from 6 NIST use cases. Hadoop, Spark, HBase, D3, Tableau, Java and Zookeeper are frequently reused more than four out of six use cases.
+
+
+
+
+
+ Table 1. List of Projects with Roles
+Table is in Google sheet: \url{https://docs.google.com/spreadsheets/d/1idB11ibeITgTLUT9D_xT6cOMsVzdG2cVa3o0w_Wh7IE/edit?usp=sharing}
+Roles from NIST and Class (Survey)
+
+
+\section{Big Data Stack (BDS)}
+BDS is a collection of playbooks for deploying the tools of big data analytics, given a set of accessible IP addresses. It allows the user to select a subset of the available tools to deploy in order to customize their virtual cluster.
+Example: to setup a stack with Hadoop, Spark, and Hive:
+$ ansible-playbook play-hadoop.yml addons/spark.yml addons/hive.yml
+Example: to setup a stack with Hadoop, HBase, and Drill:
+$ ansible-playbook play-hadoop.yml addons/hbase.yml addons/drill.yml
+It is provided online at https://github.com/futuresystems/big-data-stack
+
+Roles and playbooks offered by BDS        (as of 27 Sep., 2016)
+Roles
+Drill
+Ganglia
+Hadoop
+Hbase
+Hive
+Java
+Limits
+Maven
+Mysql
+Nagios
+Pig
+
+Roles (cont.)
+Spark
+Supervisord
+Zookeeper
+
+Playbooks
+Hadoop
+Hbase
+Pig
+Spark
+Drill
+Hive
+
+
+\subsection{Towards Cloudmesh}
+BDS is ideally suited to be included in cloudmesh as one of its deployment management tools. Cloudmesh adds features to easily access infrastructure.
+  … more in the next another section we present later
+
+Examples
+Face Detection Example
+Example 1: Face Detection Lifecycle
+\begin{verbatim}
+[masters]
+10.0.0.1
+10.0.0.2
+10.0.0.3
+[workers]
+10.0.0.4
+10.0.0.5
+10.0.0.6
+Example 1: Face Detection Lifecycle on AWS
+[masters]
+10.0.0.1
+10.0.0.2
+10.0.0.3
+[workers]
+10.0.0.4
+10.0.0.5
+10.0.0.6
+u'tag_masters_True': [u'52.23.213.103', u'54.196.41.145',u'54.209.137.235'],
+u'tag_workers_True': [u'52.23.213.104', u'54.196.41.146',u'54.209.137.237'], ...
+\end{verbatim}
+Example 1: Face Detection Screenshot
+Running EC2 provisioning playbook on command line: $ ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
+
+
+\section{Virtual Clusters}
+\subsection{Motivation}
+Traditional HPC provided clusters to the community. The clusters are managed by professional staff and have mostly rigid software stack.
+Advantages: provides well defined environment to the community, provides often optimized services for this particular system or the community it serves, allows sharing of resources through queuing system
+Disadvantages: Different communities, Groups or projects may have different requirements that are not met by the software stack, software stack often not state-of-the art, but tuned for reliability, experimentation with new software and methodologies in such an environment is difficult, queuing system may not provide enough interactivity
+Can we build a more flexible environment
+Support custom software stacks
+Support different interaction modes with instantaneous access without wait time
+Support the use of heterogeneous platforms to allow increase in availability as well as features
+Support the easy management of such an environment
+
+\subsection{Virtual Clusters}
+Definition: A set of compute, storage and network services that interact with each other to serve an application or community for a specific amount of time to support one or more experiments. A virtual cluster is managed by the community or application user. They are typically built on top of HPC, Grids, Clouds, and Containers. The virtual cluster is managed by the user. 
+Contrasting Grids: targeted towards the support of a virtual organization introducing high overheads on the deployment and management of such infrastructure. Grids are a natural expansion of traditional supercomputer centers that are managed by professional staff.
+Contrasting Cloud IaaS: offer typically low level IaaS services allowing users to combine them. They are a valuable building block for virtual clusters. Clouds are managed by professional staff.
+Contrasting Cloud PaaS: offer enhanced services to users targeting a particular platform. They are offered by professional staff.
+Contrasting Containers: offer an abstraction to share the existing hardware and OS while using containers making the it not necessary to us OS virtualization, thus saving space. Containers provide very useful enhancements for creating virtual clusters through add ons such as Kubernetes and Docker Swarm.
+
+
+
+\subsection{Cloudmesh Access and Management of virtual clusters}
+Cloudmesh is an API, command line tool, and command shell allowing the easy utilization of HPC, Clouds, Containers through machine abstractions
+Switching between alternative services can be achieved by updating a single variable.  
+Demonstrated usages of
+Comet                                                                                           (HPC integrated Cloud)
+FutureSystems, Chameleon, CloudLab, Bridges, Jetstream, …  (National Openstack Clouds)
+Cybera (CA), Karslruhe Openstack Cloud (KIT, Germany), …     (International)
+EC2, AWS, Azure                                                                          (Commercial Non Openstack)
+Devstack, Trystack, Virtualbox                                                       (Desktop Clouds)
+A user could use all of them
+
+\subsection{Cloudmesh and Comet Cloud Virtual Cluster}
+Comet is a NSF sponsored super computer offered by SDSC to the community. It operates in two modes: HPC and virtual clusters
+Comet virtual clusters are low level and offer the HPC administrator the view of a cluster as if it were hardware. This is achieved via virtualization and low level exposure of network services. The administrator has full control over the cluster.
+This is achieved by the integration of virtualization and SRIOV within Rocks. Thus the same cluster can not only be used in virtualized mode, but also in HPC mode
+Comet users can therefore use HPC and virtualized clusters on the same hardware. Virtual clusters are treated as a special kind of compute job
+Based on our long experience in this field we have delivered to SDSC an extension to cloudmesh that allows the creation and management of virtual clusters within comet
+We can today use more than Comet
+Accessing Virtual Clusters
+REST API
+Command line interface
+Command shell for scripting
+Console Access
+Web Page
+
+Simple commands allow easy management
+cm comet cluster  ID
+Show the cluster details
+cm comet power on ID vm-ID -[0-3] --walltime=6h
+Power 3 nodes on for 6 hours
+cm comet image attach image.iso ID vm-ID-0
+Attach an image
+cm comet boot ID vm-ID-0
+Boot node 0
+cm comet console vc4
+Console 
+
+Switching infrastructure in cloudmesh is easy
+cm var cloud=jetstream / bridges / aws / …
+cm default cloud=$cloud
+cm boot
+
+
+\subsection{Cloudmesh Launcher abstraction}
+Important is that cloudmesh introduces an abstraction for creating virtual clusters that we call “launcher”. A launch specifies the creation of a virtual cluster. Such a launch can use
+Ansible
+Chef, …
+Openstack Heat
+Ssh
+Make
+Pegasus (Grids)
+Hence a variety of different launch platforms can be integrated into cloudmesh and work from different community contributions can be supported.
+
+Building virtual clusters is easy
+cm launcher cluster -n 10
+Gives a virtual cluster with 10 nodes and allows the user to login between each node
+
+
+cm launcher hadoop -n 10 --cloud=rackspace
+Finds the playbook for creating a hadoop cluster and launches it on a cloud called rackspace
+
+
+
+Building enhance virtual clusters is easy
+Virtual cluster for face detection
+cm launcher facedetection -n 10 --cloud=rackspace
+Finds the playbook for creating a virtual cluster and launches the deployment for the face detection project.
+Cloudmesh will look in the git repository to locate the ansible scripts and execute them
+
+
+Cloudmesh Launcher Portal (in development)
+       Specific Launch                                    List of Launchers
+
+
+
+
+
+Automatically generates Graphical representation of input parameters                                  
+Conclusion
+Ansible + Cloudmesh
+Will enable re-usable specification of Big Data Stack applications in 87 use cases and 62 unique roles from which NIST has 27
+BDS status
+From this a total part of BDS are vetted (the most fundamental ones): 
+14 Roles  (about 50% done of NIST roles)
+6   Playbooks
+
+\subsection{Cloudmesh Status}
+We can replicate on different infrastructures including AWS, Azure, Openstack, Comet …
+We need to complete the launcher and integration of the BDS into the launcher
+
+
+
