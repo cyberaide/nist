@@ -155,22 +155,27 @@ flexibility to both use roles developed elsewhere as well as make
 modifications and even contribute those changes upstream.
 
 \subsection{Ansible: Vetting Roles}
-An important aspect of developing roles is the vetting step.
-In a production environment, each role must be 
-examined for security vulnerabilities as well as to 
-ensure that they will function as expected. 
-Externally-developed roles may need to be adapted to work in the target environment. When a role is defined, variables to modify the deployment behavior need to be exposed.  We have found that many roles made available only expose a subset of the application's available configuration options and may not work outside the author's environment.
+An important aspect of developing roles is the vetting step. In a
+production environment, each role must be examined for security
+vulnerabilities as well as to ensure that they will function as
+expected. Externally-developed roles may need to be adapted to work in
+the target environment. When a role is defined, variables to modify
+the deployment behavior need to be exposed. We have found that many
+roles made available only expose a subset of the application's
+available configuration options and may not work outside the author's
+environment.
 
 Projects
 List of Projects
-27 roles are collected from 6 NIST use cases. Hadoop, Spark, HBase, D3, Tableau, Java and Zookeeper are frequently reused more than four out of six use cases.
+27 roles are collected from 6 NIST use cases. Hadoop, Spark, HBase,
+D3, Tableau, Java and Zookeeper are frequently reused more than four
+out of six use cases.
 
+Table 1. List of Projects with Roles
 
+Table is in Google sheet: 
+% \url{https://docs.google.com/spreadsheets/d/1idB11ibeITgTLUT9D_xT6cOMsVzdG2cVa3o0w_Wh7IE/edit?usp=sharing}
 
-
-
- Table 1. List of Projects with Roles
-Table is in Google sheet: \url{https://docs.google.com/spreadsheets/d/1idB11ibeITgTLUT9D_xT6cOMsVzdG2cVa3o0w_Wh7IE/edit?usp=sharing}
 Roles from NIST and Class (Survey)
 
 
@@ -217,7 +222,7 @@ BDS is ideally suited to be included in cloudmesh as one of its deployment manag
 Examples
 Face Detection Example
 Example 1: Face Detection Lifecycle
-\begin{verbatim}
+\begin{Verbatim}
 [masters]
 10.0.0.1
 10.0.0.2
@@ -237,10 +242,14 @@ Example 1: Face Detection Lifecycle on AWS
 10.0.0.6
 u'tag_masters_True': [u'52.23.213.103', u'54.196.41.145',u'54.209.137.235'],
 u'tag_workers_True': [u'52.23.213.104', u'54.196.41.146',u'54.209.137.237'], ...
-\end{verbatim}
-Example 1: Face Detection Screenshot
-Running EC2 provisioning playbook on command line: $ ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
+\end{Verbatim}
 
+Example 1: Face Detection Screenshot Running EC2 provisioning playbook
+on command line:
+
+\begin{Verbatim}
+$ ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
+\end{Verbatim}
 
 \section{Virtual Clusters}
 \subsection{Motivation}
@@ -254,17 +263,34 @@ Support the use of heterogeneous platforms to allow increase in availability as 
 Support the easy management of such an environment
 
 \subsection{Virtual Clusters}
-Definition: A set of compute, storage and network services that interact with each other to serve an application or community for a specific amount of time to support one or more experiments. A virtual cluster is managed by the community or application user. They are typically built on top of HPC, Grids, Clouds, and Containers. The virtual cluster is managed by the user. 
-Contrasting Grids: targeted towards the support of a virtual organization introducing high overheads on the deployment and management of such infrastructure. Grids are a natural expansion of traditional supercomputer centers that are managed by professional staff.
-Contrasting Cloud IaaS: offer typically low level IaaS services allowing users to combine them. They are a valuable building block for virtual clusters. Clouds are managed by professional staff.
-Contrasting Cloud PaaS: offer enhanced services to users targeting a particular platform. They are offered by professional staff.
+
+Definition: A set of compute, storage and network services that
+interact with each other to serve an application or community for a
+specific amount of time to support one or more experiments. A virtual
+cluster is managed by the community or application user. They are
+typically built on top of HPC, Grids, Clouds, and Containers. The
+virtual cluster is managed by the user.
+
+Contrasting Grids: targeted towards the support of a virtual
+organization introducing high overheads on the deployment and
+management of such infrastructure. Grids are a natural expansion of
+traditional supercomputer centers that are managed by professional
+staff. Contrasting Cloud IaaS: offer typically low level IaaS services
+allowing users to combine them. They are a valuable building block for
+virtual clusters. Clouds are managed by professional staff.
+
+Contrasting Cloud PaaS: offer enhanced services to users targeting a
+particular platform. They are offered by professional staff.
+
 Contrasting Containers: offer an abstraction to share the existing hardware and OS while using containers making the it not necessary to us OS virtualization, thus saving space. Containers provide very useful enhancements for creating virtual clusters through add ons such as Kubernetes and Docker Swarm.
 
 
 
 \subsection{Cloudmesh Access and Management of virtual clusters}
 Cloudmesh is an API, command line tool, and command shell allowing the easy utilization of HPC, Clouds, Containers through machine abstractions
-Switching between alternative services can be achieved by updating a single variable.  
+Switching between alternative services can be achieved by updating a
+single variable.
+
 Demonstrated usages of
 Comet                                                                                           (HPC integrated Cloud)
 FutureSystems, Chameleon, CloudLab, Bridges, Jetstream, …  (National Openstack Clouds)
@@ -287,6 +313,7 @@ Command shell for scripting
 Console Access
 Web Page
 
+\begin{Verbatim}
 Simple commands allow easy management
 cm comet cluster  ID
 Show the cluster details
@@ -303,7 +330,7 @@ Switching infrastructure in cloudmesh is easy
 cm var cloud=jetstream / bridges / aws / …
 cm default cloud=$cloud
 cm boot
-
+\end{Verbatim}
 
 \subsection{Cloudmesh Launcher abstraction}
 Important is that cloudmesh introduces an abstraction for creating virtual clusters that we call “launcher”. A launch specifies the creation of a virtual cluster. Such a launch can use

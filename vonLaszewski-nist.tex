@@ -25,7 +25,18 @@
 \newcommand{\grey}{\cellcolor{lightgray}}  %{0.9}
 \newcommand{\blue}{\cellcolor{gray}}  %{0.9}
 
-\usepackage{url}
+%\usepackage{url}
+\usepackage{csvsimple}
+%\usepackage{longtable}
+%usepackage{lscape}
+%\usepackage{booktabs}
+\usepackage{pifont}
+
+\newcommand*\rot{\rotatebox{90}}
+\newcommand*\OK{\ding{51}}
+\newcolumntype{L}{>{\centering\arraybackslash}m{4cm}}
+
+
 
 %\pagestyle{fancy}
 %\rhead{}
@@ -41,4 +52,11 @@
 \makeatother
 \input{content}
 \input{presentation}
+
+\newpage
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
 \end{document}

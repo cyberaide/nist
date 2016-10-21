@@ -1,20 +1,6 @@
-\documentclass{article}
-\usepackage{csvsimple}
-\usepackage{longtable}
-\usepackage{lscape}
-\usepackage{array,graphicx}
-\usepackage{booktabs}
-\usepackage{pifont}
-\usepackage{geometry}
 
-\newcommand*\rot{\rotatebox{90}}
-\newcommand*\OK{\ding{51}}
-\newcolumntype{L}{>{\centering\arraybackslash}m{4cm}}
-
-\begin{document}
-
-\newgeometry{margin=1cm}
-\begin{table} \centering
+\begin{table*}[htb] 
+\begin{center}
   \begin{tabular}{@{} cl*{26}c @{}}
     & ID & \rot{Hadoop} & \rot{Mesos} & \rot{Spark} & \rot{Storm} & \rot{Pig} & \rot{Hive} & \rot{Drill} & \rot{HDFS} & \rot{HBase} & \rot{Mysql} & \rot{MongoDB} & \rot{RethinkDB} & \rot{Mahout} & \rot{D3 and Tableau} & \rot{nltk} & \rot{MLlib} & \rot{Lucene/Solr} & \rot{OpenCV} & \rot{Python} & \rot{Java} & \rot{Ganglia} & \rot{Nagios} & \rot{zookeeper} & \rot{AlchemyAPI} & \rot{R} & \rot{\shortstack{dataset\\ size (GB)}} \\
     \hline
@@ -31,13 +17,13 @@
     & U.N6 & \OK &  & \OK &  & \OK & \OK &  &  & \OK &  & \OK &  & \OK & \OK &  & \OK & \OK &  &  & \OK &  &  & \OK &  &   \\
 
   \end{tabular}
- \end{table}
+\end{center}
+ \end{table*}
 
+\begin{table*}[htb]
  \begin{tabular}{l|l|l|L}%
    \bfseries ID& \bfseries Use Case & \bfseries Source & \bfseries Dataset% specify table head
    \csvreader[head to column names]{list_of_projects_with_roles.csv}{}% use head of csv as column names
    {\\\hline\ID &\csvcolii &\Source &\dataset}% specify your coloumns here
  \end{tabular}
-
- \restoregeometry
-\end{document}
+\end{table*}
