@@ -1,5 +1,7 @@
 \begin{document}
 
+\newcommand{\TODO}[1]{\todo[inline,color=red!20]{#1}}
+
 \title{Cloudmesh in support of the\\NIST Big Data Architecture Framework}
 
 
@@ -20,19 +22,25 @@ Wo Chang\\
 
 \maketitle
 
+\listoftodos[Notes]
+
 \begin{abstract}
-NIST has provided a big data reference architecture and is currently
-working on validating that architecture. As part of our current
-efforts we have developed cloudmesh client a tool that sets its goal
-towards easily managing clouds, container, batch queues and bare metal
-infrastructure. It also allows the integration of defined software
-stacks that can be used to deploy complex and state-of-the-art
-frameworks with devOps tools. CLoudmesh is on purpose designed to be
-vendor agnostic. We evaluate in this paper two aspects. First, from
-our rich experience with clouds and other infrastructures can we
-verify the NIST reference architecture from our point of view. Second,
-which limitations may exist in cloudmesh client that need to be
-addressed to potentially improve integration with the NIST efforts. 
+  The National Institute of Standards (NIST) has provided a big data
+  reference architecture and is currently attempting to validate that
+  architecture. As part of our current efforts we have developed
+  cloudmesh client a tool that sets its goal towards easily managing
+  clouds, container, batch queues and bare metal infrastructure. It
+  also allows the integration of defined software stacks that can be
+  used to deploy complex and state-of-the-art frameworks with devOps
+  tools. Cloudmesh is on purpose designed to be vendor agnostic. We
+  evaluate in this paper two aspects. First, based on our rich
+  experience with clouds and other infrastructures, {\it can we verify the
+  NIST reference architecture from our point of view?} Second, {\it which
+  limitations may exist in cloudmesh client that need to be addressed
+  to potentially improve integration with the NIST efforts?}  We will
+  see in this paper that cloudmesh validates the NIST big data
+  architecture which itself motivated further improvements to
+  cloudmesh that we have implemented.
 \end{abstract}
 
 
@@ -43,74 +51,93 @@ work and to introduce the two frameworks motivating this paper. This
 includes cloudmesh \cite{las12-cloud} \cite{github-cloudmesh-client}
 and the NIST big data reference architecture \cite{nist-bd}.
 
+We start by giving brief introductions to the National Institute of
+Standards (NIST) big data reference architecture (Section \ref{S:NBDarch}) followed
+by a brief introduction to Cloudmesh (Section \ref{S:cmclient}).
 
-The paper is structu
+
+We then \TODO{describe the next sections} 
 
 \section{NBD Reference Architecture}
+\label{S:NBDarch}
 
 Commercial, academic, and government leaders agree about the potential
-of Big Data to spark innovation, fuel commerce, and drive
+of {\em} Big Data to spark innovation, fuel commerce, and drive
 progress. Big Data is the common term used to describe the deluge of
-data in today’s networked, digitized, sensor-laden, and
-informationdriven world. Desirable is as a vendorneutral, technology-
-and infrastructure-agnostic conceptual model and examine related
-issues.  The NIST big data working group is exploring pathways forward
-in this direction which can be leveraged by the community. The current
-result reference architecture is summarized in \cite{nist-bd}. From
-this document we gather that the ``conceptual model, referred to as
-the NIST Big Data Reference Architecture (NBDRA), was crafted by
-examining publicly available Big Data architectures representing
-various approaches and products. Inputs from the other NBD-PWG
-subgroups were also incorporated into the creation of the NBDRA. It is
-applicable to a variety of business environments, including tightly
-integrated enterprise systems, as well as loosely coupled vertical
-industries that rely on cooperation among independent
-stakeholders. The NBDRA captures the two known Big Data economic value
-chains: information, where value is created by data collection,
-integration, analysis, and applying the results to data-driven
-services, and the information technology (IT), where value is created
-by providing networking, infrastructure, platforms, and tools in
-support of vertical data-based applications.'' It will produce a
-number of documents related to Definitions, Taxonomies, Use Cases and
-General Requirements, Security and Privacy, Architectures White Paper
-Survey, Reference Architecture, Standards Roadmap,
+data in today’s networked, digitized, sensor-laden, and information
+driven world \cite{nist-bd}. Desirable is as a vendor neutral,
+technology- and infrastructure-agnostic conceptual model and examine
+related issues.  The NIST big data working group is exploring pathways
+forward in this direction which can be leveraged by the community. The
+current result reference architecture is summarized in
+\cite{nist-bd}. From this document we gather that the {\it
+  ``conceptual model, referred to as the NIST Big Data Reference
+  Architecture (NBDRA), was crafted by examining publicly available
+  Big Data architectures representing various approaches and
+  products. Inputs from the other NBD-PWG subgroups were also
+  incorporated into the creation of the NBDRA. It is applicable to a
+  variety of business environments, including tightly integrated
+  enterprise systems, as well as loosely coupled vertical industries
+  that rely on cooperation among independent stakeholders. The NBDRA
+  captures the two known Big Data economic value chains: information,
+  where value is created by data collection, integration, analysis,
+  and applying the results to data-driven services, and the
+  information technology (IT), where value is created by providing
+  networking, infrastructure, platforms, and tools in support of
+  vertical data-based applications.''}  It will produce a number of
+documents related to definitions \cite{??}, taxonomies \cite{??}, use
+cases and general requirements \cite{??}, security and privacy
+\cite{??}, architectures white paper survey \cite{??}, reference
+architecture \cite{??}, standards roadmap \cite{??}, and an interface
+definition \cite{??}.
+
+\TODO{add citations to the NIST documents related to this}
 
 One of the desired tasks is to identify existing frameworks and to
-analyze how they fit into the current reference architecture
+analyze how they correlate to the current reference architecture
 \cite{nist-bd}. This is conducted in order to validate and if needed
-improve the architecture.  The current NIST big data reference
-architecture is shown in Figure~\ref{F:NIST-arch}.
+to improve the architecture.  The current NIST big data reference
+architecture is shown in Figure~\ref{F:NIST-arch}. However we have
+augmented the architecture with areas where cloudmesh interfaces with
+it. We will describe the offerings in relationship to this
+architecture of cloudmesh in detail in Section \ref{S:cm-nist}.  The
+NIST BDA contains according to \cite{nist-bd} the following
+components:
 
-\begin{figure}[htb]
+\TODO{find uniform abbreviation}
+
+\TODO{define a cm nist section}
+
+\begin{figure}[hp]
   \centering
      \includegraphics[width=1.0\columnwidth]{images/nist-bda.pdf}
-  \caption{NIST Big Data Reference Architecture Diagram} 
+  \caption{NIST Big Data Reference Architecture (NBDRA) diagram} 
   \label{F:NIST-arch}
-\end{figure}
+%\end{figure}
 
 
-\begin{figure}[htb]
+%\begin{figure}[htb]
   \centering
      \includegraphics[width=1.0\columnwidth]{images/cloudmesh-arch-1.pdf}
-  \caption{Cloudmesh layered Architecture} 
+  \caption{Cloudmesh layered architecture.} 
   \label{F:NIST-arch}
-\end{figure}
+%\end{figure}
 
-\begin{figure}[htb]
+%\begin{figure}[htb]
   \centering
       \includegraphics[width=1.0\columnwidth]{images/cloudmesh-arch-2.pdf}
-  \caption{Cloudmesh components} 
+  \caption{Cloudmesh components.} 
   \label{F:NIST-arch}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[hp]
   \centering
       \includegraphics[width=1.0\columnwidth]{images/nist-devops-1.pdf}
-  \caption{CM 1}
+  \caption{Continuous improvement while using cloudmesh interactively.}
   \label{F:NIST-arch}
-\end{figure}
+%\end{figure}
 
-\begin{figure}[htb]
+%\begin{figure}[htb]
   \centering
       \includegraphics[width=1.0\columnwidth]{images/nist-devops-2.pdf}
   \caption{CM 2}
@@ -119,7 +146,6 @@ architecture is shown in Figure~\ref{F:NIST-arch}.
 
 
 
-It contains according to \cite{nist-bd} the following components:
 
 \begin{description}
 
@@ -170,7 +196,7 @@ or analytic processing techniques at each of the subcomponents.
 
 
 \section{Cloudmesh Client}
-
+\label{S:cmclient}
 
 The cloudmesh client toolkit is a lightweight client interface of
 accessing heterogeneous clouds, clusters, and workstations right from
@@ -560,3 +586,6 @@ TABLE COME HERE
 
 \input{table_nist_projects_with_roles}
 
+\TODO{server less computing \cite{jil16}} 
+
+\TODO{server less computing \cite{cloud3}} 
