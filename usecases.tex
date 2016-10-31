@@ -1,2 +1,118 @@
 \section{usecases}
-content
+\subsection{U.N1 Fingerprint Matching}
+
+This example shows how to deploy the NIST Fingerprint dataset (Special Database
+4) and tools (NBIS) to the cluster. Additionally, this demonstrates how to use
+Apache Spark to perform a fingerprint matching using the NBIS tools, store the
+results in HBase and use Apache Drill to query the results. The original
+project is based on the “NIST Big Data Public Working Group draft Possible Big
+Data Use Cases Implementation using NBDRA authored by Afzal Godil and Wo
+Chang”.
+
+\subsubsection{Introduction}
+Fingerprint recognition refers to the automated method for verifying a match
+between two fingerprints and that is used to identify individuals and verify
+their identity. Fingerprints are the most widely used form of biometric used to
+identify individuals.
+
+The automated fingerprint matching generally required the detection of
+different fingerprint features (aggregate characteristics of ridges, and
+minutia points) and then the use of fingerprint matching algorithm, which can
+do both one-to- one and one-to- many matching operations. Based on the number
+of matches a proximity score (distance or similarity) can be calculated.
+
+\subsubsection{Implementation}
+The goal for this project is: given a set of "probe" and "gallery" images,
+compare the probe images to the gallery images, and report the matching scores.
+The dataset used comprises 54,000 images along with their metadata. Provided
+tools include MINDTCT and BOZORTH3, which are part of the NIST Biometric Image
+Software (NBIS) release. These two tools form the core of the application:
+MINDTCT preprocesses the images to identify minutae which is used by BOZORTH3
+to compute a match.  
+
+For this work we will use the following algorithms:
+\begin{itemize}
+\item
+MINDTCT: The NIST minutiae detector, which automatically locates and records
+ridge ending and bifurcations in a fingerprint image.
+(http://www.nist.gov/itl/iad/ig/nbis.cfm)
+
+\item
+BOZORTH3: A NIST fingerprint matching algorithm, which is a minutiae based
+fingerprint-matching algorithm. It can do both one-to- one and one-to- many
+matching operations. (http://www.nist.gov/itl/iad/ig/nbis.cfm)
+\end{itemize}
+
+\subsubsection{Method}
+The implemented solution uses stack of HDFS, YARN, Apache Spark, Apache HBase,
+and Apache drill. A Hadoop cluster is deployed and YARN used to schedule Spark
+jobs that load the images into HBase, process the images, and compute the
+matches. Apache Drill, with the HBase plugin, can then be used to generate
+reports. Stacks are:
+
+\begin{itemize}
+\item Apache Hadoop (with YARN)
+\item Apache Spark
+\item Apache HBase
+\item Apache Drill
+\item Scala
+\end{itemize}
+
+\subsubsection{Repository}
+https://github.com/cloudmesh/example-project-nist-fingerprint-matching
+
+\subsection{U.N2 Face Detection}
+
+This example shows how to deploy the NIST Human and Face Detection with INRIA
+Person Dataset to the cluster. OpenCV Python code runs with Spark Map function
+to perform distributed job processing on the Mesos scheduler.
+
+\subsubsection{Introduction}
+Human detection and face detection have been studied during the last several
+years and models for them have improved along with Histograms of Oriented
+Gradients (HOG) for Human Detection. OpenCV is a Computer Vision library
+including the SVM classifier and the HOG object detector for pedestrian
+detection and INRIA Person Dataset is one of popular samples for both
+training and testing purposes. In this article, we deployed Apache Spark on
+Mesos clusters to train and apply detection models from OpenCV using Python
+API.
+
+\subsubsection{Implementation}
+INRIA Person Dataset: This dataset contains positive and negative images for
+training and test purposes with annotation files for upright persons in each
+image. 288 positive test images, 453 negative test images, 614 positive
+training images and 1218 negative training images are included along with
+normalized 64x128 pixel formats. 970MB dataset is available to download.
+
+HOG with SVM model: Histogram of Oriented Gradient (HOG) and Support Vector
+Machine (SVM) are used as object detectors and classifiers and built-in python
+libraries from OpenCV provide these models for human detection.
+
+To deploy applications and build clusters for batch-processing large
+datasets, Ansible scripts play a big role such as installation and
+configuration towards available machines. Ansible provides abstractions by
+Playbook Roles and reusability by Include statements. We define X application
+in X Ansible Role, for example, and use include statements to combine with
+other applications e.g. Y or Z. Five Ansible roles are used in this use case to
+build clusters for Human and Face Detection with INRIA dataset. 
+The main Ansible playbook runs Ansible roles in order for the following
+software stacks:
+
+\begin{itemize}
+   \item Apache Spark 
+   \item Apache Mesos
+   \item Apache Zookeeper
+   \item OpenCV (with Python)
+\end{itemize}
+
+\subsubsection{Repository}
+\begin{itemize}
+
+  \item Ansible Role for Spark: https://github.com/VirtualClusters/ansible-role-spark-for-mesos
+  \item Ansible Role for Mesos (with Zookeeper): https://github.com/VirtualClusters/ansible-role-mesos-by-mesosphere
+  \item Ansible Role for OpenCV: https://github.com/futuresystems/ansible-role-opencv
+  \item Ansible Main Play (Include Statement): https://github.com/futuresystems/pedestrian-and-face-detection
+
+\end{itemize}
+
+
