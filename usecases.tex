@@ -48,52 +48,49 @@ enhance it with cloudmesh deployment strategies and services.
 \TODO{Hyungro: create citation for this. http://www.nist.gov/itl/iad/ig/nbis.cfm}
 
 
-\subsection{U.N2 Face Detection}
+\subsection{Face Detection (U.N2)}
 
-This example shows how to deploy the NIST Human and Face Detection with INRIA
-Person Dataset to the cluster. OpenCV Python code runs with Spark Map function
-to perform distributed job processing on the Mesos scheduler.
+\TODO{Hyungro: define the references}
 
-\subsubsection{Introduction}
-Human detection and face detection have been studied during the last several
-years and models for them have improved along with Histograms of Oriented
-Gradients (HOG) for Human Detection. OpenCV is a Computer Vision library
-including the SVM classifier and the HOG object detector for pedestrian
-detection and INRIA Person Dataset is one of popular samples for both
-training and testing purposes. In this article, we deployed Apache Spark on
-Mesos clusters to train and apply detection models from OpenCV using Python
-API.
+Human detection and face detection have been studied during the last
+several years and models for them have improved along with Histograms
+of Oriented Gradients (HOG) \cite{??} for Human Detection. 
 
-\subsubsection{Implementation}
-INRIA Person Dataset: This dataset contains positive and negative images for
+
+
+We use OpenCV \cite{??}, a Computer Vision library including the
+Support Vector Machine (SVM) classifier, and the Histogram of Oriented
+Gradient (HOG) \cite{??}object detector for pedestrian detection and
+INRIA Person Dataset is one of popular samples for both training and
+testing purposes. HOG with SVM model is used used as object detectors
+and classifiers while the python libraries from OpenCV provide these
+models for human detection.  The OpenCV Python code runs with Spark
+Map function to perform distributed job processing on the Mesos
+scheduler.
+
+To enable this analysis we use cloudmesh to deployed Apache Spark on a
+Mesos clusters and install the OpenCV software and its Python API. We
+also update the python software stack. Then we to train and apply
+detection models from OpenCV using Python API. We use the INRIA Person
+Dataset \cite{??}. This dataset contains positive and negative images for
 training and test purposes with annotation files for upright persons in each
 image. 288 positive test images, 453 negative test images, 614 positive
 training images and 1218 negative training images are included along with
-normalized 64x128 pixel formats. 970MB dataset is available to download.
+normalized 64x128 pixel formats. The size of the dataset is 970MB.
 
-HOG with SVM model: Histogram of Oriented Gradient (HOG) and Support Vector
-Machine (SVM) are used as object detectors and classifiers and built-in python
-libraries from OpenCV provide these models for human detection.
-
-To deploy applications and build clusters for batch-processing large
-datasets, Ansible scripts play a big role such as installation and
-configuration towards available machines. Ansible provides abstractions by
-Playbook Roles and reusability by Include statements. We define X application
-in X Ansible Role, for example, and use include statements to combine with
-other applications e.g. Y or Z. Five Ansible roles are used in this use case to
-build clusters for Human and Face Detection with INRIA dataset. 
-The main Ansible playbook runs Ansible roles in order for the following
-software stacks:
-
-Apache Spark \cite{??}, 
-\TODO{Hyungro: make reference out of: Ansible Role for Spark:
+Cloudmesh deploys and builds the clusters for batch-processing large
+datasets, Internally cloudmesh uses for this ansible scripts to
+support installation and configuration while leveraging available
+cloud compute resources. We have for this example developed or are
+reusing five ansible roles that we developed for other usecases::
+Apache Spark \cite{??}, \TODO{Hyungro: make reference out of: Ansible
+  Role for Spark:
   https://github.com/VirtualClusters/ansible-role-spark-for-mesos}
-Apache Mesos \cite{??},
-Apache Zookeeper \cite{??},
-\TODO{Hyungro: make reference out of: Ansible Role for Mesos (with Zookeeper):
+Apache Mesos \cite{??}, Apache Zookeeper \cite{??}, \TODO{Hyungro:
+  make reference out of: Ansible Role for Mesos (with Zookeeper):
   https://github.com/VirtualClusters/ansible-role-mesos-by-mesosphere}
-OpenCV (with Python) \cite{??}
-\TODO{Hyungro: make reference out of: Ansible Role for OpenCV:
+OpenCV (with Python) \cite{??}  \TODO{Hyungro: make reference out of:
+  Ansible Role for OpenCV:
   https://github.com/futuresystems/ansible-role-opencv}
 
 
