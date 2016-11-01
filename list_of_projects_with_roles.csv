@@ -1,8 +1,8 @@
 ID,Use Case,Source,Hadoop,Mesos,Spark,Storm,Pig,Hive,Drill,HDFS,HBase,Mysql,MongoDB,RethinkDB,Mahout,D3 and Tableau,nltk,MLlib,Lucene/Solr,OpenCV,Python,Java,maven,Ganglia,Nagios,spark supervisord,zookeeper,AlchemyAPI,R,dataset,dataset size (GB)
-N$_{1}$,NIST Fingerprint Matching,NIST,x,,x,,,x,x,,x,x,,,,,,,,,,x,x,x,x,x,x,,,Special Database 14 - NIST Mated Fingerprint Card Pairs 2.,2.1
-N$_{2}$,Human and Face Detection,NIST,,x,x,,,,,,,,,,,,,,,x,x,,, ,,,x,,,INRIA Person Dataset,0.96
-N$_{3}$,Twitter Analysis,NIST,,,,x,,,,,x,,x,,,x,x,,,,x,x,,,,,x,x,x,Twitter,
-N$_{4}$,Analytics for Healthcare Data/Health Informatics,NIST,x,,x,,,,,,x,,,,x,x,,x,x,,,x,, ,,,x,,,Medicare Part-B in 2014 from Center for Medicare and Medicaid Services (CMS),0.1
-N$_{5}$,Spatial Big Data/Spatial Statistics/Geographic Information Systems,NIST,x,,x,,,,,,,,,,x,x,,x,,,,x,x,,,,,,,Uber,0.2
-N$_{6}$,Data Warehousing and Data Mining,NIST,x,,x,,x,x,,,x,,x,,x,x,,x,x,,,x,,,,,x,,,,
+N$_1$,NIST Fingerprint Matching,NIST,x,,x,,,x,x,,x,x,,,,,,,,,,x,x,x,x,x,x,,,Special Database 14 - NIST Mated Fingerprint Card Pairs 2.,2.1
+N$_2$,Human and Face Detection,NIST,,x,x,,,,,,,,,,,,,,,x,x,,, ,,,x,,,INRIA Person Dataset,0.96
+N$_3$,Twitter Analysis,NIST,,,,x,,,,,x,,x,,,x,x,,,,x,x,,,,,x,x,x,Twitter,
+N$_4$,Analytics for Healthcare Data/Health Informatics,NIST,x,,x,,,,,,x,,,,x,x,,x,x,,,x,, ,,,x,,,Medicare Part-B in 2014 from Center for Medicare and Medicaid Services (CMS),0.1
+N$_5$,Spatial Big Data/Spatial Statistics/Geographic Information Systems,NIST,x,,x,,,,,,,,,,x,x,,x,,,,x,x,,,,,,,Uber,0.2
+N$_6$,Data Warehousing and Data Mining,NIST,x,,x,,x,x,,,x,,x,,x,x,,x,x,,,x,,,,,x,,,,
 count,,,,4,1,5,1,1,2,1,0,4,1,2,0,3,4,1,3,2,1,2,5,2,3,1,1,5,1,1,,
