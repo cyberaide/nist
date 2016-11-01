@@ -91,7 +91,7 @@ cases and general requirements \cite{??}, security and privacy
 architecture \cite{??}, standards roadmap \cite{??}, and an interface
 definition \cite{??}.
 
-\TODO{add citations to the NIST documents related to this}
+\TODO{Hyungro: add citations to the NIST documents related to this}
 
 One of the desired tasks is to identify existing frameworks and to
 analyze how they correlate to the current reference architecture
@@ -102,7 +102,7 @@ augmented the architecture with areas where cloudmesh interfaces with
 it. We will describe the offerings in relationship to this
 architecture of cloudmesh in detail in Section \ref{S:cm-nist}.  The
 NIST BDA contains according to \cite{nist-bd} the following
-components:
+components and services:
 
 \TODO{find uniform abbreviation}
 
@@ -115,13 +115,14 @@ components:
   \label{F:NIST-arch}
 %\end{figure}
 
-
+\bigskip
 %\begin{figure}[htb]
   \centering
      \includegraphics[width=1.0\columnwidth]{images/cloudmesh-arch-1.pdf}
   \caption{Cloudmesh layered architecture.} 
   \label{F:NIST-arch}
 %\end{figure}
+\bigskip
 
 %\begin{figure}[htb]
   \centering
@@ -137,10 +138,13 @@ components:
   \label{F:NIST-arch}
 %\end{figure}
 
+\bigskip
+
 %\begin{figure}[htb]
   \centering
-      \includegraphics[width=1.0\columnwidth]{images/nist-devops-2.pdf}
-  \caption{CM 2}
+      \includegraphics[width=0.8\columnwidth]{images/nist-devops-2.pdf}
+  \caption{Interaction of the continuous improvement steps with
+    various databases while using ansible deployment scripts.}
   \label{F:NIST-arch}
 \end{figure}
 
@@ -149,10 +153,13 @@ components:
 
 \begin{description}
 
-\item  {\bf System Orchestrator (or data scientist)} - provides high-level 
-design dataflow between analytics tools and given datasets, computing system requirements, 
-monitoring system resource and performance.
-
+\item {\bf System Orchestrator} - provides high-level design dataflow
+  between analytics tools and given datasets, computing system
+  requirements, monitoring system resource and performance. At times
+  the system orchestration is performed by the data scientist in an
+  interactive manner. The system orchestrator is a service or
+  component that acts in behalf of the data scientist, or another data
+  science service that would require a particular configuration.
 
 \item {\bf Data Provider} - provides abstraction of various types of 
 data sources (such as raw data or data previously transformed by another system) 

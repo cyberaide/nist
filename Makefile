@@ -10,7 +10,7 @@ real-clean: clean
 	rm -rf *.pdf
 
 clean:
-	rm -rf *~ *.aux *.bbl *.dvi *.log *.out *.blg *.toc *.fdb_latexmk *.fls *.tdo
+	rm -rf *~ *.aux *.bbl *.dvi *.log *.out *.blg *.toc *.fdb_latexmk *.fls *.tdo *.bcf
 
 view:
 	open ${FILE}.pdf
