@@ -52,8 +52,8 @@ progress. Big Data is the common term used to describe the deluge of
 data in today’s networked, digitized, sensor-laden, and information
 driven world \cite{nist-bd}. Desirable is as a vendor neutral,
 technology- and infrastructure-agnostic conceptual model and examine
-related issues.  The focus of this document is plced on the Big Data
-Application Refernce Archoitecture and identify lessons learned from
+related issues.  The focus of this document is on the Big Data
+Application Reference Archoitecture and identify lessons learned from
 cloudmesh that can augment and verify this architecture through
 practical use cases. In the next sections we provide some background
 information to motivate our work and to introduce the two frameworks
@@ -209,32 +209,31 @@ their cyber infrastructure they use. Cloudmesh client includes an API,
 a commandline client, and a commandline shell. It strives to abstract
 backends to databases that are used to manage the workflow utilizing
 the different infrastructure and also the services. Switching for
-example to stage virtual machines from openstack clouds to amazon is
+example to stage virtual machines from OpenStack clouds to amazon is
 as simple as specifying the name of the cloud. Moreover, cloudmesh
-client can be installed on Linux, MacOSX, and even Windows. Currently
-we support backends to SLURM, SSH, Openstack, Heat. In the past we
-supported AWS and Azure. We are in the process of integrating them
-back into the client.
-
-
+client can be installed on Linux, MacOSX, and in future
+Windows. Currently cloudmesh supports backends to SLURM, SSH,
+OpenStack, AWS, and Azure. In the past we supported AWS and Azure.
 Cloudmesh client allows to easily manage virtual machines, containers,
 HPC tasks, through a convenient client and API. Hence cloudmesh is not
 only a multi-cloud, but a multi-hpc environment that allows also to
-use container technologies (under development).
+use container technologies (under development). Additionally, we have
+an example code on how to create a Web based portal with the help of
+cloudmesh client.
 
 \begin{description}
 
 \item{\bf Client based.} Cloudmesh client as the name indicates is a
-client based toolkit that is installed and run on the users
-computers. This also includes an add on component to the cloudmesh
-client which is a portal. Hence we distinguish the client that
-contains most of the functionality, as well as a portal that can
-access the functionality through a locally maintaine Web
-portal. Important to note is that the user manages its own credentials
-and thus security and credential management is done directly on the
-users machine instead through a hosted Web portal. This increases the
-security as access to any credential is managed by the user and is not
-part of a credential management system.
+  client based toolkit that is installed and run on the users
+  computers. An add on component to use the client within a portal is
+  available. Thus we distinguish the client that contains most of the
+  functionality and the portal that can access the functionality
+  through a locally maintaine Web portal. Important to note is that
+  the user manages its own credentials and thus security and
+  credential management is done directly on the users machine instead
+  through a hosted Web portal. This increases the security as access
+  to any credential is managed by the user and is not part of a
+  credential management system.
 
 \item{\bf Layered Architecture.} Cloudmesh client has a layered
 architecture that allows easy development of new features. This also
@@ -242,7 +241,7 @@ allows contribution by the community while developing integrated and
 smaller sub components. Figure A depicts the various layers. A
 resource abstraction layer allows the integration of a multitude of
 resources spanning HPC, Containers, and Cloud resources. (At this time
-we focus on Openstack and Slurm resources. We are working on
+we focus on OpenStack and Slurm resources. We are working on
 reintegrating resources such as Azure, AWS, Maui, Moab, and others
 which we previously supported, as well as new resources such as
 docker).
@@ -484,6 +483,18 @@ Options:
    --cloud=CLOUD    the cloud name
 \end{Verbatim}
 
+\subsection{Create a hadoop cluster}
+
+\begin{Verbatim}[fontfamily=helvetica]
+1. spin up a cluster
+2. initialize a stack
+3. deploy the stack
+
+$ cm hadoop start --user cc --name=cluster_1
+$ cm delete --name=cluster_1 --all  
+\end{Verbatim}
+
+
 \subsubsection{Example}
 
 The following example assumes that a cluster (Ubuntu
@@ -525,54 +536,11 @@ cm stack deploy play-hadoop.yml addons/spark.yml addons/hbase.yml
 
 deploy hadoop, spark, and hbase to the cluster
 
-\section{Use Cases}
 
 
-\section{51 NIST Benchmarking Examples for Big Data}
-
-\begin{description}
-
-\item[Government Operation:] National Archives and Records
-  Administration, Census Bureau
-
-\item[Commercial:] Finance in Cloud, Cloud Backup, Mendeley
-  (Citations), Netflix, Web Search, Digital Materials, Cargo shipping
-  (as in UPS)
-
-\item[Defense:] Sensors, Image surveillance, Situation Assessment
-  Healthcare
-
-\item[Life Sciences:] Medical records, Graph and Probabilistic
-  analysis, Pathology, Bioimaging, Genomics, Epidemiology, People
-  Activity models, BiodiversityDeep Learning and Social Media: Driving
-  Car, Geolocate images/cameras, Twitter, Crowd Sourcing, Network
-  Science, NIST benchmark datasets
-
-\item[The Ecosystem for Research:] Metadata, Collaboration, Language
-  Translation, Light source experiments
-
-\item[Astronomy and Physics:] Sky Surveys compared to simulation,
-  Large Hadron Collider at CERN, Belle Accelerator II in JapanEarth,
-
-\item[Environmental and Polar Science:] Radar Scattering in
-  Atmosphere, Earthquake, Ocean, Earth Observation, Ice sheet Radar
-  scattering, Earth radar mapping, Climate simulation datasets,
-  Atmospheric turbulence identification, Subsurface Biogeochemistry
-  (microbes to watersheds), AmeriFlux and FLUXNET gas sensors
-
-\item[Energy:] Smart grid
-
-\end{description}
-
-\begin{table*}[htb]
-
-\caption{table of usecases}
-\label{T:usecases}
-
-TABLE COME HERE
-
-\end{table*}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{usecases}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusion}
 
@@ -587,7 +555,7 @@ TABLE COME HERE
 
 <General description>
 
-\input{table_nist_projects_with_roles}
+
 
 \TODO{server less computing \cite{jil16}} 
 
