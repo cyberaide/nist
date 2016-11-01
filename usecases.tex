@@ -1,65 +1,52 @@
-\section{usecases}
-\subsection{U.N1 Fingerprint Matching}
+\section{Big Data Usecases}
 
-This example shows how to deploy the NIST Fingerprint dataset (Special Database
-4) and tools (NBIS) to the cluster. Additionally, this demonstrates how to use
-Apache Spark to perform a fingerprint matching using the NBIS tools, store the
-results in HBase and use Apache Drill to query the results. The original
-project is based on the “NIST Big Data Public Working Group draft Possible Big
-Data Use Cases Implementation using NBDRA authored by Afzal Godil and Wo
-Chang”.
+\TODO{write about how many examples we have and things like
+  that. Take from presentation}
 
-\subsubsection{Introduction}
-Fingerprint recognition refers to the automated method for verifying a match
-between two fingerprints and that is used to identify individuals and verify
-their identity. Fingerprints are the most widely used form of biometric used to
-identify individuals.
+define the index numbers
 
-The automated fingerprint matching generally required the detection of
-different fingerprint features (aggregate characteristics of ridges, and
-minutia points) and then the use of fingerprint matching algorithm, which can
-do both one-to- one and one-to- many matching operations. Based on the number
-of matches a proximity score (distance or similarity) can be calculated.
+\subsection{Fingerprint Matching (U.N1)}
 
-\subsubsection{Implementation}
-The goal for this project is: given a set of "probe" and "gallery" images,
-compare the probe images to the gallery images, and report the matching scores.
-The dataset used comprises 54,000 images along with their metadata. Provided
-tools include MINDTCT and BOZORTH3, which are part of the NIST Biometric Image
-Software (NBIS) release. These two tools form the core of the application:
-MINDTCT preprocesses the images to identify minutae which is used by BOZORTH3
-to compute a match.  
+Fingerprint recognition refers to the automated method for verifying a
+match between two fingerprints and that is used to identify
+individuals and verify their identity. Fingerprints are the most
+widely used form of biometric used to identify individuals. The
+automated fingerprint matching generally required the detection of
+different fingerprint features (aggregate characteristics of ridges,
+and minutia points) and then the use of fingerprint matching
+algorithm, which can do both one-to- one and one-to- many matching
+operations. Based on the number of matches a proximity score (distance
+or similarity) can be calculated. Furthermore, NIST is providing via
+the the NIST Fingerprint dataset a special database. The goal for this
+usecase is the following: given a set of {\it probe} and {\em gallery}
+images, compare the probe images to the gallery images, and report the
+matching scores.  The dataset comprises 54,000 images and their
+metadata.  It uses MINDTCT \cite{Hyungro:??} preprocesses the images
+to identify minutae of the prints automatically locating and recording
+ridge ending and bifurcations in a fingerprint image; and BOZORTH3
+\cite{Hyungro:??} to identify matches. Both are are part of the NIST
+Biometric Image Software (NBIS) \cite{Hyungro:??}.
 
-For this work we will use the following algorithms:
-\begin{itemize}
-\item
-MINDTCT: The NIST minutiae detector, which automatically locates and records
-ridge ending and bifurcations in a fingerprint image.
-(http://www.nist.gov/itl/iad/ig/nbis.cfm)
+To execute this usecase we need to deploy an application to analyze
+the dataset. It internally uses cloudmesh to deploy an the software
+stack The implemented \cite{??} \TODO{Hyungro: make refernce out of
+  this
+  https://github.com/cloudmesh/example-project-nist-fingerprint-matching}
+solution uses a software stack comprising of HDFS, YARN, Apache Spark,
+Apache HBase, and Apache drill, Scaka, and the NBIS software. A Hadoop
+cluster is deployed and YARN used to schedule Spark jobs that load the
+images into HBase, process the images, and compute the matches. Apache
+Drill, with the HBase plugin, can then be used to generate reports
+with the NBIS tools\cite{??}. The results are stored in HBase and
+Apache Drill \cite{??} is used to query the results.  The code
+leverages tools and services is based on \cite{??} \TODO{Hyungro: put
+  this in the references: the “NIST Big Data Public Working Group
+  draft Possible Big Data Use Cases Implementation using NBDRA
+  authored by Afzal Godil and Wo Chang”.}  , while significantly
+enhance it with cloudmesh deployment strategies and services.
 
-\item
-BOZORTH3: A NIST fingerprint matching algorithm, which is a minutiae based
-fingerprint-matching algorithm. It can do both one-to- one and one-to- many
-matching operations. (http://www.nist.gov/itl/iad/ig/nbis.cfm)
-\end{itemize}
+\TODO{Hyungro: create citation for this. http://www.nist.gov/itl/iad/ig/nbis.cfm}
 
-\subsubsection{Method}
-The implemented solution uses stack of HDFS, YARN, Apache Spark, Apache HBase,
-and Apache drill. A Hadoop cluster is deployed and YARN used to schedule Spark
-jobs that load the images into HBase, process the images, and compute the
-matches. Apache Drill, with the HBase plugin, can then be used to generate
-reports. Stacks are:
-
-\begin{itemize}
-\item Apache Hadoop (with YARN)
-\item Apache Spark
-\item Apache HBase
-\item Apache Drill
-\item Scala
-\end{itemize}
-
-\subsubsection{Repository}
-https://github.com/cloudmesh/example-project-nist-fingerprint-matching
 
 \subsection{U.N2 Face Detection}
 
