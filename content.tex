@@ -46,28 +46,29 @@ Wo Chang\\
 
 \section{Introduction}
 
-In this section we provide some background information to motivate our
-work and to introduce the two frameworks motivating this paper. This
-includes cloudmesh \cite{las12-cloud} \cite{github-cloudmesh-client}
-and the NIST big data reference architecture \cite{nist-bd}.
-
-We start by giving brief introductions to the National Institute of
-Standards (NIST) big data reference architecture (Section \ref{S:NBDarch}) followed
-by a brief introduction to Cloudmesh (Section \ref{S:cmclient}).
-
-
-We then \TODO{describe the next sections} 
-
-\section{NBD Reference Architecture}
-\label{S:NBDarch}
-
 Commercial, academic, and government leaders agree about the potential
 of {\em} Big Data to spark innovation, fuel commerce, and drive
 progress. Big Data is the common term used to describe the deluge of
 data in today’s networked, digitized, sensor-laden, and information
 driven world \cite{nist-bd}. Desirable is as a vendor neutral,
 technology- and infrastructure-agnostic conceptual model and examine
-related issues.  The NIST big data working group is exploring pathways
+related issues.  The focus of this document is plced on the Big Data
+Application Refernce Archoitecture and identify lessons learned from
+cloudmesh that can augment and verify this architecture through
+practical use cases. In the next sections we provide some background
+information to motivate our work and to introduce the two frameworks
+motivating this paper. This includes cloudmesh \cite{las12-cloud}
+\cite{github-cloudmesh-client} and the NIST big data reference
+architecture \cite{nist-bd}.  We start by giving brief introductions
+to the National Institute of Standards (NIST) big data reference
+architecture (Section \ref{S:NBDarch}) followed by a brief
+introduction to Cloudmesh (Section \ref{S:cmclient}).  We then
+\TODO{describe the next sections}
+
+\subsection{NBD Reference Architecture}
+\label{S:NBDarch}
+
+The NIST big data working group is exploring pathways
 forward in this direction which can be leveraged by the community. The
 current result reference architecture is summarized in
 \cite{nist-bd}. From this document we gather that the {\it
@@ -131,7 +132,7 @@ components and services:
   \label{F:NIST-arch}
 \end{figure}
 
-\begin{figure}[hp]
+\begin{figure}[htb]
   \centering
       \includegraphics[width=1.0\columnwidth]{images/nist-devops-1.pdf}
   \caption{Continuous improvement while using cloudmesh interactively.}
@@ -194,11 +195,6 @@ of data quality and secure accessibility.
 
 \end{description}
 
-
-The focus of this document is on the Big Data Application Provider for how Big 
-Data analytics can be applied/performed at each of its subcomponents. For the given 
-mass amount of complex data, the process may involve one or more machine learning 
-or analytic processing techniques at each of the subcomponents. 
 
 
 
