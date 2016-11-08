@@ -5,26 +5,11 @@
 \subsection{Deployment}
 
 Big Data Software Stack is built with various software packages from different layers (and it’s increasing), therefore accomplishing these multiple software deployment is challenging
-\subsection{Documentation}
-installation and configuration steps should be documented in every particular to guarantee successful deployment
-\subsection{Repeatable and Automated Deployment}
-Same results are expected by offering repeatable deployments when a new system is built
-Potentially targeting different infrastructures via virtual clusters
-\subsection{Cross-Platform Configuration}
-It ensures working, executable software deployment on multiple platforms, distributions and versions
-DevOps can be used to support this workflow
+
 
 
 \section{Ansible}
 
-\subsection{Overlap of Technologies}
-6 projects from the 51 NIST use cases
-81 other projects surveyed as part of classes taught at Indiana University
-Findings
-We found 62 roles(*) from which many are repeatedly used in various projects. 
-We have chosen Ansible to implement the deployment descriptions because 
-
-(*) we will define later what a role is
 
 \subsection{Why Ansible?}
 Expandable: Leverages Python (default) but modules can be written in any language
@@ -36,22 +21,9 @@ Transparency: YAML Based script files express the steps of installing and config
 Modularity: Single Ansible Role (should) contain all required commands and variables to deploy software package independently
 Sharing and portability: roles are available from source (github, bitbucket, gitlab, etc) or the Ansible Galaxy portal
 
-\subsection{Ansible for NIST deployments}
-6 NIST examples
-19 roles for Fingerprint 
-5 roles for Face detection 
-27 roles for the other four NIST use cases
-Twitter Analysis
-Analytics for Healthcare Data/Health Informatics
-Spatial Big Data/Spatial Statistics/Geographic Information Systems
-Data Warehousing and Data Mining
-36 Projects from class, Spring '16 
-41 roles
-45 Projects from class, Fall '15
-62 roles, 39 datasets
 
-\subsection{Relationship between Roles and Projects}
 \subsection{Features of Ansible fostering reproducibility}
+
 Ansible provides a structured environment for defined sets of tasks to execute on a number of nodes. Tasks are ideally idempotent.
 There are two basic methods for organizing tasks:
 Playbooks: main entry points, specific to environments
@@ -59,10 +31,10 @@ Roles: reusable abstraction (analogous to functions)
 Playbooks provide the primary entry point, and consist of tasks that are either defined directly in the playbook, or externally via roles.
 Roles are groups of related tasks that can be distributed and reused independently of playbooks.
 The Inventory file identifies the nodes controlled by Ansible.
-\subsection{Using Roles and Playbooks: Face Detection Example }
 
 
 \subsection{Ansible: Inventory, IaaS, PaaS}
+
 The inventory file for Ansible groups the IP addresses of the infrastructure into named sets.
 On the right are two examples of inventory files:
 Top: a static inventory for a cluster with two nodes in the "webservers" group and one node in the "databases" group.
