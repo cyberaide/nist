@@ -627,10 +627,10 @@ cluster command.
 \begin{Verbatim}[fontfamily=helvetica]
 $ cm default cloud=$CLOUDNAME
 $ cm cluster create --count 4
-$ cm stack compose create
-$ cm stack compose add hadoop
-$ cm stack compose add spark --deployer chef # *
-$ cm stack deploy --composed
+$ cm stack composition create
+$ cm stack composition add hadoop
+$ cm stack composition add spark --deployer chef
+$ cm stack deploy
 $ cm stack deploy drill
 \end{Verbatim}
 
