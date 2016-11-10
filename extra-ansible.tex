@@ -1,0 +1,141 @@
+\section{Ansible}
+
+
+\subsection{Why Ansible?}
+Expandable: Leverages Python (default) but modules can be written in any language
+Simplicity: 
+Agentless: no setup required on managed node
+Security: Allows deployment from user space; uses ssh for authentication
+Flexibility: only requires ssh access to privileged user
+Transparency: YAML Based script files express the steps of installing and configuring software
+Modularity: Single Ansible Role (should) contain all required commands and variables to deploy software package independently
+Sharing and portability: roles are available from source (github, bitbucket, gitlab, etc) or the Ansible Galaxy portal
+
+
+\subsection{Features of Ansible fostering reproducibility}
+
+Ansible provides a structured environment for defined sets of tasks to execute on a number of nodes. Tasks are ideally idempotent.
+There are two basic methods for organizing tasks:
+Playbooks: main entry points, specific to environments
+Roles: reusable abstraction (analogous to functions)
+Playbooks provide the primary entry point, and consist of tasks that are either defined directly in the playbook, or externally via roles.
+Roles are groups of related tasks that can be distributed and reused independently of playbooks.
+The Inventory file identifies the nodes controlled by Ansible.
+
+
+\subsection{Ansible: Inventory, IaaS, PaaS}
+
+The inventory file for Ansible groups the IP addresses of the infrastructure into named sets.
+On the right are two examples of inventory files:
+Top: a static inventory for a cluster with two nodes in the "webservers" group and one node in the "databases" group.
+Bottom: a dynamic inventory in which a script is called to define the nodes. The output must be specifically-formatted JSON for Ansible.
+\begin{Verbatim}
+[webservers]
+10.0.0.1
+10.0.0.2
+[databases]
+10.0.0.3
+#!/use/bin/env bash
+
+python dynamic-nodes-setup.py
+\end{Verbatim}
+
+\subsection{Ansible: Roles}
+Roles are primarily defined as a collection of related tasks to accomplish a single goal.  These tasks can be configured via variables, that may be overridden when the role is used in a playbook.
+On the top right is an example directory structure defining a role for Apache Spark: Tasks are defined in the tasks/main.yml file, Variables are defined in defaults/main.yml
+On bottom right is an elided set of the entries in tasks/main.yml. These tasks use the ``get\_url'', and ``unarchive'' modules and optionally builds from source when spark\_package\_type is "src"
+\begin{Verbatim}
+spark
+- defaults
+   - main.yml
+- LICENSE
+- README.md
+- tasks
+    - build.yml
+    - main.yml
+\end{Verbatim}
+
+\begin{Verbatim}
+---
+
+- name: download
+  get_url:
+    url: "{{ spark_url }}"
+    dest: "{{ ansible_env.PWD }}/{{ _spark_package_name }}"
+    sha256sum: "{{ spark_sha256 }}"
+  
+- name: extract
+  unarchive:
+    dest: "{{ spark_install_dest }}"
+    src: "{{ ansible_env.PWD }}/{{ _spark_package_name }}"
+    copy: no
+    creates: "{{ spark_install_dest }}/{{ _spark_directory }}"
+  
+- include: build.yml
+  when: spark_package_type == 'src'
+
+# ...
+
+Ansible: Playbooks
+An example playbook is shown to the right.
+
+Name: description of this play
+
+Hosts: the set of nodes on which to operate, named in the inventory file
+
+Become: escalate privileges
+
+Roles: list of roles to apply, with overridden variables as needed.
+---
+
+- name: install and configure spark
+  hosts: frontendnodes
+  become: yes
+  roles:
+    - role: java
+    - role: maven
+    - role: spark
+      spark_version: 1.6.0
+      spark_package_type: bin
+\end{Verbatim}
+
+
+\subsection{Ansible: Role Repositories}
+
+There are two primary mechanisms available to redistribute roles
+
+Ansible Galaxy is the primary hub for sharing roles. The
+ansible-galaxy tool can install these roles. Useful for using
+externally-developed roles
+
+Directly from the source code repositories. In the case of using Git,
+these repositories can be installed as git submodules. Useful for
+internally-developed roles
+
+We have found that installing roles as git submodules allows the
+flexibility to both use roles developed elsewhere as well as make
+modifications and even contribute those changes upstream.
+
+\subsection{Ansible: Vetting Roles}
+An important aspect of developing roles is the vetting step. In a
+production environment, each role must be examined for security
+vulnerabilities as well as to ensure that they will function as
+expected. Externally-developed roles may need to be adapted to work in
+the target environment. When a role is defined, variables to modify
+the deployment behavior need to be exposed. We have found that many
+roles made available only expose a subset of the application's
+available configuration options and may not work outside the author's
+environment.
+
+Projects
+List of Projects
+27 roles are collected from 6 NIST use cases. Hadoop, Spark, HBase,
+D3, Tableau, Java and Zookeeper are frequently reused more than four
+out of six use cases.
+
+Table 1. List of Projects with Roles
+
+Table is in Google sheet: 
+% \url{https://docs.google.com/spreadsheets/d/1idB11ibeITgTLUT9D_xT6cOMsVzdG2cVa3o0w_Wh7IE/edit?usp=sharing}
+
+Roles from NIST and Class (Survey)
