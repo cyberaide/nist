@@ -619,13 +619,11 @@ one or more stack commands on the inventory that is returned by the
 cluster command.
 
 \begin{Verbatim}[fontfamily=helvetica]
-$ cm cluster --cloud=$CLOUDNAME \
-                     --n=4 --inventory=inventory.txt
-$ cm stack hadoop --inventory=inventory.txt
-$ cm stack spark --inventory=inventory.txt
-$ cm stack drill --inventory=inventory.txt
-$ cm stack spark --inventory=inventory.txt \
-                  --source=http://gitlab.com/....
+$ cm default cloud=$CLOUDNAME
+$ cm cluster create --count 4
+$ cm stack --deployed-by futuresystems hadoop spark
+$ cm stack --deployed-by ansible-playbook \
+           --source git://github.com/... drill
 \end{Verbatim}
 
 
