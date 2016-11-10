@@ -627,9 +627,11 @@ cluster command.
 \begin{Verbatim}[fontfamily=helvetica]
 $ cm default cloud=$CLOUDNAME
 $ cm cluster create --count 4
-$ cm stack --deployed-by futuresystems hadoop spark
-$ cm stack --deployed-by ansible-playbook \
-           --source git://github.com/... drill
+$ cm stack compose create
+$ cm stack compose add hadoop
+$ cm stack compose add spark --deployer chef # *
+$ cm stack deploy --composed
+$ cm stack deploy drill
 \end{Verbatim}
 
 
