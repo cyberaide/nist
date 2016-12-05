@@ -596,6 +596,30 @@ Automatically generates Graphical representation of input parameters
 The cloudmesh stack command tackles the problem of reproducibly
 deploying software stacks and packages on virtual clusters.
 
+In cloudmesh, a ``stack'' is a way to modify a collection of
+accessible nodes in order to bring them to a desired state. This
+execution unit should be able to use multiple different deployment
+technologies: eg Ansible, Chef, Puppet, NixOS, shell script. These
+deployment units are then composed (a ``stack composition'') into
+layers to form a new deployment unit that can be references as a layer
+withing a different composition.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
+\label{F:stack-composition}
+\caption{This shows how stacks may be composed. The \texttt{web} stack
+  is a composition of the \texttt{mysql} and \texttt{nginx}
+  stacks. \texttt{web} is then included as a layer withing another
+  composition which includes \texttt{hadoop} and \texttt{spark}
+  compositions.}
+\end{figure}
+\TODO{Gregor,
+  \href{https://docs.google.com/drawings/d/15zxYCF9cOUpd_X96HwtNW6ftJSGVhOnMSsObT1gUoDw/edit}{link
+    to figure source}}
+
+
 The stack command deploys and configures a user-defined subset of the
 available modules while leveraging existing deployment technologies.
 
@@ -626,9 +650,9 @@ cluster command.
 \begin{Verbatim}[fontfamily=helvetica]
 $ cm default cloud=$CLOUDNAME
 $ cm cluster create --count 4
-$ cm stack composition create
-$ cm stack composition add hadoop
-$ cm stack composition add spark --deployer chef
+$ cm stack create
+$ cm stack layer hadoop
+$ cm stack layer spark --deployer chef
 $ cm stack deploy
 $ cm stack deploy drill
 \end{Verbatim}
