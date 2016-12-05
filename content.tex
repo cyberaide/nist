@@ -389,42 +389,42 @@ cm hpc run SCRIPT
 \begin{table*}[htb]
 \caption{Selected Service Description}
 \begin{center}
-\begin{tabular}{|p{8cm}|p{9cm}|}
+\begin{tabular}{|p{7cm}|p{1.55cm}|p{7cm}|}
 \hline
-\blue \textbf{URL} & \blue \textbf{Description}\tabularnewline
+\blue \textbf{URL} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Virtual cluster
-\hline \multicolumn{2}{|l|}{\grey\bf Virtual Cluster: /cluster} \tabularnewline \hline
-/                       & List available clusters \tabularnewline \hline
-/create                 & Launch a cluster on the provider \tabularnewline \hline
-/:id/delete             & Delete and destroy a cluster \tabularnewline \hline
-/:id                    & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
-/:id/property/:property & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
-/:id/inventory/:format  & Obtain an inventory of the cluster \tabularnewline \hline
+\hline \multicolumn{3}{|l|}{\grey\bf Virtual Cluster: /cluster} \tabularnewline \hline
+/                       & GET      & List available clusters \tabularnewline \hline
+/                       & POST     & Launch a cluster on the provider \tabularnewline \hline
+/:id                    & DELETE   & Delete and destroy a cluster \tabularnewline \hline
+/:id                    & GET      & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
+/:id/property/:property & GET, SET & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
+/:id/inventory/:format  & GET      & Obtain an inventory of the cluster \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Composition
-\hline \multicolumn{2}{|l|}{\grey\bf Stack Composition: /stack} \tabularnewline \hline
-/                               & List available compositions \tabularnewline \hline
-/create                         & Create a new composition \tabularnewline \hline
-/:id                            & Show information about the composition \tabularnewline \hline
-/:id/name                       & Get/set the name of the composition \tabularnewline \hline
-/:id/add?deployer=<>\&source=<> & Add a layer to the composition \tabularnewline \hline
-/:id/layer                      & List layers of the composition \tabularnewline \hline
-/:id/layer/:id/delete           & Delete the layer of the composition \tabularnewline \hline
-/:id/delete                     & Delete a composition \tabularnewline \hline
+\hline \multicolumn{3}{|l|}{\grey\bf Stack Composition: /stack} \tabularnewline \hline
+/                               & GET      & List available compositions \tabularnewline \hline
+/                               & POST     & Create a new composition \tabularnewline \hline
+/:id                            & GET      & Show information about the composition \tabularnewline \hline
+/:id/name                       & GET, SET & Get/set the name of the composition \tabularnewline \hline
+/:id/add?deployer=<>\&source=<> & POST     & Add a layer to the composition \tabularnewline \hline
+/:id/layer                      & GET      & List layers of the composition \tabularnewline \hline
+/:id/layer/:id                  & DELETE   & Delete the layer of the composition \tabularnewline \hline
+/:id/delete                     & DELETE   & Delete a composition \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Stack Deployment
-\hline \multicolumn{2}{|l|}{\grey\bf Stack Deployment: /stack} \tabularnewline \hline
-/                    & List the available stacks with discription \tabularnewline \hline
-/:id/deploy/:cluster & Deploy a stack onto a cluster \tabularnewline \hline
-/:id/status          & Get current status \tabularnewline \hline
+\hline \multicolumn{3}{|l|}{\grey\bf Stack Deployment: /stack} \tabularnewline \hline
+/                    & GET & List the available stacks with discription \tabularnewline \hline
+/:id/deploy/:cluster & POST & Deploy a stack onto a cluster \tabularnewline \hline
+/:id/status          & GET & Get current status \tabularnewline \hline
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
-\hline \multicolumn{2}{|l|}{\grey\bf Batch Experiments: /hpc} \tabularnewline \hline
-/                                            & list all jobs started with the run command \tabularnewline \hline
-/run?script=<scriptname>\&cluster=<clustername> & submits an experiment to the named cluster \tabularnewline \hline
-/:id/status                                     & returns the status of the job started with the run command \tabularnewline \hline
-/:id/delete                                     & deletes the experiment with the given id \tabularnewline \hline
+\hline \multicolumn{3}{|l|}{\grey\bf Batch Experiments: /hpc} \tabularnewline \hline
+/                          & GET    & list all jobs started with the run command \tabularnewline \hline
+/run?script=<>\&cluster=<> & POST   & submits an experiment to the named cluster \tabularnewline \hline
+/:id/status                & GET    & returns the status of the job started with the run command \tabularnewline \hline
+/:id/delete                & DELETE & deletes the experiment with the given id \tabularnewline \hline
 
 \end{tabular}
 \end{center}
