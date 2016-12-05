@@ -389,14 +389,15 @@ cm hpc run SCRIPT
 \begin{table*}[htb]
 \caption{Selected Service Description}
 \begin{center}
-\begin{tabular}{|p{7cm}|p{1.55cm}|p{7cm}|}
+\begin{tabular}{|p{5cm}|p{1.55cm}|p{9cm}|}
 \hline
-\blue \textbf{URL} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
+\blue \textbf{Resource} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Virtual cluster
 \hline \multicolumn{3}{|l|}{\grey\bf Virtual Cluster: /cluster} \tabularnewline \hline
 /                       & GET      & List available clusters \tabularnewline \hline
 /                       & POST     & Launch a cluster on the provider \tabularnewline \hline
+/                       & DELETE   & Delete all available clusters \tabularnewline \hline
 /:id                    & DELETE   & Delete and destroy a cluster \tabularnewline \hline
 /:id                    & GET      & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
 /:id/property/:property & GET, SET & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
@@ -407,11 +408,11 @@ cm hpc run SCRIPT
 /                               & GET      & List available compositions \tabularnewline \hline
 /                               & POST     & Create a new composition \tabularnewline \hline
 /:id                            & GET      & Show information about the composition \tabularnewline \hline
+/:id                            & DELETE   & Delete a composition \tabularnewline \hline
 /:id/name                       & GET, SET & Get/set the name of the composition \tabularnewline \hline
 /:id/add?deployer=<>\&source=<> & POST     & Add a layer to the composition \tabularnewline \hline
 /:id/layer                      & GET      & List layers of the composition \tabularnewline \hline
 /:id/layer/:id                  & DELETE   & Delete the layer of the composition \tabularnewline \hline
-/:id/delete                     & DELETE   & Delete a composition \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Stack Deployment
 \hline \multicolumn{3}{|l|}{\grey\bf Stack Deployment: /stack} \tabularnewline \hline
@@ -422,9 +423,9 @@ cm hpc run SCRIPT
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
 \hline \multicolumn{3}{|l|}{\grey\bf Batch Experiments: /hpc} \tabularnewline \hline
 /                          & GET    & list all jobs started with the run command \tabularnewline \hline
+/:id                       & DELETE & deletes the experiment with the given id \tabularnewline \hline
 /run?script=<>\&cluster=<> & POST   & submits an experiment to the named cluster \tabularnewline \hline
 /:id/status                & GET    & returns the status of the job started with the run command \tabularnewline \hline
-/:id/delete                & DELETE & deletes the experiment with the given id \tabularnewline \hline
 
 \end{tabular}
 \end{center}
