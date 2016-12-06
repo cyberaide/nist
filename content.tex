@@ -375,21 +375,45 @@ abstractions that cloudmesh introduces: Cloudmesh Compute Experiments
 
 \subsection{Compute Experiments} \label{S:experiments}
 
-submits the script to the cluster. The script will be copied prior to
-execution into the home directory on the remote machine. If a DIR is
-specified it will be copied into that dir.  The name of the script is
-either specified in the script itself, or if not the default naming
-scheme of cloudmesh is used using the same index incremented name as
-in vms fro clouds: cloudmes husername-index
+For many decades traditional supercomputing has provided large scale
+resources to the research community. This is done in a shared
+operating mode and enables researchers to utilize resources that they
+otherwise would not have access to. Shared resources include
+memory over a number of processors, shared disks, powerful processors
+in speed and core numbers, fast interconnect. This has been applied to
+many modeling applications but can naturally also be applied to big
+data. In order to integrate such capabilities in a service oriented
+fashion the Grid community has delivered prior to to e popularization
+of cloudcomputing useful interfaces, API's, and toolkits. However for
+research work that we supported with cloudmesh such interfaces and
+efforts were to complex to use and we designed a simple model for
+researchers that we worked with. This interface includes the abstract
+concept of a ``job'' that is submitted to a queuing system and uses a
+particular data set. The experiments in our case are repeated multiple
+times and each run creates its own output directory.
 
+Hence we have created a simple submission interface that submits the
+script to the cluster. The script will be copied prior to execution
+into the home directory on the remote machine. If a directory is
+specified it will be copied into that dir.  The name of the output
+directory is either specified in the script itself, or if not the
+default naming scheme of cloudmesh is used using and the output
+directory name is appended with an increasing index. To run such a
+script we can on our client simply say
+ 
 \begin{verbatim}
-cm hpc run SCRIPT
+    cm hpc run SCRIPT
 \end{verbatim}
 
+Some more details about out improved interfaces are given in
+Figure~\ref{T:rest}.
+
 \begin{table*}[htb]
-\caption{Selected Service Description}
+\caption{Selected Service Description}\label{T:rest}
+\bigskip
 \begin{center}
-\begin{tabular}{|p{5cm}|p{1.55cm}|p{9cm}|}
+\begin{small}
+\begin{tabular}{|l|l|l|}
 \hline
 \blue \textbf{Resource} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
 
@@ -416,9 +440,9 @@ cm hpc run SCRIPT
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Stack Deployment
 \hline \multicolumn{3}{|l|}{\grey\bf Stack Deployment: /stack} \tabularnewline \hline
-/                    & GET & List the available stacks with discription \tabularnewline \hline
+/                    & GET  & List the available stacks with discription \tabularnewline \hline
 /:id/deploy/:cluster & POST & Deploy a stack onto a cluster \tabularnewline \hline
-/:id/status          & GET & Get current status \tabularnewline \hline
+/:id/status          & GET  & Get current status \tabularnewline \hline
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
 \hline \multicolumn{3}{|l|}{\grey\bf Batch Experiments: /hpc} \tabularnewline \hline
@@ -428,8 +452,11 @@ cm hpc run SCRIPT
 /:id/status                & GET    & Returns the status of the job started with the run command \tabularnewline \hline
 
 \end{tabular}
+\end{small}
 \end{center}
 \end{table*}
+
+
 
 
 \subsection{Cloudmesh Virtual Clusters} \label{S:vc}
@@ -448,7 +475,7 @@ communities. Thus we see the following advantages and disadvantages:
   community it serves, allows sharing of resources through queuing
   system
 
-\item[Disadvantages:] Different communities, Groups or projects may
+\item[Disadvantages:] Different communities, groups or projects may
   have different requirements that are not met by the software stack,
   software stack often not state-of-the art, but tuned for
   reliability, experimentation with new software and methodologies in
@@ -481,7 +508,40 @@ following advantages and disadvantages:
 Naturally, cloudmesh is targeting to ease the disadvantages laid out.
 
 \subsection{Groups} \label{S:groups}
-\TODO{Gregor}
+
+One of the essential abs
+
+
+
+\begin{table*}[htb]
+\caption{Additional abstractions}\label{T:group}
+\bigskip
+\begin{center}
+\begin{small}
+\begin{tabular}{|l|l|l|}
+\hline
+\blue \textbf{Resource} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
+\hline \multicolumn{3}{|l|}{\grey\bf Groups: } \tabularnewline \hline
+/                          & GET    & List all groups \tabularnewline \hline
+/:id                       & DELETE & Deletes the group with the given id \tabularnewline \hline
+/:id/add/...               & POST   & Add elements to the group \tabularnewline \hline
+/:id/status                & GET    & Returns the status of elements
+                                      in the group \tabularnewline \hline
+/:id/delete                & GET    &deletes elements
+                                      in the group \tabularnewline \hline
+/:id/delete/:member        & GET    & delete a member from the group
+                                      in the group \tabularnewline \hline
+/:id/list                  & GET    & list the elements in the group
+                                      in the group \tabularnewline \hline
+/:id/list/:member          & GET    & list the element in the group
+                                      in the group \tabularnewline \hline
+
+\end{tabular}
+\end{small}
+\end{center}
+\end{table*}
 
 \subsection{Virtual Clusters}
 
