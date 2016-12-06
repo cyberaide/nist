@@ -596,13 +596,13 @@ Automatically generates Graphical representation of input parameters
 The cloudmesh stack command tackles the problem of reproducibly
 deploying software stacks and packages on virtual clusters.
 
-In cloudmesh, a ``stack'' is a way to modify a collection of
-accessible nodes in order to bring them to a desired state. This
-execution unit should be able to use multiple different deployment
-technologies: eg Ansible, Chef, Puppet, NixOS, shell script. These
-deployment units are then composed (a ``stack composition'') into
-layers to form a new deployment unit that can be references as a layer
-withing a different composition.
+A ``stack'' is a way to modify a collection of accessible nodes in
+order to bring them to a desired state. This execution unit should be
+able to use multiple different deployment technologies: eg Ansible,
+Chef, Puppet, NixOS, shell scripts, etc. These deployment units are
+then composed (a ``stack composition'') into layers to form a new
+deployment unit that can be used as a layer within a different
+composition. See Figure~\ref{F:stack-composition} for an illustration.
 
 
 \begin{figure}
