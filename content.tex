@@ -608,12 +608,14 @@ withing a different composition.
 \begin{figure}
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
-\label{F:stack-composition}
-\caption{This shows how stacks may be composed. The \texttt{web} stack
-  is a composition of the \texttt{mysql} and \texttt{nginx}
-  stacks. \texttt{web} is then included as a layer withing another
-  composition which includes \texttt{hadoop} and \texttt{spark}
-  compositions.}
+\caption{This shows how stacks may be composed. The
+  \texttt{Fingerprint} stack is a composition of the Apache
+  \texttt{Drill}, \texttt{HBase}, and \texttt{Spark}
+  stacks. \texttt{Fingerprint} is then included as a layer withing
+  another composition built upon \texttt{Hadoop} and extended with the
+  \texttt{Web} layers. The \texttt{Web} layer itself may be composed
+  of other layers.
+  \label{F:stack-composition}}
 \end{figure}
 \TODO{Gregor,
   \href{https://docs.google.com/drawings/d/15zxYCF9cOUpd_X96HwtNW6ftJSGVhOnMSsObT1gUoDw/edit}{link
