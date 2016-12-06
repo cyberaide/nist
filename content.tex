@@ -375,16 +375,38 @@ abstractions that cloudmesh introduces: Cloudmesh Compute Experiments
 
 \subsection{Compute Experiments} \label{S:experiments}
 
-submits the script to the cluster. The script will be copied prior to
-execution into the home directory on the remote machine. If a DIR is
-specified it will be copied into that dir.  The name of the script is
-either specified in the script itself, or if not the default naming
-scheme of cloudmesh is used using the same index incremented name as
-in vms fro clouds: cloudmes husername-index
+For many decades traditional supercomputing has provided large scale
+resources to the research community. This is done in a shared
+operating mode and enables researchers to utilize resources that they
+otherwise would not have access to. Shared resources include
+memory over a number of processors, shared disks, powerful processors
+in speed and core numbers, fast interconnect. This has been applied to
+many modeling applications but can naturally also be applied to big
+data. In order to integrate such capabilities in a service oriented
+fashion the Grid community has delivered prior to to e popularization
+of cloudcomputing useful interfaces, API's, and toolkits. However for
+research work that we supported with cloudmesh such interfaces and
+efforts were to complex to use and we designed a simple model for
+researchers that we worked with. This interface includes the abstract
+concept of a ``job'' that is submitted to a queuing system and uses a
+particular data set. The experiments in our case are repeated multiple
+times and each run creates its own output directory.
+
+Hence we have created a simple submission interface that submits the
+script to the cluster. The script will be copied prior to execution
+into the home directory on the remote machine. If a directory is
+specified it will be copied into that dir.  The name of the output
+directory is either specified in the script itself, or if not the
+default naming scheme of cloudmesh is used using and the output
+directory name is appended with an increasing index. To run such a
+script we can on our client simply say
 
 \begin{verbatim}
-cm hpc run SCRIPT
+    cm hpc run SCRIPT
 \end{verbatim}
+
+Some more details about out improved interfaces are given in
+Figure~\ref{T:rest}.
 
 \begin{table*}[htb]
 \caption{Selected Service Description}\label{T:rest}
