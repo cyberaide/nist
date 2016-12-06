@@ -522,21 +522,15 @@ One of the essential abs
 \hline
 \blue \textbf{Resource} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
 
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
-\hline \multicolumn{3}{|l|}{\grey\bf Groups: } \tabularnewline \hline
-/                          & GET    & List all groups \tabularnewline \hline
-/:id                       & DELETE & Deletes the group with the given id \tabularnewline \hline
-/:id/add/...               & POST   & Add elements to the group \tabularnewline \hline
-/:id/status                & GET    & Returns the status of elements
-                                      in the group \tabularnewline \hline
-/:id/delete                & GET    &deletes elements
-                                      in the group \tabularnewline \hline
-/:id/delete/:member        & GET    & delete a member from the group
-                                      in the group \tabularnewline \hline
-/:id/list                  & GET    & list the elements in the group
-                                      in the group \tabularnewline \hline
-/:id/list/:member          & GET    & list the element in the group
-                                      in the group \tabularnewline \hline
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Additional abstractions
+\hline \multicolumn{3}{|l|}{\grey\bf Groups: /group} \tabularnewline \hline
+/                   & GET    & List all groups \tabularnewline \hline
+/:id                & GET    & Returns the status of elements in the group \tabularnewline \hline
+/:id                & DELETE & Deletes the group with the given id \tabularnewline \hline
+/:id/member         & POST   & Add a new member to the group \tabularnewline \hline
+/:id/member         & GET    & List the members of a group  \tabularnewline \hline
+/:id/member/:member & PATCH  & Update a member from the group in the group \tabularnewline \hline
+/:id/member/:member & DELETE & Deletes elements in the group \tabularnewline \hline
 
 \end{tabular}
 \end{small}
