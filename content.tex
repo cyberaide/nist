@@ -404,6 +404,7 @@ script we can on our client simply say
 \begin{Verbatim}
     $ cm hpc run SCRIPT
 \end{Verbatim}
+% $
 
 Some more details about out improved interfaces are given in
 Figure~\ref{T:rest}.
@@ -424,7 +425,7 @@ Figure~\ref{T:rest}.
 /                       & DELETE   & Delete all available clusters \tabularnewline \hline
 /:id                    & DELETE   & Delete and destroy a cluster \tabularnewline \hline
 /:id                    & GET      & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
-/:id/property/:property & GET, SET & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
+/:id/property/:property & GET, PUT & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
 /:id/inventory/:format  & GET      & Obtain an inventory of the cluster \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Composition
@@ -433,8 +434,8 @@ Figure~\ref{T:rest}.
 /                               & POST     & Create a new composition \tabularnewline \hline
 /:id                            & GET      & Show information about the composition \tabularnewline \hline
 /:id                            & DELETE   & Delete a composition \tabularnewline \hline
-/:id/name                       & GET, SET & Get/set the name of the composition \tabularnewline \hline
-/:id/add?deployer=<>\&source=<> & POST     & Add a layer to the composition \tabularnewline \hline
+/:id/name                       & GET, PUT & Get/set the name of the composition \tabularnewline \hline
+/:id/add?deployer=:?\&source=:? & POST     & Add a layer to the composition \tabularnewline \hline
 /:id/layer                      & GET      & List layers of the composition \tabularnewline \hline
 /:id/layer/:id                  & DELETE   & Delete the layer of the composition \tabularnewline \hline
 
@@ -448,8 +449,10 @@ Figure~\ref{T:rest}.
 \hline \multicolumn{3}{|l|}{\grey\bf Batch Experiments: /hpc} \tabularnewline \hline
 /                          & GET    & List all jobs started with the run command \tabularnewline \hline
 /:id                       & DELETE & Deletes the experiment with the given id \tabularnewline \hline
-/run?script=<>\&cluster=<> & POST   & Submits an experiment to the named cluster \tabularnewline \hline
+/run?script=:?\&cluster=:? & POST   & Submits an experiment to the named cluster \tabularnewline \hline
 /:id/status                & GET    & Returns the status of the job started with the run command \tabularnewline \hline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \end{tabular}
 \end{small}
@@ -552,6 +555,16 @@ monitored and managed by appropriate software.
                                       \hline
 /:id/attach/:order         & GET    & apply an action on a group.  \tabularnewline
                                       \hline
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Additional abstractions
+\hline \multicolumn{3}{|l|}{\grey\bf Groups: /group} \tabularnewline \hline
+/                   & GET    & List all groups \tabularnewline \hline
+/:id                & GET    & Returns the status of elements in the group \tabularnewline \hline
+/:id                & DELETE & Deletes the group with the given id \tabularnewline \hline
+/:id/member         & POST   & Add a new member to the group \tabularnewline \hline
+/:id/member         & GET    & List the members of a group  \tabularnewline \hline
+/:id/member/:member & PATCH  & Update a member from the group in the group \tabularnewline \hline
+/:id/member/:member & DELETE & Deletes elements in the group \tabularnewline \hline
+
 \end{tabular}
 \end{small}
 \end{center}
@@ -676,24 +689,26 @@ Automatically generates Graphical representation of input parameters
 The cloudmesh stack command tackles the problem of reproducibly
 deploying software stacks and packages on virtual clusters.
 
-In cloudmesh, a ``stack'' is a way to modify a collection of
-accessible nodes in order to bring them to a desired state. This
-execution unit should be able to use multiple different deployment
-technologies: eg Ansible, Chef, Puppet, NixOS, shell script. These
-deployment units are then composed (a ``stack composition'') into
-layers to form a new deployment unit that can be references as a layer
-withing a different composition.
+A ``stack'' is a way to modify a collection of accessible nodes in
+order to bring them to a desired state. This execution unit should be
+able to use multiple different deployment technologies: eg Ansible,
+Chef, Puppet, NixOS, shell scripts, etc. These deployment units are
+then composed (a ``stack composition'') into layers to form a new
+deployment unit that can be used as a layer within a different
+composition. See Figure~\ref{F:stack-composition} for an illustration.
 
 
 \begin{figure}
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
-\label{F:stack-composition}
-\caption{This shows how stacks may be composed. The \texttt{web} stack
-  is a composition of the \texttt{mysql} and \texttt{nginx}
-  stacks. \texttt{web} is then included as a layer withing another
-  composition which includes \texttt{hadoop} and \texttt{spark}
-  compositions.}
+\caption{This shows how stacks may be composed. The
+  \texttt{Fingerprint} stack is a composition of the Apache
+  \texttt{Drill}, \texttt{HBase}, and \texttt{Spark}
+  stacks. \texttt{Fingerprint} is then included as a layer withing
+  another composition built upon \texttt{Hadoop} and extended with the
+  \texttt{Web} layers. The \texttt{Web} layer itself may be composed
+  of other layers.
+  \label{F:stack-composition}}
 \end{figure}
 \TODO{Gregor,
   \href{https://docs.google.com/drawings/d/15zxYCF9cOUpd_X96HwtNW6ftJSGVhOnMSsObT1gUoDw/edit}{link
@@ -738,8 +753,12 @@ $ cm stack deploy drill
 \end{Verbatim}
 
 
-\subsection{Stack Composition} \label{S:composition}
+\subsubsection{Stack Composition} \label{S:composition}
 \TODO{Badi}
+
+
+\subsubsection{Language for Interpreted Stack Programming} \label{S:stack-lisp}
+\TODO{Badi, title}
 
 
 \subsubsection{Integration of Deployment Tools}
