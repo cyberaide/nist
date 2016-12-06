@@ -387,9 +387,11 @@ cm hpc run SCRIPT
 \end{verbatim}
 
 \begin{table*}[htb]
-\caption{Selected Service Description}
+\caption{Selected Service Description}\label{T:rest}
+\bigskip
 \begin{center}
-\begin{tabular}{|p{5cm}|p{1.55cm}|p{9cm}|}
+\begin{small}
+\begin{tabular}{|l|l|l|}
 \hline
 \blue \textbf{Resource} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
 
@@ -416,9 +418,9 @@ cm hpc run SCRIPT
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Stack Deployment
 \hline \multicolumn{3}{|l|}{\grey\bf Stack Deployment: /stack} \tabularnewline \hline
-/                    & GET & List the available stacks with discription \tabularnewline \hline
+/                    & GET  & List the available stacks with discription \tabularnewline \hline
 /:id/deploy/:cluster & POST & Deploy a stack onto a cluster \tabularnewline \hline
-/:id/status          & GET & Get current status \tabularnewline \hline
+/:id/status          & GET  & Get current status \tabularnewline \hline
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
 \hline \multicolumn{3}{|l|}{\grey\bf Batch Experiments: /hpc} \tabularnewline \hline
@@ -428,6 +430,7 @@ cm hpc run SCRIPT
 /:id/status                & GET    & Returns the status of the job started with the run command \tabularnewline \hline
 
 \end{tabular}
+\end{small}
 \end{center}
 \end{table*}
 
