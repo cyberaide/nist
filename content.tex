@@ -424,7 +424,7 @@ Figure~\ref{T:rest}.
 /                       & DELETE   & Delete all available clusters \tabularnewline \hline
 /:id                    & DELETE   & Delete and destroy a cluster \tabularnewline \hline
 /:id                    & GET      & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
-/:id/property/:property & GET, SET & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
+/:id/property/:property & GET, PUT & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
 /:id/inventory/:format  & GET      & Obtain an inventory of the cluster \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Composition
@@ -433,7 +433,7 @@ Figure~\ref{T:rest}.
 /                               & POST     & Create a new composition \tabularnewline \hline
 /:id                            & GET      & Show information about the composition \tabularnewline \hline
 /:id                            & DELETE   & Delete a composition \tabularnewline \hline
-/:id/name                       & GET, SET & Get/set the name of the composition \tabularnewline \hline
+/:id/name                       & GET, PUT & Get/set the name of the composition \tabularnewline \hline
 /:id/add?deployer=<>\&source=<> & POST     & Add a layer to the composition \tabularnewline \hline
 /:id/layer                      & GET      & List layers of the composition \tabularnewline \hline
 /:id/layer/:id                  & DELETE   & Delete the layer of the composition \tabularnewline \hline
