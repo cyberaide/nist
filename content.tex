@@ -401,9 +401,9 @@ default naming scheme of cloudmesh is used using and the output
 directory name is appended with an increasing index. To run such a
 script we can on our client simply say
  
-\begin{verbatim}
-    cm hpc run SCRIPT
-\end{verbatim}
+\begin{Verbatim}
+    $ cm hpc run SCRIPT
+\end{Verbatim}
 
 Some more details about out improved interfaces are given in
 Figure~\ref{T:rest}.
@@ -509,8 +509,18 @@ Naturally, cloudmesh is targeting to ease the disadvantages laid out.
 
 \subsection{Groups} \label{S:groups}
 
-One of the essential abs
+One of the essential abstractions in cloudmesh is the definition of
+groups on which actions can be performed. This allows us to
+agglomerate named objects into a group where the objects could have
+even different types. An example would be the resources that are part
+of a virtual cluster and could include virtual machines, object stores,
+or even queuing system services. On such groups we can apply actions
+that work in three different modes. Either individually, in groups or
+subgroups, or in an orchestrated fashion through workflows.
 
+This simple abstraction makes it possible to quickly assemble high
+level representations of virtual clusters than can be deployed,
+monitored and managed by appropriate software. 
 
 
 \begin{table*}[htb]
@@ -536,8 +546,12 @@ One of the essential abs
 /:id/list                  & GET    & list the elements in the group
                                       in the group \tabularnewline \hline
 /:id/list/:member          & GET    & list the element in the group
-                                      in the group \tabularnewline \hline
-
+                                      in the group \tabularnewline
+                                      \hline
+/:id/run/:action           & GET    & apply an action on a group.  \tabularnewline
+                                      \hline
+/:id/attach/:order         & GET    & apply an action on a group.  \tabularnewline
+                                      \hline
 \end{tabular}
 \end{small}
 \end{center}
@@ -594,24 +608,30 @@ Command shell for scripting
 Console Access
 Web Page
 
-\begin{verbatim}
-Simple commands allow easy management
-cm comet cluster  ID
-Show the cluster details
-cm comet power on ID vm-ID -[0-3] --walltime=6h
-Power 3 nodes on for 6 hours
-cm comet image attach image.iso ID vm-ID-0
-Attach an image
-cm comet boot ID vm-ID-0
-Boot node 0
-cm comet console vc4
-Console 
+\begin{Verbatim}
+# Simple commands allow easy management
 
-Switching infrastructure in cloudmesh is easy
-cm var cloud=jetstream / bridges / aws / …
-cm default cloud=$cloud
-cm boot
-\end{verbatim}
+$ cm comet cluster  ID
+    # Show the cluster details
+
+$ cm comet power on ID vm-ID -[0-3] --walltime=6h
+    # Power 3 nodes on for 6 hours
+
+$ cm comet image attach image.iso ID vm-ID-0
+    # Attach an image
+
+$ cm comet boot ID vm-ID-0
+    # Boot node 0
+
+$ cm comet console vc4
+    # Console 
+
+# Switching infrastructure in cloudmesh is easy
+
+$ cm var cloud=jetstream / bridges / aws / …
+$ cm default cloud=$cloud
+$ cm boot
+\end{Verbatim}
 
 \subsection{Cloudmesh Launcher abstraction}
 Important is that cloudmesh introduces an abstraction for creating virtual clusters that we call “launcher”. A launch specifies the creation of a virtual cluster. Such a launch can use
