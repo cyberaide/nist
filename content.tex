@@ -400,7 +400,7 @@ directory is either specified in the script itself, or if not the
 default naming scheme of cloudmesh is used using and the output
 directory name is appended with an increasing index. To run such a
 script we can on our client simply say
-
+ 
 \begin{verbatim}
     cm hpc run SCRIPT
 \end{verbatim}
@@ -457,6 +457,8 @@ Figure~\ref{T:rest}.
 \end{table*}
 
 
+
+
 \subsection{Cloudmesh Virtual Clusters} \label{S:vc}
 
 Traditional HPC provided clusters to the community while  the clusters
@@ -473,7 +475,7 @@ communities. Thus we see the following advantages and disadvantages:
   community it serves, allows sharing of resources through queuing
   system
 
-\item[Disadvantages:] Different communities, Groups or projects may
+\item[Disadvantages:] Different communities, groups or projects may
   have different requirements that are not met by the software stack,
   software stack often not state-of-the art, but tuned for
   reliability, experimentation with new software and methodologies in
@@ -506,7 +508,40 @@ following advantages and disadvantages:
 Naturally, cloudmesh is targeting to ease the disadvantages laid out.
 
 \subsection{Groups} \label{S:groups}
-\TODO{Gregor}
+
+One of the essential abs
+
+
+
+\begin{table*}[htb]
+\caption{Additional abstractions}\label{T:group}
+\bigskip
+\begin{center}
+\begin{small}
+\begin{tabular}{|l|l|l|}
+\hline
+\blue \textbf{Resource} & \blue \textbf{REST Method} & \blue \textbf{Description}\tabularnewline
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Batch
+\hline \multicolumn{3}{|l|}{\grey\bf Groups: } \tabularnewline \hline
+/                          & GET    & List all groups \tabularnewline \hline
+/:id                       & DELETE & Deletes the group with the given id \tabularnewline \hline
+/:id/add/...               & POST   & Add elements to the group \tabularnewline \hline
+/:id/status                & GET    & Returns the status of elements
+                                      in the group \tabularnewline \hline
+/:id/delete                & GET    &deletes elements
+                                      in the group \tabularnewline \hline
+/:id/delete/:member        & GET    & delete a member from the group
+                                      in the group \tabularnewline \hline
+/:id/list                  & GET    & list the elements in the group
+                                      in the group \tabularnewline \hline
+/:id/list/:member          & GET    & list the element in the group
+                                      in the group \tabularnewline \hline
+
+\end{tabular}
+\end{small}
+\end{center}
+\end{table*}
 
 \subsection{Virtual Clusters}
 
