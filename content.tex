@@ -724,6 +724,21 @@ $ cm stack deploy drill
 \subsubsection{Stack Composition} \label{S:composition}
 \TODO{Badi}
 
+A \emph{Composition} creates a new stack by combining multiple other
+stacks.  The unit of deployment is a \emph{Stack}, but each stack may
+be a composed of one or more layers of other stacks, forming a graph
+structure whose evaluation results in deployment onto the target
+cluster.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\columnwidth]{images/cloudmesh-stack-graph.pdf}
+\caption{Evaluation of a stack.
+  The presence of shared dependencies (e.g. java) is not problematic due to the idempotency of evaluation.
+  \label{F:stack-graph}}
+\end{figure}
+
+
 
 \subsubsection{Language for Interpreted Stack Programming} \label{S:stack-lisp}
 \TODO{Badi, title}
