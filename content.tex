@@ -657,11 +657,11 @@ Automatically generates Graphical representation of input parameters
 The cloudmesh stack command tackles the problem of reproducibly
 deploying software stacks and packages on virtual clusters.
 
-A ``stack'' is a way to modify a collection of accessible nodes in
+A \emph{Stack} is a way to modify a collection of accessible nodes in
 order to bring them to a desired state. This execution unit should be
 able to use multiple different deployment technologies: eg Ansible,
 Chef, Puppet, NixOS, shell scripts, etc. These deployment units are
-then composed (a ``stack composition'') into layers to form a new
+then composed (a stack \emph{Composition}) into layers to form a new
 deployment unit that can be used as a layer within a different
 composition. See Figure~\ref{F:stack-composition} for an illustration.
 
@@ -670,11 +670,11 @@ composition. See Figure~\ref{F:stack-composition} for an illustration.
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
 \caption{This shows how stacks may be composed. The
-  \texttt{Fingerprint} stack is a composition of the Apache
-  \texttt{Drill}, \texttt{HBase}, and \texttt{Spark}
-  stacks. \texttt{Fingerprint} is then included as a layer withing
-  another composition built upon \texttt{Hadoop} and extended with the
-  \texttt{Web} layers. The \texttt{Web} layer itself may be composed
+  \emph{Fingerprint} stack is a composition of the Apache
+  \emph{Drill}, \emph{HBase}, and \emph{Spark}
+  stacks. \emph{Fingerprint} is then included as a layer withing
+  another composition built upon \emph{Hadoop} and extended with the
+  \emph{Web} layers. The \emph{Web} layer itself may be composed
   of other layers.
   \label{F:stack-composition}}
 \end{figure}
