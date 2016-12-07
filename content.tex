@@ -678,10 +678,6 @@ composition. See Figure~\ref{F:stack-composition} for an illustration.
   of other layers.
   \label{F:stack-composition}}
 \end{figure}
-\TODO{Gregor,
-  \href{https://docs.google.com/drawings/d/15zxYCF9cOUpd_X96HwtNW6ftJSGVhOnMSsObT1gUoDw/edit}{link
-    to figure source}}
-
 
 
 Properties of stacks:
@@ -746,10 +742,9 @@ cluster.
 \caption{Evaluation of a stack.
   The \emph{My Analytics Stack} is composed of the \emph{Fingerprint} and \emph{Web} layers.
   These in turn are themselves compositions.
-  Numbers indicated the order of evaluation.
+  Numbers indicate order of evaluation.
   While \emph{spark}, \emph{hbase}, and \emph{drill} depend on \emph{java}, 
-  the re-evaluation of java in \textit{4} through \textit{6}
-  is not problematic due to the idempotency of evaluation.
+  re-evaluation (\textit{4} - \textit{6}) is not problematic due to the idempotency property.
   \label{F:stack-graph}}
 \end{figure}
 
