@@ -711,19 +711,25 @@ assist these groups significantly.  The cloudmesh stack command has
 been initially called {\em launcher} but has been renamed to {\em
   stack} to make it more clear that it is more than starting a
 program. It reuses technologies defined in \TODO{\cite{}
-  https://github.com/futuresystems/big-data-stack}. The first step is
-to define a virtual cluster with the cluster command, than we execute
-one or more stack commands on the inventory that is returned by the
-cluster command.
+  https://github.com/futuresystems/big-data-stack}.
+
+The following incantations may be used to create and deploy the stack
+shown in Figure~\ref{F:stack-graph}. These commands will create the
+\emph{fingerprint} stack from preexisting \emph{spark}, \emph{hbase},
+and \emph{drill} stacks and compose it with the predefined
+\emph{hadoop} and \emph{web} stacks. Then, a cluster of four nodes is
+launched onto which the newly created stack is deployed.
 
 \begin{Verbatim}[fontfamily=helvetica]
-$ cm default cloud=$CLOUDNAME
-$ cm cluster create --count 4
-$ cm stack create
-$ cm stack layer hadoop
-$ cm stack layer spark --deployer chef
-$ cm stack deploy
-$ cm stack deploy drill
+cm stack create my-analytics-stack
+cm stack layer hadoop
+cm stack create fingerprint
+cm stack layer spark hbase drill
+cm stack done
+cm stack layer web
+cm stack done
+cm cluster create --count 4
+cm stack deploy
 \end{Verbatim}
 
 
