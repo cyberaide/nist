@@ -734,11 +734,17 @@ cluster.
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-graph.pdf}
 \caption{Evaluation of a stack.
-  The presence of shared dependencies (e.g. java) is not problematic due to the idempotency of evaluation.
+  The \emph{My Analytics Stack} is composed of the \emph{Fingerprint} and \emph{Web} layers.
+  These in turn are themselves compositions.
+  Numbers indicated the order of evaluation.
+  While \emph{spark}, \emph{hbase}, and \emph{drill} depend on \emph{java}, 
+  the re-evaluation of java in \textit{4} through \textit{6}
+  is not problematic due to the idempotency of evaluation.
   \label{F:stack-graph}}
 \end{figure}
 
-
+Figure~\ref{F:stack-graph} illustrates how Figure~\ref{F:stack-composition} (while expanding on it) may be evaluated.
+Evaluation of \emph{My Analytics Stack} requires the evaluation of {
 
 \subsubsection{Language for Interpreted Stack Programming} \label{S:stack-lisp}
 \TODO{Badi, title}
