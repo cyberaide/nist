@@ -683,6 +683,16 @@ composition. See Figure~\ref{F:stack-composition} for an illustration.
     to figure source}}
 
 
+
+Properties of stacks:
+\begin{itemize}
+\item idempotent
+\item pure
+\item composable
+\item linkable
+\end{itemize}
+
+
 The stack command deploys and configures a user-defined subset of the
 available modules while leveraging existing deployment technologies.
 
@@ -746,10 +756,6 @@ cluster.
 Figure~\ref{F:stack-graph} illustrates how Figure~\ref{F:stack-composition} (while expanding on it) may be evaluated.
 Evaluation of \emph{My Analytics Stack} requires the evaluation of the \emph{Fingerprint} and \emph{Web} stacks, each of which are compositions of other stacks.
 
-Properties of Compositions:
-\begin{itemize}
-\item idempotent
-\end{itemize}
 
 \subsubsection{Stack Linking} \label{S:stack-linking}
 \TODO{Badi}
