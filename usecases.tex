@@ -101,7 +101,7 @@ images into HBase, process the images, and compute the matches. Apache
 Drill, with the HBase plugin, can then be used to generate reports
 with the NBIS tools\cite{watson2007user}. The results are stored in HBase and
 Apache Drill \cite{??} is used to query the results.  The code
-leverages tools and services is based on \cite{??} \TODO{Hyungro: put
+leverages tools and services is based on \cite{nist-bd-pwg} \TODO{Hyungro: put
   this in the references: the “NIST Big Data Public Working Group
   draft Possible Big Data Use Cases Implementation using NBDRA
   authored by Afzal Godil and Wo Chang”.}  , while significantly
@@ -116,7 +116,7 @@ enhancing it with cloudmesh deployment strategies and services.
 
 Human detection and face detection have been studied during the last
 several years and models for them have improved along with Histograms
-of Oriented Gradients (HOG) \cite{??} for Human Detection. 
+of Oriented Gradients (HOG) \cite{dalal2005histograms} for Human Detection. 
 
 
 
@@ -146,8 +146,9 @@ support installation and configuration while leveraging available
 cloud compute resources. We have for this example developed or are
 reusing five ansible roles that we developed for other usecases::
 Apache Spark \cite{ansible-role-spark}
-Apache Mesos \cite{??}, Apache Zookeeper \cite{??}, \TODO{Hyungro:
-  make reference out of: Ansible Role for Mesos (with Zookeeper):
+Apache Mesos \cite{hindman2011mesos}, Apache Zookeeper
+\cite{hunt2010zookeeper}, \TODO{Hyungro: make reference out of: Ansible Role
+  for Mesos (with Zookeeper):
   https://github.com/VirtualClusters/ansible-role-mesos-by-mesosphere}
   OpenCV (with Python) \cite{ansible-role-opencv}
 
