@@ -681,12 +681,23 @@ composition. See Figure~\ref{F:stack-composition} for an illustration.
 
 
 Properties of stacks:
-\begin{itemize}
-\item idempotent
-\item pure
-\item composable
-\item linkable
-\end{itemize}
+\begin{description}
+\item [Idempotent] - deployment of a stack should only bring the
+  system to the desired state: applying a stack multiple times should
+  be indistinguishable from applying it a single time. This also
+  provides a measure of fault tolerance to the deployment.
+\item [Reproducible] - deployments of a given stack onto multiple
+  identical targets should yield equivalent systems.
+\item [Self contained] - all components need to bring a system to the
+  stack's desired state should be declared by the stack.
+\item [Configurable] - when a stack a defined default values may be
+  assumed to take effect on deployment. In order to allow a system to
+  be tuned to the desired state, depending on the user's requirements,
+  these values must be configurable.
+\item [Composable] - the semantics of deploying two stacks should be clear.
+\item [Linkable] - 
+\item [Extensible] -
+\end{description}
 
 
 The stack command deploys and configures a user-defined subset of the
