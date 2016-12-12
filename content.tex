@@ -65,7 +65,7 @@ Wo Chang\\
 \section{Introduction}
 
 Commercial, academic, and government leaders agree about the potential
-of {\em} Big Data to spark innovation, fuel commerce, and drive
+of {\em Big Data} to spark innovation, fuel commerce, and drive
 progress. Big Data is the common term used to describe the deluge of
 data in today’s networked, digitized, sensor-laden, and information
 driven world \cite{nist-bd}. Desirable is as a vendor neutral,
@@ -964,43 +964,12 @@ BDS is ideally suited to be included in cloudmesh as one of its
 deployment management tools. Cloudmesh adds features to easily access
 infrastructure. ... more in the next another section we present later
 
-Examples
-Face Detection Example
-Example 1: Face Detection Lifecycle
-\begin{Verbatim}
-[masters]
-10.0.0.1
-10.0.0.2
-10.0.0.3
-[workers]
-10.0.0.4
-10.0.0.5
-10.0.0.6
-Example 1: Face Detection Lifecycle on AWS
-[masters]
-10.0.0.1
-10.0.0.2
-10.0.0.3
-[workers]
-10.0.0.4
-10.0.0.5
-10.0.0.6
-u'tag_masters_True': [u'52.23.213.103', u'54.196.41.145',u'54.209.137.235'],
-u'tag_workers_True': [u'52.23.213.104', u'54.196.41.146',u'54.209.137.237'], ...
-\end{Verbatim}
-
-Example 1: Face Detection Screenshot Running EC2 provisioning playbook
+Face Detection Screenshot Running EC2 provisioning playbook
 on command line:
 
 \begin{Verbatim}
 $ ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
 \end{Verbatim} 
-
-\section{Status}
-
-We can replicate on different infrastructures including AWS, Azure,
-Openstack, Comet … We need to complete the launcher and integration of
-the BDS into the launcher
 
 
 
@@ -1009,6 +978,25 @@ the BDS into the launcher
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{usecases}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Status}
+
+
+We can replicate on different infrastructures including AWS, Azure,
+Openstack, and XSEDE/SDSC Comet.
+
+The {\it stack} command has been implemented, while we used to focus initially
+on heat we found thia was a too limiting approach. Since than we have
+expanded our activities on using for many of the stacks ansible and
+provide a significant set as part of our open source solutions. This
+includes:
+
+\TODO{add some of teh stacks here even if replicated from above}
+
+Cloudmesh is also used in the production system of XSEDE comet and is
+used to interact with virtual clusters on that system showcasing the
+general approach that we take in cloudmesh to integrate with vastly
+different clouds and IaaS frameworks.
 
 \section{Conclusion}\label{S:conclusion}
 
