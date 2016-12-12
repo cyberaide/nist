@@ -575,6 +575,30 @@ monitored and managed by appropriate software.
 \end{center}
 \end{table*}
 
+\subsection{Uniform Access Interfaces}
+
+\begin{description}
+
+\item[Versioning.] In case different versions are uses the version number is a prefix to
+the general query
+
+\item [Info.] At time we may not only return results offered by the service that we
+contact, but receive information about the service itself, this si
+achieved with the info url. This has been introduced for the first
+time in \cite{???infogram}
+
+\item [Query.] a query returns a subset of items. What kind of queries
+  may be allowed may be communicated through an info command.
+
+\item [Pageing.] In some instances it is important to restrict the returned values
+which can be achieved with paging
+
+\end{description}
+
+\begin{Verbatim}
+?offset=15&limit=5>
+\end{Verbatim}
+
 \subsection{Virtual Clusters}
 
 Definition: A set of compute, storage and network services that
