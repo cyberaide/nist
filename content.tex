@@ -69,20 +69,30 @@ of {\em} Big Data to spark innovation, fuel commerce, and drive
 progress. Big Data is the common term used to describe the deluge of
 data in today’s networked, digitized, sensor-laden, and information
 driven world \cite{nist-bd}. Desirable is as a vendor neutral,
-technology- and infrastructure-agnostic conceptual model and examine
-related issues.  The focus of this document is on the NIST Big Data
-Reference Architecture and identify lessons learned from
+technology- and infrastructure-agnostic conceptual model used to
+examine related issues.  The focus of this document is on the NIST Big
+Data Reference Architecture and identify lessons learned from
 cloudmesh that can augment and verify this architecture through
 practical use cases. In the next sections we provide some background
 information to motivate our work and to introduce the two frameworks
-motivating this paper. This includes cloudmesh \cite{las12-cloud}
+influencing this paper. This includes cloudmesh \cite{las12-cloud}
 \cite{github-cloudmesh-client} and the NIST Big Data Reference
-Architecture \cite{nist-bd}.  We start by giving brief introductions
-to the National Institute of Standards (NIST) Big Data Reference
-Architecture (Section \ref{S:NBDarch}) followed by a brief
-introduction to Cloudmesh (Section \ref{S:cmclient}).  We then
+Architecture \cite{nist-bd}.  
 
-\TODO{describe the next sections}
+Our paper is structured as follows. We start by giving brief
+introductions to the National Institute of Standards (NIST) Big Data
+Reference Architecture (Section~\ref{S:NBDarch}) followed by a brief
+introduction to Cloudmesh (Section~\ref{S:cmclient}).  We then provide
+a more in depth description of Cloudmesh while focussing on CLoudmesh
+abstractions useful for big data analysis (Section
+\ref{S:abstraction}). Next we investigate some usecases brought
+forward by the NIST Big Data Working Group and see how cloudmesh can
+help deploying and executing them (Section~\ref{S:usecases}) .
+
+We conclude our paper with observations made while implementing these
+usecases impacting the NIST Big Data Architecture and also cloudmesh
+(Section~\ref{S:conclusion})
+
 
 \subsection{NIST Big Data Reference Architecture}
 \label{S:NBDarch}
@@ -120,13 +130,9 @@ to improve the architecture.  The current NIST big data reference
 architecture(NBDRA) is shown in Figure~\ref{F:NIST-arch}. However we have
 augmented the architecture with areas where cloudmesh interfaces with
 it. We will describe the offerings in relationship to this
-architecture of cloudmesh in detail in Section \ref{S:cm-nist}.  The
+architecture of cloudmesh in detail in Section~\ref{S:cm-nist}.  The
 NBDRA contains according to \cite{nist-bd} the following
 components and services:
-
-\TODO{find uniform abbreviation}
-
-\TODO{define a cm nist section}
 
 \begin{figure}[hp]
   \centering
@@ -383,12 +389,12 @@ interface. The goal here is to manage virtual clusters.
 
 
 
-\section{Cloudmesh Abstractions}
+\section{Cloudmesh Abstractions}\label{S:abstraction}
 
 In this paper we will focus our attention to three important
 abstractions that cloudmesh introduces: Cloudmesh Compute Experiments
-(Section \ref{S:experiments}) , Cloudmesh Virtual Clusters (Section
-\ref{S:vc}), Cloudmesh Stacks (Section \ref{S:stacks}).
+(Section~\ref{S:experiments}) , Cloudmesh Virtual Clusters (Section
+\ref{S:vc}), Cloudmesh Stacks (Section~\ref{S:stacks}).
 
 \subsection{Compute Experiments} \label{S:experiments}
 
@@ -421,7 +427,6 @@ script we can on our client simply say
 \begin{Verbatim}
     $ cm hpc run SCRIPT
 \end{Verbatim}
-% $
 
 Some more details about out improved interfaces are given in
 Figure~\ref{T:rest}.
@@ -893,22 +898,37 @@ $ cm delete --name=cluster_1 --all
 \end{Verbatim}
 
 
-\section{Cloudmesh Big Data Stack}
+\section{Cloudmesh Big Data Stack}\label{S:cm-bds}
 
-\subsection{Deployment}
+The Cloudmesh big data stack commands are leveraging abstractions and
+can therefore implemented while utilizing and interacting with various
+software packages from different layers. This enables us to accomplish
+diverse tasks that have to be achieved in order to assist the
+scientists trying to use big data as part of their application
+missions. While providing them easily to the scientists complex big
+data tasks can be achieved more easily.
 
-Big Data Software Stack is built with various software packages from different layers (and it’s increasing), therefore accomplishing these multiple software deployment is challenging
+\subsection{Devops}
 
 
+\subsection{Playbooks and Roles}
 
-\section{Big Data Stack (BDS)}
-
-BDS is a collection of playbooks for deploying the tools of big data analytics, given a set of accessible IP addresses. It allows the user to select a subset of the available tools to deploy in order to customize their virtual cluster.
+BDS is a collection of playbooks for deploying the tools of big data
+analytics, given a set of accessible IP addresses. It allows the user
+to select a subset of the available tools to deploy in order to
+customize their virtual cluster.
 
 Example: to setup a stack with Hadoop, Spark, and Hive:
+\begin{Verbatim}
 $ ansible-playbook play-hadoop.yml addons/spark.yml addons/hive.yml
+\end{Verbatim}
+
 Example: to setup a stack with Hadoop, HBase, and Drill:
+
+\begin{Verbatim}
 $ ansible-playbook play-hadoop.yml addons/hbase.yml addons/drill.yml
+\end{Verbatim}
+
 It is provided online at https://github.com/futuresystems/big-data-stack
 
 \begin{description}
@@ -942,7 +962,7 @@ Hive
 
 BDS is ideally suited to be included in cloudmesh as one of its
 deployment management tools. Cloudmesh adds features to easily access
-infrastructure.  … more in the next another section we present later
+infrastructure. ... more in the next another section we present later
 
 Examples
 Face Detection Example
@@ -974,19 +994,13 @@ on command line:
 
 \begin{Verbatim}
 $ ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
-\end{Verbatim}
+\end{Verbatim} 
 
-\subsection{Conclusion}
-Ansible + Cloudmesh
-Will enable re-usable specification of Big Data Stack applications in 87 use cases and 62 unique roles from which NIST has 27
-BDS status
-From this a total part of BDS are vetted (the most fundamental ones): 
-14 Roles  (about 50% done of NIST roles)
-6   Playbooks
+\section{Status}
 
-\subsection{Cloudmesh Status}
-We can replicate on different infrastructures including AWS, Azure, Openstack, Comet …
-We need to complete the launcher and integration of the BDS into the launcher
+We can replicate on different infrastructures including AWS, Azure,
+Openstack, Comet … We need to complete the launcher and integration of
+the BDS into the launcher
 
 
 
@@ -996,11 +1010,21 @@ We need to complete the launcher and integration of the BDS into the launcher
 \input{usecases}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusion}
+\section{Conclusion}\label{S:conclusion}
 
 \TODO{add conclusion}
 
-\subsection{Future Works}
+\subsection{Conclusion}
+Ansible + Cloudmesh
+Will enable re-usable specification of Big Data Stack applications in 87 use cases and 62 unique roles from which NIST has 27
+BDS status
+From this a total part of BDS are vetted (the most fundamental ones): 
+14 Roles  (about 50\% done of NIST roles)
+6   Playbooks
+
+
+
+\subsection{Future Work}
 
 \TODO{discuss additional work}
 
