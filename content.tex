@@ -1,4 +1,17 @@
+\makeatletter
+\setcounter{tocdepth}{3}
+\def\contentsname{Contents}
+\def\tableofcontents{%
+    \section*{\MakeUppercase{\contentsname}}%
+    \@starttoc{toc}%
+    }
+\makeatother
+
 \begin{document}
+
+\tableofcontents
+
+\newpage
 
 \newcommand{\TODO}[1]{\todo[inline,color=red!20]{#1}}
 
@@ -54,57 +67,58 @@ progress. Big Data is the common term used to describe the deluge of
 data in today’s networked, digitized, sensor-laden, and information
 driven world \cite{nist-bd}. Desirable is as a vendor neutral,
 technology- and infrastructure-agnostic conceptual model and examine
-related issues.  The focus of this document is on the Big Data
-Application Reference Archoitecture and identify lessons learned from
+related issues.  The focus of this document is on the NIST Big Data
+Reference Architecture and identify lessons learned from
 cloudmesh that can augment and verify this architecture through
 practical use cases. In the next sections we provide some background
 information to motivate our work and to introduce the two frameworks
 motivating this paper. This includes cloudmesh \cite{las12-cloud}
-\cite{github-cloudmesh-client} and the NIST big data reference
-architecture \cite{nist-bd}.  We start by giving brief introductions
-to the National Institute of Standards (NIST) big data reference
-architecture (Section \ref{S:NBDarch}) followed by a brief
+\cite{github-cloudmesh-client} and the NIST Big Data Reference
+Architecture \cite{nist-bd}.  We start by giving brief introductions
+to the National Institute of Standards (NIST) Big Data Reference
+Architecture (Section \ref{S:NBDarch}) followed by a brief
 introduction to Cloudmesh (Section \ref{S:cmclient}).  We then
+
 \TODO{describe the next sections}
 
-\subsection{NBD Reference Architecture}
+\subsection{NIST Big Data Reference Architecture}
 \label{S:NBDarch}
 
-The NIST big data working group is exploring pathways
-forward in this direction which can be leveraged by the community. The
-current result reference architecture is summarized in
-\cite{nist-bd}. From this document we gather that the {\it
-  ``conceptual model, referred to as the NIST Big Data Reference
-  Architecture (NBDRA), was crafted by examining publicly available
-  Big Data architectures representing various approaches and
-  products. Inputs from the other NBD-PWG subgroups were also
-  incorporated into the creation of the NBDRA. It is applicable to a
-  variety of business environments, including tightly integrated
-  enterprise systems, as well as loosely coupled vertical industries
-  that rely on cooperation among independent stakeholders. The NBDRA
-  captures the two known Big Data economic value chains: information,
-  where value is created by data collection, integration, analysis,
-  and applying the results to data-driven services, and the
-  information technology (IT), where value is created by providing
-  networking, infrastructure, platforms, and tools in support of
-  vertical data-based applications.''}  It will produce a number of documents
-  related to definitions \cite{nist-bd-v1}, taxonomies \cite{nist-bd-v2}, use
-  cases and general requirements \cite{nist-bd-v3}, security and privacy
-  \cite{nist-bd-v4}, architectures white paper survey \cite{nist-bd-v5},
-  reference architecture \cite{nist-bd}, standards roadmap \cite{nist-bd-v7},
-  and an interface definition \cite{??}.
-
-\TODO{Hyungro: add citations to the NIST documents related to this}
+The NIST big data working group is exploring pathways forward in this
+direction which can be leveraged by the community. The current result
+reference architecture is summarized in \cite{nist-bd}. From this
+document we gather that the {\it ``conceptual model, referred to as
+  the NIST Big Data Reference Architecture (NBDRA), was crafted by
+  examining publicly available Big Data architectures representing
+  various approaches and products. Inputs from the other NBD-PWG
+  subgroups were also incorporated into the creation of the NBDRA. It
+  is applicable to a variety of business environments, including
+  tightly integrated enterprise systems, as well as loosely coupled
+  vertical industries that rely on cooperation among independent
+  stakeholders. The NBDRA captures the two known Big Data economic
+  value chains: information, where value is created by data
+  collection, integration, analysis, and applying the results to
+  data-driven services, and the information technology (IT), where
+  value is created by providing networking, infrastructure, platforms,
+  and tools in support of vertical data-based applications.''}  It
+will produce a number of documents related to definitions
+\cite{nist-bd-v1}, taxonomies \cite{nist-bd-v2}, use cases and general
+requirements \cite{nist-bd-v3}, security and privacy
+\cite{nist-bd-v4}, architectures white paper survey \cite{nist-bd-v5},
+reference architecture \cite{nist-bd}, standards roadmap
+\cite{nist-bd-v7}. In addition we expect NIST to work on an interface
+definition document that is partially influenced by the work presented
+in this paper.
 
 One of the desired tasks is to identify existing frameworks and to
 analyze how they correlate to the current reference architecture
 \cite{nist-bd}. This is conducted in order to validate and if needed
 to improve the architecture.  The current NIST big data reference
-architecture is shown in Figure~\ref{F:NIST-arch}. However we have
+architecture(NBDRA) is shown in Figure~\ref{F:NIST-arch}. However we have
 augmented the architecture with areas where cloudmesh interfaces with
 it. We will describe the offerings in relationship to this
 architecture of cloudmesh in detail in Section \ref{S:cm-nist}.  The
-NIST BDA contains according to \cite{nist-bd} the following
+NBDRA contains according to \cite{nist-bd} the following
 components and services:
 
 \TODO{find uniform abbreviation}
