@@ -87,12 +87,12 @@ current result reference architecture is summarized in
   and applying the results to data-driven services, and the
   information technology (IT), where value is created by providing
   networking, infrastructure, platforms, and tools in support of
-  vertical data-based applications.''}  It will produce a number of
-documents related to definitions \cite{??}, taxonomies \cite{??}, use
-cases and general requirements \cite{??}, security and privacy
-\cite{??}, architectures white paper survey \cite{??}, reference
-architecture \cite{??}, standards roadmap \cite{??}, and an interface
-definition \cite{??}.
+  vertical data-based applications.''}  It will produce a number of documents
+  related to definitions \cite{nist-bd-v1}, taxonomies \cite{nist-bd-v2}, use
+  cases and general requirements \cite{nist-bd-v3}, security and privacy
+  \cite{nist-bd-v4}, architectures white paper survey \cite{nist-bd-v5},
+  reference architecture \cite{nist-bd}, standards roadmap \cite{nist-bd-v7},
+  and an interface definition \cite{??}.
 
 \TODO{Hyungro: add citations to the NIST documents related to this}
 
@@ -718,11 +718,11 @@ Automatically generates Graphical representation of input parameters
 The cloudmesh stack command tackles the problem of reproducibly
 deploying software stacks and packages on virtual clusters.
 
-A ``stack'' is a way to modify a collection of accessible nodes in
+A \emph{Stack} is a way to modify a collection of accessible nodes in
 order to bring them to a desired state. This execution unit should be
 able to use multiple different deployment technologies: eg Ansible,
 Chef, Puppet, NixOS, shell scripts, etc. These deployment units are
-then composed (a ``stack composition'') into layers to form a new
+then composed (a stack \emph{Composition}) into layers to form a new
 deployment unit that can be used as a layer within a different
 composition. See Figure~\ref{F:stack-composition} for an illustration.
 
@@ -731,17 +731,34 @@ composition. See Figure~\ref{F:stack-composition} for an illustration.
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
 \caption{This shows how stacks may be composed. The
-  \texttt{Fingerprint} stack is a composition of the Apache
-  \texttt{Drill}, \texttt{HBase}, and \texttt{Spark}
-  stacks. \texttt{Fingerprint} is then included as a layer withing
-  another composition built upon \texttt{Hadoop} and extended with the
-  \texttt{Web} layers. The \texttt{Web} layer itself may be composed
+  \emph{Fingerprint} stack is a composition of the Apache
+  \emph{Drill}, \emph{HBase}, and \emph{Spark}
+  stacks. \emph{Fingerprint} is then included as a layer withing
+  another composition built upon \emph{Hadoop} and extended with the
+  \emph{Web} layers. The \emph{Web} layer itself may be composed
   of other layers.
   \label{F:stack-composition}}
 \end{figure}
-\TODO{Gregor,
-  \href{https://docs.google.com/drawings/d/15zxYCF9cOUpd_X96HwtNW6ftJSGVhOnMSsObT1gUoDw/edit}{link
-    to figure source}}
+
+
+Properties of stacks:
+\begin{description}
+\item [Idempotent] - deployment of a stack should only bring the
+  system to the desired state: applying a stack multiple times should
+  be indistinguishable from applying it a single time. This also
+  provides a measure of fault tolerance to the deployment.
+\item [Reproducible] - deployments of a given stack onto multiple
+  identical targets should yield equivalent systems.
+\item [Self contained] - all components need to bring a system to the
+  stack's desired state should be declared by the stack.
+\item [Configurable] - when a stack a defined default values may be
+  assumed to take effect on deployment. In order to allow a system to
+  be tuned to the desired state, depending on the user's requirements,
+  these values must be configurable.
+\item [Composable] - the semantics of deploying two stacks should be clear.
+\item [Linkable] - 
+\item [Extensible] -
+\end{description}
 
 
 The stack command deploys and configures a user-defined subset of the
@@ -766,25 +783,55 @@ assist these groups significantly.  The cloudmesh stack command has
 been initially called {\em launcher} but has been renamed to {\em
   stack} to make it more clear that it is more than starting a
 program. It reuses technologies defined in \TODO{\cite{}
-  https://github.com/futuresystems/big-data-stack}. The first step is
-to define a virtul cluster with the cluster command, than we execute
-one or more stack commands on the inventory that is returned by the
-cluster command.
+  https://github.com/futuresystems/big-data-stack}.
+
+The following incantations may be used to create and deploy the stack
+shown in Figure~\ref{F:stack-graph}. These commands will create the
+\emph{fingerprint} stack from preexisting \emph{spark}, \emph{hbase},
+and \emph{drill} stacks and compose it with the predefined
+\emph{hadoop} and \emph{web} stacks. Then, a cluster of four nodes is
+launched onto which the newly created stack is deployed.
 
 \begin{Verbatim}[fontfamily=helvetica]
-$ cm default cloud=$CLOUDNAME
-$ cm cluster create --count 4
-$ cm stack create
-$ cm stack layer hadoop
-$ cm stack layer spark --deployer chef
-$ cm stack deploy
-$ cm stack deploy drill
+cm stack create my-analytics-stack
+cm stack layer hadoop
+cm stack create fingerprint
+cm stack layer spark hbase drill
+cm stack done
+cm stack layer web
+cm stack done
+cm cluster create --count 4
+cm stack deploy
 \end{Verbatim}
 
 
 \subsubsection{Stack Composition} \label{S:composition}
 \TODO{Badi}
 
+A \emph{Composition} creates a new stack by combining multiple other
+stacks.  The unit of deployment is a \emph{Stack}, but each stack may
+be a composed of one or more layers of other stacks, forming a graph
+structure whose evaluation results in deployment onto the target
+cluster.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\columnwidth]{images/cloudmesh-stack-graph.pdf}
+\caption{Evaluation of a stack.
+  The \emph{My Analytics Stack} is composed of the \emph{Fingerprint} and \emph{Web} layers.
+  These in turn are themselves compositions.
+  Numbers indicate order of evaluation.
+  While \emph{spark}, \emph{hbase}, and \emph{drill} depend on \emph{java}, 
+  re-evaluation (\textit{4} - \textit{6}) is not problematic due to the idempotency property.
+  \label{F:stack-graph}}
+\end{figure}
+
+Figure~\ref{F:stack-graph} illustrates how Figure~\ref{F:stack-composition} (while expanding on it) may be evaluated.
+Evaluation of \emph{My Analytics Stack} requires the evaluation of the \emph{Fingerprint} and \emph{Web} stacks, each of which are compositions of other stacks.
+
+
+\subsubsection{Stack Linking} \label{S:stack-linking}
+\TODO{Badi}
 
 \subsubsection{Language for Interpreted Stack Programming} \label{S:stack-lisp}
 \TODO{Badi, title}
@@ -803,6 +850,7 @@ various deployment tools and approaches
 \item[Puppet]
 \item[Salt]
 \item[Vagrant]
+\item[NixOS/NixOps]
 \end{description}
 
 \subsection{Cloudmesh stack}
