@@ -6,7 +6,6 @@
     \@starttoc{toc}%
     }
 \makeatother
-
 \newcommand{\AUTHOR}{Gregor von Laszewski, Badi Abdul-Wahid, Fugang Wang, Hyungro Lee, Geoffrey C. Fox}
 \newcommand{\TITLE}{Cloudmesh in support of the\\NIST Big Data Architecture Framework}
 
@@ -537,7 +536,7 @@ following advantages and disadvantages:
 
 Naturally, cloudmesh is targeting to ease the disadvantages laid out.
 
-\subsection{Groups} \label{S:groups}
+\subsection{Cloudmesh Groups} \label{S:groups}
 
 One of the essential abstractions in cloudmesh is the definition of
 groups on which actions can be performed. This allows us to
@@ -607,7 +606,7 @@ the general query
 \item [Info.] At time we may not only return results offered by the service that we
 contact, but receive information about the service itself, this si
 achieved with the info url. This has been introduced for the first
-time in \cite{???infogram}
+time in \cite{las02infogram}
 
 \item [Query.] a query returns a subset of items. What kind of queries
   may be allowed may be communicated through an info command.
@@ -697,109 +696,92 @@ $ cm default cloud=$cloud
 $ cm boot
 \end{Verbatim}
 
-\subsection{Cloudmesh Launcher abstraction}
 
-Important is that cloudmesh introduces an abstraction for creating
-virtual clusters that we call “launcher”. A launch specifies the
-creation of a virtual cluster. 
-
-Such a launch can use
-Ansible,
-Chef,
-Openstack Heat,
-Ssh,
-Make, and
-Pegasus.
-
-
-Hence a variety of different launch platforms can be integrated into cloudmesh and work from different community contributions can be supported.
-
-Building virtual clusters is easy
-
-\begin{Verbatim}
-cm launcher cluster -n 10
-\end{Verbatim}
-
-Gives a virtual cluster with 10 nodes and allows the user to login between each node
-
-\begin{Verbatim}
-cm launcher hadoop -n 10 --cloud=rackspace
-\end{Verbatim}
-
-Finds the playbook for creating a hadoop cluster and launches it on a cloud called rackspace
-
-Building enhance virtual clusters is easy
-Virtual cluster for face detection
-
-\begin{Verbatim}
-cm launcher facedetection -n 10 --cloud=rackspace
-\end{Verbatim}
-
-Finds the playbook for creating a virtual cluster and launches the
-deployment for the face detection project.  Cloudmesh will look in the
-git repository to locate the ansible scripts and execute them
 
 
 
 \subsection{Cloudmesh Stack} 
 \label{S:stacks}
 
-The cloudmesh stack command tackles the problem of reproducibly
-deploying software stacks and packages on virtual clusters.
+Important is that cloudmesh introduces an abstraction for creating and
+managing software stacks. Such stacks are used to tackle the problem
+of reproducibly deploying software stacks and packages on virtual
+clusters. They are also important to define customization of the
+software stack that typically can not be provided by traditional
+supercomputing centers and have become an integral part of cloud
+computing and development efforts of large scale open source software
+projects.
 
-A {\it Stack} is a way to modify a collection of accessible nodes in
-order to bring them to a desired state. This execution unit should be
-able to use multiple different deployment technologies: eg Ansible,
-Chef, Puppet, NixOS, shell scripts, etc. These deployment units are
-then composed (a stack {\it Composition}) into layers to form a new
-deployment unit that can be used as a layer within a different
-composition. See Figure~\ref{F:stack-composition} for an illustration.
+A {\it Stack} is a way to modify a collection of accessible resources
+in order to bring them to a desired state. It is desirable that his
+execution unit can interface with various deployment tools and
+approaches. This includes scripts, programs, ssh, Make, OpenStack Heat
+\cite{??}, Ansible \cite{??}, Chef \cite{??}, Puppet \cite{??}, Salt
+\cite{??}, Vagrant \cite{??}, Dockerfile \cite{??}, and NixOS/NixOps
+\cite{??}. The reason for this is that users can leverage their own
+preferred deployment tools, but also allows uses to leverage efforts
+conducted by the open source community while integrating large and
+complex software stacks.  Hence, if available a variety of different
+launch platforms can be integrated into cloudmesh and work from
+different community contributions can be supported.
+
+These deployment units are then composed as part of a stack {\it
+  Composition} into layers to form a new deployment unit that can be
+used as a layer within a different composition (illustrated in 
+Figure~\ref{F:stack-composition}).
 
 
 \begin{figure}
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
-\caption{This shows how stacks may be composed. The
+\caption{Multiple stacks may be composed. Here, the
   {\it Fingerprint} stack is a composition of the Apache
   {\it Drill}, {\it HBase}, and {\it Spark}
-  stacks. {\it Fingerprint} is then included as a layer withing
+  stacks. The {\it Fingerprint} stack is then included as a layer withing
   another composition built upon {\it Hadoop} and extended with the
   {\it Web} layers. The {\it Web} layer itself may be composed
   of other layers.
   \label{F:stack-composition}}
 \end{figure}
 
+To support the goals of a sophisticated deployment framework, stack
+need to support the following properties:
 
-Properties of stacks:
 \begin{description}
-\item [Idempotent] - deployment of a stack should only bring the
+\item [Idempotent.]  Deployment of a stack should only bring the
   system to the desired state: applying a stack multiple times should
   be indistinguishable from applying it a single time. This also
   provides a measure of fault tolerance to the deployment.
-\item [Reproducible] - deployments of a given stack onto multiple
+\item [Reproducible.] Deployments of a given stack onto multiple
   identical targets should yield equivalent systems.
-\item [Self contained] - all components need to bring a system to the
+\item [Self contained.] All components need to bring a system to the
   stack's desired state should be declared by the stack.
-\item [Configurable] - when a stack a defined default values may be
+\item [Configurable.] When a stack a defined default values may be
   assumed to take effect on deployment. In order to allow a system to
   be tuned to the desired state, depending on the user's requirements,
   these values must be configurable.
-\item [Composable] - the semantics of deploying two stacks should be clear.
-\item [Linkable] - 
-\item [Extensible] -
+\item [Composable.] The semantics of deploying two stacks should be clear.
+\item [Linkable.] Stacks should be able to link to each other to
+  define choreography roles and avoid duplication.
+\item [Extensible.] Stacks need to be easily extensible in order to be
+  adapted to specific deployment needs.
 \end{description}
 
+To support this effort we define a cloudmesh {\em stack} command {\it
+  stack} command that deploys and configures a user-defined subset of
+the available modules while leveraging existing deployment
+technologies.
 
-The stack command deploys and configures a user-defined subset of the
-available modules while leveraging existing deployment technologies.
+In addition, Cloudmesh provides a number of predefined stacks such as
+Apache Spark and Apache Drill that can be reused and customize virtual
+clusters while enhancing them with sophisticated software stacks. 
 
-Cloudmesh provides a number of predefined modules such as Apache Spark
-and Apache Drill that can be reused and customized on the virtual
-cluster. This results in a minimization of work on the user as we as
-the cloudmesh team as a number of existing deployments that are
-available on the internet can be leveraged. However cloudmesh provides
-a valuable add on as it demonstrates and showcases the use of some of
-these deployments while also vetting and improving them.
+This results in a minimization of work by the user as
+they can leverage a number of existing deployments that are
+available through open source repositories. Hence cloudmesh integrates
+valuable contributions form the community while not only pointing to
+them, but also making selected stacks available while vetting and
+improving them \cite{www-cm-stacks}.
 
 
 The stack command was initially developed to aid students and
@@ -808,31 +790,36 @@ with exploring various technologies and would get stuck during the
 installation and configuration phase, unable to progress due to the
 complexity involved in managing it. While making cloudmesh stack
 available and targeting often used deployment stacks we wer able to
-assist these groups significantly.  The cloudmesh stack command has
-been initially called {\it launcher} but has been renamed to {\em
-  stack} to make it more clear that it is more than starting a
-program. It reuses technologies defined in \TODO{\cite{}
-  https://github.com/futuresystems/big-data-stack}.
+assist these groups significantly.  
 
-The following incantations may be used to create and deploy the stack
-shown in Figure~\ref{F:stack-graph}. These commands will create the
-{\it fingerprint} stack from preexisting {\it spark}, {\it hbase},
-and {\it drill} stacks and compose it with the predefined
-{\it hadoop} and {\it web} stacks. Then, a cluster of four nodes is
-launched onto which the newly created stack is deployed.
+To illustrate the simplicity of use of sophisticated stacks that would
+be otherwise not achievable by many users we provide the following example.
 
-\begin{Verbatim}[fontfamily=helvetica]
-cm stack create my-analytics-stack
-cm stack layer hadoop
-cm stack create fingerprint
-cm stack layer spark hbase drill
-cm stack done
-cm stack layer web
-cm stack done
-cm cluster create --count 4
-cm stack deploy
+In this example we will create and deploy the stack shown in
+Figure~\ref{F:stack-graph} that deploys one of our test use cases
+described in Section \ref{S:fingerprint}. To achieve this we use the
+commands listed in Figure~\ref{F:stack-deploy-fingerprint} and create
+the {\it fingerprint} stack from preexisting {\it spark}, {\it hbase},
+and {\it drill} stacks and compose it with the predefined {\it hadoop}
+and {\it web} stacks. Then, a cluster of four nodes is launched onto
+which the newly created stack is deployed. We use indentations to
+illustrate better the association of a stack containing a composition
+of layers.\footnote{the term layer may need to be replaced with the
+  term add. We also need to document that the last stack is used by default.}
+
+\begin{figure}[htb]
+\begin{Verbatim}
+    cm stack create my-analytics-stack
+       cm stack layer hadoop
+    cm stack create fingerprint
+       cm stack layer spark hbase drill
+       cm stack layer web
+       cm cluster create --count 4
+    cm stack deploy
 \end{Verbatim}
-
+\vspace{-12pt}
+\caption{Commands to deploy the fingerprint $N_1$ stack}
+\end{figure}
 
 \subsubsection{Stack Composition} \label{S:composition}
 \TODO{Badi}
@@ -867,36 +854,59 @@ Evaluation of {\it My Analytics Stack} requires the evaluation of the
 \TODO{Badi, title}
 
 
-\subsubsection{Integration of Deployment Tools}
+Building virtual clusters is easy
 
-various deployment tools and approaches
-
-\begin{description}
-\item[Scripts]
-\item[Programs]
-\item[OpenStack Heat]
-\item[Ansible]
-\item[Chef]
-\item[Puppet]
-\item[Salt]
-\item[Vagrant]
-\item[NixOS/NixOps]
-\end{description}
-
-\subsection{Cloudmesh stack}
-
-\begin{Verbatim}[fontfamily=helvetica]
-stack check [--stack=bds]
-stack init [--no-activate] [--branch=master] [--user=$USER] 
-               [--name=<project>] <ip>...
-stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
-stack project [<name>]
-stack deploy [<play>...] [--define=<define>...]
-
-Options:
-   --format=FORMAT  the output format [default: table]
-   --cloud=CLOUD    the cloud name
+\begin{Verbatim}
+cm launcher cluster -n 10
 \end{Verbatim}
+
+Gives a virtual cluster with 10 nodes and allows the user to login between each node
+
+\begin{Verbatim}
+cm launcher hadoop -n 10 --cloud=rackspace
+\end{Verbatim}
+
+Finds the playbook for creating a hadoop cluster and launches it on a cloud called rackspace
+
+Building enhance virtual clusters is easy
+Virtual cluster for face detection
+
+\begin{Verbatim}
+cm launcher facedetection -n 10 --cloud=rackspace
+\end{Verbatim}
+
+Finds the playbook for creating a virtual cluster and launches the
+deployment for the face detection project.  Cloudmesh will look in the
+git repository to locate the ansible scripts and execute them
+
+
+
+----
+
+
+
+Figure~\ref{F:cm-stack-command} ...
+
+\begin{figure}[htb]
+%\begin{lstlisting}
+%[fontfamily=helvetica]
+\begin{Verbatim}
+  stack check [--stack=bds]
+  stack init [--no-activate] 
+             [--branch=master] 
+             [--user=$\$$USER] 
+             [--name=<project>] <ip>...
+  stack list [--sort=<field=date>] 
+             [--list=<field,...=all>]
+  stack project [<name>]
+  stack deploy [<play>...] 
+               [--define=<define>...]
+\end{Verbatim}
+%\end{lstlisting}
+\caption{Excerpt of the Cloudmesh stack manual page}
+\label{F:cm-stack-command}
+\end{figure}
+
 
 \subsection{Create a hadoop cluster}
 
