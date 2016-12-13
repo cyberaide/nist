@@ -133,12 +133,13 @@ ridge ending and bifurcations in a fingerprint image; and BOZORTH3
 \cite{garris2001user} to identify matches. Both are are part of the NIST
 Biometric Image Software (NBIS) \cite{watson2007user}.
 
-To execute this usecase we need to deploy an application to analyze
-the dataset. It internally uses cloudmesh to deploy an the software
-stack The implemented \cite{nist-fingerprint} solution uses a software
-stack comprising of Hadoop HDFS\cite{hadoop}, YARN\cite{hadoop},
-Apache Spark\cite{apache-spark}, Apache HBase\cite{apache-hbase}, and
-Apache drill\cite{apache-drill}, Scala\cite{scala-lang}, and the NBIS
+To execute this usecase\cite{nist-fingerprint} we need to deploy an
+application to analyze the dataset. It internally uses cloudmesh to
+deploy an the software stack The implemented \cite{nist-fingerprint}
+solution uses a software stack comprising of Hadoop HDFS\cite{hadoop},
+YARN\cite{hadoop}, Apache Spark\cite{apache-spark}, Apache
+HBase\cite{apache-hbase}, and Apache drill\cite{apache-drill},
+Scala\cite{scala-lang}, and the NBIS
 software\cite{flanagan2010nist}. A Hadoop cluster is deployed and YARN
 used to schedule Spark jobs that load the images into HBase, process
 the images, and compute the matches. Apache Drill, with the HBase
