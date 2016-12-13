@@ -49,22 +49,22 @@ From these examples we have examined on six of the NIST uses case projects to id
   \begin{small}
     \begin{center}
       \resizebox{\columnwidth}{!}{
-        \begin{tabular}{|c|*{25}c|}
+        \begin{tabular}{|c|*{23}c|}
           \hline
 
-          ID & \rot{Hadoop} & \rot{Mesos} & \rot{Spark} & \rot{Storm} & \rot{Pig} & \rot{Hive} & \rot{Drill} & \rot{HDFS} & \rot{HBase} 
-             & \rot{Mysql} & \rot{MongoDB} & \rot{RethinkDB} & \rot{Mahout} & \rot{D3 and Tableau} & \rot{nltk} & \rot{MLlib} 
+          ID & \rot{Hadoop} & \rot{Mesos} & \rot{Spark} & \rot{Storm} & \rot{Pig} & \rot{Hive} & \rot{Drill} & \rot{HBase} 
+             & \rot{Mysql} & \rot{MongoDB} & \rot{Mahout} & \rot{D3 and Tableau} & \rot{nltk} & \rot{MLlib} 
              & \rot{Lucene/Solr} & \rot{OpenCV} & \rot{Python} & \rot{Java} & \rot{Ganglia} & \rot{Nagios} & \rot{zookeeper} & \rot{AlchemyAPI}
              & \rot{R} \\ \hline
 
-          % ID  & Hadoop & Mesos & Spark & Storm & Pig & Hive & Drill & hdfs & HBase & msql & mongo & rDB & mht & D3/T & nltt & mllib & lu/slr & OCV & Py  & Java & Gngla & Ngs & ZK  & AlchemyAPI & R   
-          N$_1$ & \OK    &       & \OK   &       &     & \OK  & \OK   &      & \OK   & \OK  &       &     &     &      &      &       &        &     &     & \OK  & \OK   & \OK & \OK &            &     \\ \hline
-          N$_2$ &        & \OK   & \OK   &       &     &      &       &      &       &      &       &     &     &      &      &       &        & \OK & \OK &      &       &     & \OK &            &     \\ \hline
-          N$_3$ &        &       &       & \OK   &     &      &       &      & \OK   &      & \OK   &     &     & \OK  & \OK  &       &        &     & \OK & \OK  &       &     & \OK & \OK        & \OK \\ \hline
-          N$_4$ & \OK    &       & \OK   &       &     &      &       &      & \OK   &      &       &     & \OK & \OK  &      & \OK   & \OK    &     &     & \OK  &       &     & \OK &            &     \\ \hline
-          N$_5$ & \OK    &       & \OK   &       &     &      &       &      &       &      &       &     & \OK & \OK  &      & \OK   &        &     &     & \OK  &       &     &     &            &     \\ \hline
-          N$_6$ & \OK    &       & \OK   &       & \OK & \OK  &       &      & \OK   &      & \OK   &     & \OK & \OK  &      & \OK   & \OK    &     &     & \OK  &       &     & \OK &            &     \\ \hline
-          count & 4      & 1     & 5     & 1     & 1   & 2    & 1     & 0    & 4     & 1    & 2     & 0   & 3   & 4    & 1    & 3     & 2      & 1   & 2   & 5    & 1     & 1   & 5   & 1          & 1   \\ \hline
+          % ID  & Hadoop & Mesos & Spark & Storm & Pig & Hive & Drill & HBase & msql & mongo & mht & D3/T & nltt & mllib & lu/slr & OCV & Py  & Java & Gngla & Ngs & ZK  & AlchemyAPI & R   
+          N$_1$ & \OK    &       & \OK   &       &     & \OK  & \OK   & \OK   & \OK  &       &     &      &      &       &        &     &     & \OK  & \OK   & \OK & \OK &            &     \\ \hline
+          N$_2$ &        & \OK   & \OK   &       &     &      &       &       &      &       &     &      &      &       &        & \OK & \OK &      &       &     & \OK &            &     \\ \hline
+          N$_3$ &        &       &       & \OK   &     &      &       & \OK   &      & \OK   &     & \OK  & \OK  &       &        &     & \OK & \OK  &       &     & \OK & \OK        & \OK \\ \hline
+          N$_4$ & \OK    &       & \OK   &       &     &      &       & \OK   &      &       & \OK & \OK  &      & \OK   & \OK    &     &     & \OK  &       &     & \OK &            &     \\ \hline
+          N$_5$ & \OK    &       & \OK   &       &     &      &       &       &      &       & \OK & \OK  &      & \OK   &        &     &     & \OK  &       &     &     &            &     \\ \hline
+          N$_6$ & \OK    &       & \OK   &       & \OK & \OK  &       & \OK   &      & \OK   & \OK & \OK  &      & \OK   & \OK    &     &     & \OK  &       &     & \OK &            &     \\ \hline
+          count & 4      & 1     & 5     & 1     & 1   & 2    & 1     & 4     & 1    & 2     & 3   & 4    & 1    & 3     & 2      & 1   & 2   & 5    & 1     & 1   & 5   & 1          & 1   \\ \hline
 
         \end{tabular}
       }
@@ -82,41 +82,31 @@ From these examples we have examined on six of the NIST uses case projects to id
 
       \hline
 
-      ID & Use Case & Dataset & \shortstack{Size\\(GB)} \tabularnewline \hline
-      N$_1$ & Fingerprint Matching & Special Database 14 - NIST Mated Fingerprint Card Pairs 2 & 2.1 \tabularnewline \hline
-      N$_2$ & NIST Human and Face Detection & INRIA Person Dataset & 0.96 \tabularnewline \hline
-      N$_3$ & NIST Twitter Analysis & Twitter & - \tabularnewline \hline
-      N$_4$ & NIST Analytics for Healtcare Data / Health Informatics & Medicare Part-B in 2014 from Center for Medicare and Medicaid Services (CMS) & 0.1 \tabularnewline \hline
-      N$_5$ & NIST Spatial Big Data/Spatial Statistics/Geographic Information Systems & Uber & 0.2 \tabularnewline \hline
-      N$_6$ & NIST Data Warehousing and Data Mining & TBD & - \tabularnewline \hline
+      ID    & Use Case                                                                & Dataset                                                                      & Size (GB) \tabularnewline \hline
+      N$_1$ & Fingerprint Matching                                                    & Special Database 14 - NIST Mated Fingerprint Card Pairs 2                    & 2.1       \tabularnewline \hline
+      N$_2$ & NIST Human and Face Detection                                           & INRIA Person Dataset                                                         & 0.96      \tabularnewline \hline
+      N$_3$ & NIST Twitter Analysis                                                   & Twitter                                                                      & -         \tabularnewline \hline
+      N$_4$ & NIST Analytics for Healtcare Data / Health Informatics                  & Medicare Part-B in 2014 from Center for Medicare and Medicaid Services (CMS) & 0.1       \tabularnewline \hline
+      N$_5$ & NIST Spatial Big Data/Spatial Statistics/Geographic Information Systems & Uber                                                                         & 0.2       \tabularnewline \hline
+      N$_6$ & NIST Data Warehousing and Data Mining                                   & TBD                                                                          & -         \tabularnewline \hline
 
     \end{tabular}
   \end{center}
 \end{table*}
 
 
+Deployment of a single technology may result in development of several ansible roles comprising dependencies.
+The implementation of the Fingerprint usecases (N$_1$) Ansible playbook uses 19 such roles that may be reused in other projects and Face Detection (N$_2$) uses five.
+Furthermore, The remaining four NIST use cases N$_4$ - N$_6$ (Twitter analysis, Healthcare, Spatial data, Data Wharehousing) may contribute an addition 27 roles.
 
+In summary, we have looked at 6 projects from the 51 NIST use cases to identify 51 Ansible roles.
+Looking through 81 class projects over two semesters at Indiana University showed 62 roles, of which a subset were found to be repeatedly used across various projects.
 
-For them we have identified 19 roles to be defined as part of the
-Fingerprint example, and 5 roles for the Face detection. Furthermore,
-we have identified additional 27 roles for the other four NIST use
-cases that are included in Twitter Analysis, Analytics for Healthcare
-Data/Health Informatics, Spatial Big Data/Spatial
-Statistics/Geographic Information Systems, and Data Warehousing and
-Data Mining
-
-In addition we analyzed 36 projects from a big data class taught at
-Indiana University in Spring '16. Here we identified 41 roles in 45
-projects showcasing a wide divergent use case scenario.  A similar
-class thought in Fall '15 resulted in 62 roles while using 39
-datasets.
-
-
-\footnote{6 projects from the 51 NIST use cases
-81 other projects surveyed as part of classes taught at Indiana University
-Findings
-We found 62 roles from which many are repeatedly used in various projects. 
-}
+% In addition we analyzed 36 projects from a big data class taught at
+% Indiana University in Spring '16. Here we identified 41 roles in 45
+% projects showcasing a wide divergent use case scenario.  A similar
+% class thought in Fall '15 resulted in 62 roles while using 39
+% datasets.
 
 
 
