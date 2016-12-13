@@ -151,17 +151,17 @@ it with cloudmesh deployment strategies and services.
 
 \subsection{Face Detection (N$_2$)}
 
-\TODO{Hyungro: define the references}
-
 Human detection and face detection have been studied during the last
 several years and models for them have improved along with Histograms
-of Oriented Gradients (HOG) \cite{dalal2005histograms} for Human Detection. 
+of Oriented Gradients (HOG) \cite{dalal2005histograms} for Human
+Detection.
 
 
 
-We use OpenCV \cite{bradski2000opencv}, a Computer Vision library including the
-Support Vector Machine (SVM) classifier, and the Histogram of Oriented
-Gradient (HOG) \cite{dalal2005histograms}object detector for pedestrian detection and
+We use\cite{nist-facedetection} OpenCV \cite{bradski2000opencv}, a
+Computer Vision library including the Support Vector Machine (SVM)
+classifier, and the Histogram of Oriented Gradient (HOG)
+\cite{dalal2005histograms}object detector for pedestrian detection and
 INRIA Person Dataset is one of popular samples for both training and
 testing purposes. HOG with SVM model is used used as object detectors
 and classifiers while the python libraries from OpenCV provide these
@@ -173,30 +173,21 @@ To enable this analysis we use cloudmesh to deployed Apache Spark on a
 Mesos clusters and install the OpenCV software and its Python API. We
 also update the python software stack. Then we to train and apply
 detection models from OpenCV using Python API. We use the INRIA Person
-Dataset \cite{dalal2005inria}. This dataset contains positive and negative images for
-training and test purposes with annotation files for upright persons in each
-image. 288 positive test images, 453 negative test images, 614 positive
-training images and 1218 negative training images are included along with
-normalized 64x128 pixel formats. The size of the dataset is 970MB.
+Dataset \cite{dalal2005inria}. This dataset contains positive and
+negative images for training and test purposes with annotation files
+for upright persons in each image. 288 positive test images, 453
+negative test images, 614 positive training images and 1218 negative
+training images are included along with normalized 64x128 pixel
+formats. The size of the dataset is 970MB.
 
 Cloudmesh deploys and builds the clusters for batch-processing large
 datasets, Internally cloudmesh uses for this ansible scripts to
 support installation and configuration while leveraging available
 cloud compute resources. We have for this example developed or are
 reusing five ansible roles that we developed for other usecases::
-Apache Spark \cite{ansible-role-spark}
-Apache Mesos \cite{hindman2011mesos}, Apache Zookeeper
-\cite{hunt2010zookeeper}, \TODO{Hyungro: make reference out of: Ansible Role
-  for Mesos (with Zookeeper):
-  https://github.com/VirtualClusters/ansible-role-mesos-by-mesosphere}
-  OpenCV (with Python) \cite{ansible-role-opencv}
-
-
-
-\cite{nist-facedetection}
-\TODO{Hyungro: make reference out of: Ansible Main Play (Include Statement): https://github.com/futuresystems/pedestrian-and-face-detection}
-
-\TODO{Hyungro: add also the original pointed and not just the ansible citation,
-e.g. each should have to citations}
+Apache Spark Role \cite{ansible-role-spark} Apache Mesos Mesos
+\cite{hindman2011mesos}, Apache Zookeeper Role
+\cite{hunt2010zookeeper}, OpenCV Role (with Python)
+\cite{ansible-role-opencv}.
 
 
