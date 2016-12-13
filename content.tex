@@ -424,7 +424,7 @@ directory name is appended with an increasing index. To run such a
 script we can on our client simply say
  
 \begin{Verbatim}
-    $ cm hpc run SCRIPT
+    cm hpc run SCRIPT
 \end{Verbatim}
 
 Some more details about out improved interfaces are given in
@@ -644,7 +644,7 @@ Contrasting Containers: offer an abstraction to share the existing hardware and 
 
 
 
-\subsection{Cloudmesh Access and Management of virtual clusters}
+\subsubsection{Cloudmesh Access and Management of virtual clusters}
 Cloudmesh is an API, command line tool, and command shell allowing the easy utilization of HPC, Clouds, Containers through machine abstractions
 Switching between alternative services can be achieved by updating a
 single variable.
@@ -657,7 +657,7 @@ EC2, AWS, Azure                                                                 
 Devstack, Trystack, Virtualbox                                                       (Desktop Clouds)
 A user could use all of them
 
-\subsection{Cloudmesh and Comet Cloud Virtual Cluster}
+\subsubsection{Cloudmesh and Comet Cloud Virtual Cluster}
 
 Comet is a NSF sponsored super computer offered by SDSC to the
 community. It operates in two modes: HPC and virtual clusters Comet
@@ -744,40 +744,36 @@ used as a layer within a different composition (illustrated in
 Figure~\ref{F:stack-composition}).
 
 
-\begin{figure}
-\centering
-\includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
-\caption{Multiple stacks may be composed. Here, the
-  {\it Fingerprint} stack is a composition of the Apache
-  {\it Drill}, {\it HBase}, and {\it Spark}
-  stacks. The {\it Fingerprint} stack is then included as a layer withing
-  another composition built upon {\it Hadoop} and extended with the
-  {\it Web} layers. The {\it Web} layer itself may be composed
-  of other layers.
-  \label{F:stack-composition}}
-\end{figure}
 
 To support the goals of a sophisticated deployment framework, stack
 need to support the following properties:
 
 \begin{description}
+
 \item [Idempotent.]  Deployment of a stack should only bring the
   system to the desired state: applying a stack multiple times should
   be indistinguishable from applying it a single time. This also
   provides a measure of fault tolerance to the deployment.
+
 \item [Reproducible.] Deployments of a given stack onto multiple
   identical targets should yield equivalent systems.
+
 \item [Self contained.] All components need to bring a system to the
   stack's desired state should be declared by the stack.
+
 \item [Configurable.] When a stack a defined default values may be
   assumed to take effect on deployment. In order to allow a system to
   be tuned to the desired state, depending on the user's requirements,
   these values must be configurable.
+
 \item [Composable.] The semantics of deploying two stacks should be clear.
+
 \item [Linkable.] Stacks should be able to link to each other to
   define choreography roles and avoid duplication.
+
 \item [Extensible.] Stacks need to be easily extensible in order to be
   adapted to specific deployment needs.
+
 \end{description}
 
 To support this effort we define a cloudmesh {\em stack} command {\it
@@ -818,9 +814,25 @@ and {\it web} stacks. Then, a cluster of four nodes is launched onto
 which the newly created stack is deployed. We use indentations to
 illustrate better the association of a stack containing a composition
 of layers.\footnote{the term layer may need to be replaced with the
-  term add. We also need to document that the last stack is used by default.}
+  term add. We also need to document that the last stack is used by
+  default.}  As part of this example we use the convenient stack
+command introduced by cloudmesh. A portion of its manual page is shown
+in Figure~\ref{F:cm-stack-command}.
 
-\begin{figure}[htb]
+\begin{figure}
+\centering
+\includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
+\caption{Multiple stacks may be composed. Here, the
+  {\it Fingerprint} stack is a composition of the Apache
+  {\it Drill}, {\it HBase}, and {\it Spark}
+  stacks. The {\it Fingerprint} stack is then included as a layer withing
+  another composition built upon {\it Hadoop} and extended with the
+  {\it Web} layers. The {\it Web} layer itself may be composed
+  of other layers.
+  \label{F:stack-composition}}
+%\end{figure}
+
+%\begin{figure}[htb]
 \begin{Verbatim}
     cm stack create my-analytics-stack
        cm stack layer hadoop
@@ -832,7 +844,31 @@ of layers.\footnote{the term layer may need to be replaced with the
 \end{Verbatim}
 \vspace{-12pt}
 \caption{Commands to deploy the fingerprint $N_1$ stack}
+%\end{figure}
+
+%\begin{figure}[htb]
+%\begin{lstlisting}
+%[fontfamily=helvetica]
+\begin{Verbatim}
+    stack check [--stack=bds]
+    stack init [--no-activate] 
+               [--branch=master] 
+               [--user=$\$$USER] 
+               [--name=<project>] <ip>...
+    stack list [--sort=<field=date>] 
+               [--list=<field,...=all>]
+    stack project [<name>]
+    stack deploy [<play>...] 
+                 [--define=<define>...]
+\end{Verbatim}
+\vspace{-12pt}
+%\end{lstlisting}
+\caption{Excerpt of the Cloudmesh stack manual page}
+\label{F:cm-stack-command}
 \end{figure}
+
+
+
 
 \subsubsection{Stack Composition} \label{S:composition}
 \TODO{Badi}
@@ -898,34 +934,12 @@ git repository to locate the ansible scripts and execute them
 
 
 
-Figure~\ref{F:cm-stack-command} ...
-
-\begin{figure}[htb]
-%\begin{lstlisting}
-%[fontfamily=helvetica]
-\begin{Verbatim}
-  stack check [--stack=bds]
-  stack init [--no-activate] 
-             [--branch=master] 
-             [--user=$\$$USER] 
-             [--name=<project>] <ip>...
-  stack list [--sort=<field=date>] 
-             [--list=<field,...=all>]
-  stack project [<name>]
-  stack deploy [<play>...] 
-               [--define=<define>...]
-\end{Verbatim}
-%\end{lstlisting}
-\caption{Excerpt of the Cloudmesh stack manual page}
-\label{F:cm-stack-command}
-\end{figure}
-
 
 \subsection{Create a hadoop cluster}
 
 \begin{Verbatim}[fontfamily=helvetica]
-$ cm hadoop start --user cc --name=cluster_1
-$ cm delete --name=cluster_1 --all  
+    cm hadoop start --user cc --name=cluster_1
+    cm delete --name=cluster_1 --all  
 \end{Verbatim}
 
 
@@ -951,13 +965,13 @@ customize their virtual cluster.
 
 Example: to setup a stack with Hadoop, Spark, and Hive:
 \begin{Verbatim}
-$ ansible-playbook play-hadoop.yml addons/spark.yml addons/hive.yml
+    ansible-playbook play-hadoop.yml addons/spark.yml addons/hive.yml
 \end{Verbatim}
 
 Example: to setup a stack with Hadoop, HBase, and Drill:
 
 \begin{Verbatim}
-$ ansible-playbook play-hadoop.yml addons/hbase.yml addons/drill.yml
+    ansible-playbook play-hadoop.yml addons/hbase.yml addons/drill.yml
 \end{Verbatim}
 
 It is provided online at https://github.com/futuresystems/big-data-stack
@@ -999,7 +1013,7 @@ Face Detection Screenshot Running EC2 provisioning playbook
 on command line:
 
 \begin{Verbatim}
-$ ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
+    ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
 \end{Verbatim} 
 
 
