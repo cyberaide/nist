@@ -135,19 +135,19 @@ Biometric Image Software (NBIS) \cite{watson2007user}.
 
 To execute this usecase we need to deploy an application to analyze
 the dataset. It internally uses cloudmesh to deploy an the software
-stack The implemented \cite{nist-fingerprint}
-solution uses a software stack comprising of HDFS, YARN, Apache Spark,
-Apache HBase, and Apache drill, Scaka, and the NBIS software. A Hadoop
-cluster is deployed and YARN used to schedule Spark jobs that load the
-images into HBase, process the images, and compute the matches. Apache
-Drill, with the HBase plugin, can then be used to generate reports
-with the NBIS tools\cite{watson2007user}. The results are stored in HBase and
-Apache Drill \cite{??} is used to query the results.  The code
-leverages tools and services is based on \cite{nist-bd-pwg}, while significantly
-enhancing it with cloudmesh deployment strategies and services.
+stack The implemented \cite{nist-fingerprint} solution uses a software
+stack comprising of Hadoop HDFS\cite{hadoop}, YARN\cite{hadoop},
+Apache Spark\cite{apache-spark}, Apache HBase\cite{apache-hbase}, and
+Apache drill\cite{apache-drill}, Scala\cite{scala-lang}, and the NBIS
+software\cite{flanagan2010nist}. A Hadoop cluster is deployed and YARN
+used to schedule Spark jobs that load the images into HBase, process
+the images, and compute the matches. Apache Drill, with the HBase
+plugin, can then be used to generate reports with the NBIS
+tools\cite{watson2007user}. The results are stored in HBase and Apache
+Drill is used to query the results.  The code leverages tools and
+services is based on \cite{nist-bd-pwg}, while significantly enhancing
+it with cloudmesh deployment strategies and services.
 
-\cite{flanagan2010nist}
-\TODO{Hyungro: create citation for this. http://www.nist.gov/itl/iad/ig/nbis.cfm}
 
 \subsection{Face Detection (N$_2$)}
 
