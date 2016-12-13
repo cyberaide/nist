@@ -868,10 +868,7 @@ in Figure~\ref{F:cm-stack-command}.
 \end{figure}
 
 
-
-
-\subsubsection{Stack Composition} \label{S:composition}
-\TODO{Badi}
+\subsubsection{Stack Composition and Linking} \label{S:composition}
 
 A {\it Composition} creates a new stack by combining multiple other
 stacks.  The unit of deployment is a {\it Stack}, but each stack may
@@ -897,53 +894,52 @@ Evaluation of {\it My Analytics Stack} requires the evaluation of the
 
 
 \subsubsection{Stack Linking} \label{S:stack-linking}
-\TODO{Badi}
 
-\subsubsection{Language for Interpreted Stack Programming} \label{S:stack-lisp}
-\TODO{Badi, title}
+Stack linking allows other stacks to reuse stacks not just by copying
+the entire content of them into the stack, but by simply linking them
+with a url into the stack. This will than allow the reuse of
+compassable stacks more easily. Care must be taken when changes take
+place in linkable stack, thus they can be augmented with version
+information to avoid undesirable side effects.
 
+\subsubsection{Stack Programming} \label{S:stack-programming}
 
-Building virtual clusters is easy
-
-\begin{Verbatim}
-cm launcher cluster -n 10
-\end{Verbatim}
-
-Gives a virtual cluster with 10 nodes and allows the user to login between each node
-
-\begin{Verbatim}
-cm launcher hadoop -n 10 --cloud=rackspace
-\end{Verbatim}
-
-Finds the playbook for creating a hadoop cluster and launches it on a cloud called rackspace
-
-Building enhance virtual clusters is easy
-Virtual cluster for face detection
+Building virtual clusters running hadoop becomes easy for users while
+leveraging cloudmesh stack. First we utilize the virtual cluster
+command to create a cluster (for example with 10 nosed). It also will 
+launch the deployment of the stack called hadoop which is ocated in
+our cloudmesh stack repository
 
 \begin{Verbatim}
-cm launcher facedetection -n 10 --cloud=rackspace
+cm stack hadoop -n 10 --name=cluster_1 --cloud=futuresystems
+\end{Verbatim}
+\vspace{-12pt}
+
+To specify our face detection stack 
+we  can say 
+
+\begin{Verbatim}
+cm stack facedetection -n 10 --cloud=futuresystems
 \end{Verbatim}
 
-Finds the playbook for creating a virtual cluster and launches the
-deployment for the face detection project.  Cloudmesh will look in the
-git repository to locate the ansible scripts and execute them
+FutureSystems is one of the Clouds we maintain at Indiana University
+and is based on OpenStack \cite{??}. To list the available stacks we
+can issue the command
 
+cm stack list [--url=...]
 
+It is possible to specify an optional list of URLs to add more stack
+repositories.
 
-----
-
-
-
-
-\subsection{Create a hadoop cluster}
+Once we have defined the virtaul cluster and deployed the needed
+software stack, we need to make sure that we can interact easily with
+it while for example starting services or deleting the cluster
 
 \begin{Verbatim}[fontfamily=helvetica]
-    cm hadoop start --user cc --name=cluster_1
+    cm hadoop start --name=cluster_1
     cm delete --name=cluster_1 --all  
 \end{Verbatim}
-
-
-\section{Cloudmesh Big Data Stack}\label{S:cm-bds}
+\vspace{-12pt}
 
 The Cloudmesh big data stack commands are leveraging abstractions and
 can therefore implemented while utilizing and interacting with various
@@ -953,71 +949,21 @@ scientists trying to use big data as part of their application
 missions. While providing them easily to the scientists complex big
 data tasks can be achieved more easily.
 
-\subsection{Devops}
 
+\subsection{Stack Repository}
 
-\subsection{Playbooks and Roles}
+We are providing at this time a number of software stacks while
+leveraging ansible. However previously we also showcased the use of
+OpenStack Heat demonstrating that it is possible to use different
+deployment tools within cloudmesh.  The current stacks that we
+developed include Drill, Ganglia, Hadoop, Hbase, Hive, Java, Limits,
+Maven, Mysql, Nagios, Pig, Spark, Supervisord, Zookeeper. Layerd
+stacks which reuse them include Hadoop, Hbase, Pig, Spark, Drill, and
+Hive.
 
-BDS is a collection of playbooks for deploying the tools of big data
-analytics, given a set of accessible IP addresses. It allows the user
-to select a subset of the available tools to deploy in order to
-customize their virtual cluster.
-
-Example: to setup a stack with Hadoop, Spark, and Hive:
-\begin{Verbatim}
-    ansible-playbook play-hadoop.yml addons/spark.yml addons/hive.yml
-\end{Verbatim}
-
-Example: to setup a stack with Hadoop, HBase, and Drill:
-
-\begin{Verbatim}
-    ansible-playbook play-hadoop.yml addons/hbase.yml addons/drill.yml
-\end{Verbatim}
-
-It is provided online at https://github.com/futuresystems/big-data-stack
-
-\begin{description}
-
-\item[Roles:]
-Drill,
-Ganglia,
-Hadoop,
-Hbase,
-Hive,
-Java,
-Limits,
-Maven,
-Mysql,
-Nagios,
-Pig,
-Spark,
-Supervisord,
-Zookeeper
-
-\item[Playbooks:]
-Hadoop
-Hbase
-Pig
-Spark
-Drill
-Hive
-\end{description}
-
-\subsection{Towards Cloudmesh}
-
-BDS is ideally suited to be included in cloudmesh as one of its
-deployment management tools. Cloudmesh adds features to easily access
-infrastructure. ... more in the next another section we present later
-
-Face Detection Screenshot Running EC2 provisioning playbook
-on command line:
-
-\begin{Verbatim}
-    ansible-playbook boot-ec2-with-vpc.yml -i ec2.py
-\end{Verbatim} 
-
-
-
+The use ov cloudmesh stacks is integrated in ongoing classes with a
+large number of students taught at Indiana University while additional
+stacks are being tested and added.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
