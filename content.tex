@@ -698,53 +698,60 @@ $ cm boot
 \end{Verbatim}
 
 \subsection{Cloudmesh Launcher abstraction}
-Important is that cloudmesh introduces an abstraction for creating virtual clusters that we call “launcher”. A launch specifies the creation of a virtual cluster. Such a launch can use
-Ansible
-Chef, …
-Openstack Heat
-Ssh
-Make
-Pegasus (Grids)
+
+Important is that cloudmesh introduces an abstraction for creating
+virtual clusters that we call “launcher”. A launch specifies the
+creation of a virtual cluster. 
+
+Such a launch can use
+Ansible,
+Chef,
+Openstack Heat,
+Ssh,
+Make, and
+Pegasus.
+
+
 Hence a variety of different launch platforms can be integrated into cloudmesh and work from different community contributions can be supported.
 
 Building virtual clusters is easy
+
+\begin{Verbatim}
 cm launcher cluster -n 10
+\end{Verbatim}
+
 Gives a virtual cluster with 10 nodes and allows the user to login between each node
 
-
+\begin{Verbatim}
 cm launcher hadoop -n 10 --cloud=rackspace
+\end{Verbatim}
+
 Finds the playbook for creating a hadoop cluster and launches it on a cloud called rackspace
-
-
 
 Building enhance virtual clusters is easy
 Virtual cluster for face detection
+
+\begin{Verbatim}
 cm launcher facedetection -n 10 --cloud=rackspace
-Finds the playbook for creating a virtual cluster and launches the deployment for the face detection project.
-Cloudmesh will look in the git repository to locate the ansible scripts and execute them
+\end{Verbatim}
 
-
-Cloudmesh Launcher Portal (in development)
-       Specific Launch                                    List of Launchers
-
-
+Finds the playbook for creating a virtual cluster and launches the
+deployment for the face detection project.  Cloudmesh will look in the
+git repository to locate the ansible scripts and execute them
 
 
 
-Automatically generates Graphical representation of input parameters                                  
-
-
-\subsection{Cloudmesh Stack}
+\subsection{Cloudmesh Stack} 
 \label{S:stacks}
 
 The cloudmesh stack command tackles the problem of reproducibly
 deploying software stacks and packages on virtual clusters.
 
-A \emph{Stack} is a way to modify a collection of accessible nodes in
+A {\it Stack} is a way to modify a collection of accessible nodes in
 order to bring them to a desired state. This execution unit should be
 able to use multiple different deployment technologies: eg Ansible,
 Chef, Puppet, NixOS, shell scripts, etc. These deployment units are
-then composed (a stack \emph{Composition}) into layers to form a new
+then composed (a stack {\it Composition}) into layers to form a new
 deployment unit that can be used as a layer within a different
 composition. See Figure~\ref{F:stack-composition} for an illustration.
 
@@ -753,11 +760,11 @@ composition. See Figure~\ref{F:stack-composition} for an illustration.
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-composition.pdf}
 \caption{This shows how stacks may be composed. The
-  \emph{Fingerprint} stack is a composition of the Apache
-  \emph{Drill}, \emph{HBase}, and \emph{Spark}
-  stacks. \emph{Fingerprint} is then included as a layer withing
-  another composition built upon \emph{Hadoop} and extended with the
-  \emph{Web} layers. The \emph{Web} layer itself may be composed
+  {\it Fingerprint} stack is a composition of the Apache
+  {\it Drill}, {\it HBase}, and {\it Spark}
+  stacks. {\it Fingerprint} is then included as a layer withing
+  another composition built upon {\it Hadoop} and extended with the
+  {\it Web} layers. The {\it Web} layer itself may be composed
   of other layers.
   \label{F:stack-composition}}
 \end{figure}
@@ -802,16 +809,16 @@ installation and configuration phase, unable to progress due to the
 complexity involved in managing it. While making cloudmesh stack
 available and targeting often used deployment stacks we wer able to
 assist these groups significantly.  The cloudmesh stack command has
-been initially called {\em launcher} but has been renamed to {\em
+been initially called {\it launcher} but has been renamed to {\em
   stack} to make it more clear that it is more than starting a
 program. It reuses technologies defined in \TODO{\cite{}
   https://github.com/futuresystems/big-data-stack}.
 
 The following incantations may be used to create and deploy the stack
 shown in Figure~\ref{F:stack-graph}. These commands will create the
-\emph{fingerprint} stack from preexisting \emph{spark}, \emph{hbase},
-and \emph{drill} stacks and compose it with the predefined
-\emph{hadoop} and \emph{web} stacks. Then, a cluster of four nodes is
+{\it fingerprint} stack from preexisting {\it spark}, {\it hbase},
+and {\it drill} stacks and compose it with the predefined
+{\it hadoop} and {\it web} stacks. Then, a cluster of four nodes is
 launched onto which the newly created stack is deployed.
 
 \begin{Verbatim}[fontfamily=helvetica]
@@ -830,8 +837,8 @@ cm stack deploy
 \subsubsection{Stack Composition} \label{S:composition}
 \TODO{Badi}
 
-A \emph{Composition} creates a new stack by combining multiple other
-stacks.  The unit of deployment is a \emph{Stack}, but each stack may
+A {\it Composition} creates a new stack by combining multiple other
+stacks.  The unit of deployment is a {\it Stack}, but each stack may
 be a composed of one or more layers of other stacks, forming a graph
 structure whose evaluation results in deployment onto the target
 cluster.
@@ -840,16 +847,17 @@ cluster.
 \centering
 \includegraphics[width=1\columnwidth]{images/cloudmesh-stack-graph.pdf}
 \caption{Evaluation of a stack.
-  The \emph{My Analytics Stack} is composed of the \emph{Fingerprint} and \emph{Web} layers.
+  The {\it My Analytics Stack} is composed of the {\it Fingerprint} and {\it Web} layers.
   These in turn are themselves compositions.
   Numbers indicate order of evaluation.
-  While \emph{spark}, \emph{hbase}, and \emph{drill} depend on \emph{java}, 
+  While {\it spark}, {\it hbase}, and {\it drill} depend on {\it java}, 
   re-evaluation (\textit{4} - \textit{6}) is not problematic due to the idempotency property.
   \label{F:stack-graph}}
 \end{figure}
 
 Figure~\ref{F:stack-graph} illustrates how Figure~\ref{F:stack-composition} (while expanding on it) may be evaluated.
-Evaluation of \emph{My Analytics Stack} requires the evaluation of the \emph{Fingerprint} and \emph{Web} stacks, each of which are compositions of other stacks.
+Evaluation of {\it My Analytics Stack} requires the evaluation of the
+{\it Fingerprint} and {\it Web} stacks, each of which are compositions of other stacks.
 
 
 \subsubsection{Stack Linking} \label{S:stack-linking}
