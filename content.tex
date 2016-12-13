@@ -658,44 +658,57 @@ Devstack, Trystack, Virtualbox                                                  
 A user could use all of them
 
 \subsection{Cloudmesh and Comet Cloud Virtual Cluster}
-Comet is a NSF sponsored super computer offered by SDSC to the community. It operates in two modes: HPC and virtual clusters
-Comet virtual clusters are low level and offer the HPC administrator the view of a cluster as if it were hardware. This is achieved via virtualization and low level exposure of network services. The administrator has full control over the cluster.
-This is achieved by the integration of virtualization and SRIOV within Rocks. Thus the same cluster can not only be used in virtualized mode, but also in HPC mode
-Comet users can therefore use HPC and virtualized clusters on the same hardware. Virtual clusters are treated as a special kind of compute job
-Based on our long experience in this field we have delivered to SDSC an extension to cloudmesh that allows the creation and management of virtual clusters within comet
-We can today use more than Comet
-Accessing Virtual Clusters
-REST API
-Command line interface
-Command shell for scripting
-Console Access
-Web Page
 
-\begin{Verbatim}
-# Simple commands allow easy management
+Comet is a NSF sponsored super computer offered by SDSC to the
+community. It operates in two modes: HPC and virtual clusters Comet
+virtual clusters are low level and offer the HPC administrator the
+view of a cluster as if it were hardware. This is achieved via
+virtualization and low level exposure of network services. The
+administrator has full control over the cluster.  This is achieved by
+the integration of virtualization and SRIOV within Rocks. Thus the
+same cluster can not only be used in virtualized mode, but also in HPC
+mode Comet users can therefore use HPC and virtualized clusters on the
+same hardware. Virtual clusters are treated as a special kind of
+compute job Based on our long experience in this field we have
+delivered to SDSC an extension to cloudmesh that allows the creation
+and management of virtual clusters within comet. A subset of commands
+that showcase how easy the interaction with comet is shown in Table \ref{T:comet}
 
-$ cm comet cluster  ID
-    # Show the cluster details
+% We can today use more than Comet
+% Accessing Virtual Clusters
+% REST API
+% Command line interface
+% Command shell for scripting
+% Console Access
+% Web Page
 
-$ cm comet power on ID vm-ID -[0-3] --walltime=6h
-    # Power 3 nodes on for 6 hours
-
-$ cm comet image attach image.iso ID vm-ID-0
-    # Attach an image
-
-$ cm comet boot ID vm-ID-0
-    # Boot node 0
-
-$ cm comet console vc4
-    # Console 
-
-# Switching infrastructure in cloudmesh is easy
-
-$ cm var cloud=jetstream / bridges / aws / …
-$ cm default cloud=$cloud
-$ cm boot
-\end{Verbatim}
-
+\begin{table*}[htb]
+\caption{Commands to interact with XSEDE comet virtual machine
+  management}\label{T:comet}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Command & Description\\
+\hline
+\hline
+cm comet cluster  ID
+  &  Show the cluster details \\
+cm comet power on ID vm-ID -[0-3] --walltime=6h
+  & Power 3 nodes on for 6 hours \\
+cm comet image attach image.iso ID vm-ID-0
+  &  Attach an image \\
+cm comet boot ID vm-ID-0
+  & Boot node 0 \\
+cm comet console vc4
+  & Start interactive console for vc4  \\
+cm var cloud=jetstream / bridges / aws / comet
+   & easy switching of infrastructure \\
+cm boot
+   & booting of a virtual machine with default parameters\\
+\hline
+\end{tabular}
+\end{center}
+\end{table*}
 
 
 
