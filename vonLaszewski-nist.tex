@@ -66,6 +66,15 @@
 \def\@copyrightspace{\relax}
 \makeatother
 
+\makeatletter
+\setcounter{tocdepth}{5}
+\def\contentsname{Contents}
+\def\tableofcontents{%
+    \section*{\MakeUppercase{\contentsname}}%
+    \@starttoc{toc}%
+    }
+\makeatother
+
 
 \newcommand{\TOC}{{\large\bf \TITLE}
 
