@@ -1,0 +1,127 @@
+# -*- mode: yaml -*-
+
+# This is a Swagger API definition file
+# http://swagger.io/specification/
+swagger: '2.0'
+
+info:
+  title: Cloudmesh API
+  description: TBD
+  version: "0.1.0"
+
+basePath: "/v1.0"
+schemes:
+  - "http"
+  - "https"
+
+produces: 
+  - application/json
+
+paths:
+  /cluster:
+    get:
+      description: List available clusters
+      responses: { default: {description: TBD} }
+    post:
+      description: Launch a cluster
+      responses: { default: {description: TBD} }
+    delete:
+      description: Delete all available clusters
+      responses: { default: {description: TBD} }
+
+  /cluster/{cid}:
+    parameters:
+    - $ref: '#/parameters/clusterId'
+    get:
+      description: List available clusters
+      responses: { default: {description: TBD} }
+    delete:
+      description: Delete a cluster and associated resources
+      responses: { default: {description: TBD} }
+
+  /cluster/{cid}/properties/{pid}:
+    parameters:
+    - $ref: '#/parameters/clusterId'
+    - $ref: '#/parameters/propertyId'
+    get:
+      description: View the value for the given {property}
+      responses: { default: {description: TBD} }
+    post:
+      description: Create a property for the given cluster
+      responses: { default: {description: TBD} }
+    put:
+      description: Update the value for the cluster property
+      responses: { default: {description: TBD} }
+      
+  /cluster/{cid}/inventory:
+    parameters:
+    - $ref: '#/parameters/clusterId'
+    get:
+      description: Retrieve an Ansible inventory for the cluster
+      responses: { default: {description: TBD} }
+      
+  /stack:
+    get:
+      description: List available compositions
+      responses: { default: {description: TBD} }
+    post:
+      description: Create a new composition
+      responses: { default: {description: TBD} }
+      
+  /stack/{sid}:
+    parameters:
+    - $ref: '#/parameters/stackId'
+    get:
+      description: Show information about the composition
+      responses: { default: {description: TBD} }
+    delete:
+      description: Delete a composition
+      responses: { default: {description: TBD} }
+      
+  /stack/{sid}/layer:
+    parameters:
+    - $ref: '#/parameters/stackId'
+    get:
+      description: Get the layers of the stack
+      responses: { default: {description: TBD} }
+    post:
+      description: Add a layer to the stack
+      responses: { default: {description: TBD} }
+    delete:
+      description: Delete all the layers of the stack
+      responses: { default: {description: TBD} }
+      
+  /stack/{sid}/layer/{lid}:
+    parameters:
+    - $ref: '#/parameters/stackId'
+    - $ref: '#/parameters/layerId'
+    get:
+      description: Get the layer
+      responses: { default: {description: TBD} }
+    
+
+parameters:
+  clusterId:
+    name: cid
+    in: path
+    type: number
+    description: the cluster identifier
+    required: true
+  propertyId:
+    name: pid
+    in: path
+    type: number
+    description: The property identifier
+    required: true
+  stackId:
+    name: sid
+    in: path
+    type: number
+    description: The stack identifier
+    required: true
+  layerId:
+    name: lid
+    in: path
+    type: number
+    description: The Layer identifier
+    required: true
