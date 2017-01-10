@@ -1,0 +1,87 @@
+
+responses:
+  200: Ok
+  201: Created
+  400: Bad Request
+  401: Unauthorized
+  404: Not found
+  405: Method not allowed
+  406: Not acceptable
+  409: Conflict
+  500: Internal server error
+  501: Not implemented
+  503: Service unavailable
+  507: Insufficient storage
+
+definitions:
+  Entity: TBD
+  Cluster: TBD
+  Stack: TBD
+  Deployment: TBD
+  Hpc: TBD
+
+paths:
+
+  ################################################################
+  # cluster
+
+  /cluster:
+    get: List available cluster
+    post: Create and launch cluster
+    delete: Delete all clusters
+
+  /cluster/{id}:
+    get: View the cluster
+    delete: Destroy and delete the cluster
+    patch: Update components of the cluster. Useful for properties
+    put: Replace the definition of a cluster, by tearing down and relaunching
+
+  /cluster/{id}/inventory:
+    get: Get the Ansible inventory for the cluster
+
+  ################################################################
+  # stack
+
+  /stack:
+    get: List available stacks
+    post: Create a new composition
+    delete: Delete all stack compositions
+
+  /stack/{id}:
+    get: Retrieve a composition
+    put: Replace a composition
+    patch: Modify a composition. Primarily intended to add/remove/modify layers
+    delete: Delete a composition
+
+  ################################################################
+  # deployments
+
+  /deploy:
+    get: List current stack deployments
+    post: Create a new deployments
+    delete: Delete all deployments
+
+  /deploy/{id}:
+    get: Retrieve a deployment
+    put: Replace a deployment
+    delete: Delete a deployment
+
+  /deploy/{id}/status:
+    get: Retrive the status of a deployment
+
+  ################################################################
+  # hpc
+
+  /hpc:
+    get: List all HPC jobs
+    post: Create a new HPC job
+    delete: Delete all HPC jobs
+
+  /hpc/{id}:
+    get: Retrieve a HPC job
+    put: Replace a job
+    delete: Delete a job
+
+  /hpc/{id}/status:
+    get: Retrieve the status of a job
+
