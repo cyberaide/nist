@@ -57,12 +57,12 @@ paths:
   ################################################################
   # linkages
 
-  /stack/link:
+  /link:
     get: List defined linkages
     post: Create a new link
     delete: Delete all linkages
 
-  /stack/link/{id}:
+  /link/{id}:
     get: Retrieve a linkage
     put: Replace a linkage
     delete: Delete a linkage
