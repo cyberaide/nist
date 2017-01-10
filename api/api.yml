@@ -40,6 +40,7 @@ paths:
     delete:
       description: Delete all clusters
       responses: [200, 400]
+      result: list of Cluster objects that were deleted
 
   /cluster/{id}:
     get: View the cluster
