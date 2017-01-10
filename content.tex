@@ -423,7 +423,7 @@ Some more details about out improved interfaces are given in
 Figure~\ref{T:rest}.
 
 \begin{table*}[htb]
-\caption{Selected Service Description}\label{T:rest}
+\caption{Selected Service Description. Items prefixed with a colon (:) indicate parameters e.g. :id, :?.}\label{T:rest}
 \bigskip
 \begin{center}
 \begin{small}
@@ -433,13 +433,13 @@ Figure~\ref{T:rest}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Virtual cluster
 \hline \multicolumn{3}{|l|}{\grey\bf Virtual Cluster: /cluster} \tabularnewline \hline
-/                       & GET      & List available clusters \tabularnewline \hline
-/                       & POST     & Launch a cluster on the provider \tabularnewline \hline
-/                       & DELETE   & Delete all available clusters \tabularnewline \hline
-/:id                    & DELETE   & Delete and destroy a cluster \tabularnewline \hline
-/:id                    & GET      & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
+/                         & GET      & List available clusters \tabularnewline \hline
+/                         & POST     & Launch a cluster on the provider \tabularnewline \hline
+/                         & DELETE   & Delete all available clusters \tabularnewline \hline
+/:id                      & DELETE   & Delete and destroy a cluster \tabularnewline \hline
+/:id                      & GET      & View the status of a cluster (nodes, node type, etc) \tabularnewline \hline
 /:id/properties/:property & GET, PUT & Get/set a property (provider, name, description) of the cluster \tabularnewline \hline
-/:id/inventory/:format  & GET      & Obtain an inventory of the cluster \tabularnewline \hline
+/:id/inventory/:format    & GET      & Obtain an inventory of the cluster \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Composition
 \hline \multicolumn{3}{|l|}{\grey\bf Stack Composition: /stack} \tabularnewline \hline
@@ -449,8 +449,8 @@ Figure~\ref{T:rest}.
 /:id                            & DELETE   & Delete a composition \tabularnewline \hline
 /:id/name                       & GET, PUT & Get/set the name of the composition \tabularnewline \hline
 /:id/add?deployer=:?\&source=:? & POST     & Add a layer to the composition \tabularnewline \hline
-/:id/layers                      & GET      & List layers of the composition \tabularnewline \hline
-/:id/layers/:id                  & DELETE   & Delete the layer of the composition \tabularnewline \hline
+/:id/layers                     & GET      & List layers of the composition \tabularnewline \hline
+/:id/layers/:id                 & DELETE   & Delete the layer of the composition \tabularnewline \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Stack Deployment
 \hline \multicolumn{3}{|l|}{\grey\bf Stack Deployment: /stack} \tabularnewline \hline
@@ -710,21 +710,23 @@ cm boot
 
 Important is that cloudmesh introduces an abstraction for creating and
 managing software stacks. Such stacks are used to tackle the problem
-of reproducibly deploying software stacks and packages on virtual
+of reproducibly deploying and configuring software on virtual
 clusters. They are also important to define customization of the
 software stack that typically can not be provided by traditional
 supercomputing centers and have become an integral part of cloud
 computing and development efforts of large scale open source software
 projects.
 
+\TODO{Fix citations}
+
 A {\it Stack} is a way to modify a collection of accessible resources
-in order to bring them to a desired state. It is desirable that his
+in order to bring them to a desired state. It is desirable that this
 execution unit can interface with various deployment tools and
 approaches. This includes scripts, programs, ssh, Make, OpenStack Heat
 \cite{??}, Ansible \cite{??}, Chef \cite{??}, Puppet \cite{??}, Salt
 \cite{??}, Vagrant \cite{??}, Dockerfile \cite{??}, and NixOS/NixOps
-\cite{??}. The reason for this is that users can leverage their own
-preferred deployment tools, but also allows uses to leverage efforts
+\cite{??}. The reason for this is that users can use their own
+preferred deployment tools, but also allows them to leverage efforts
 conducted by the open source community while integrating large and
 complex software stacks.  Hence, if available a variety of different
 launch platforms can be integrated into cloudmesh and work from
@@ -732,8 +734,8 @@ different community contributions can be supported.
 
 These deployment units are then composed as part of a stack {\it
   Composition} into layers to form a new deployment unit that can be
-used as a layer within a different composition (illustrated in 
-Figure~\ref{F:stack-composition}).
+itself used recursively as a layer within a different composition
+(illustrated in Figure~\ref{F:stack-composition} and Figure~\ref{F:stack-graph}).
 
 
 
@@ -836,6 +838,7 @@ in Figure~\ref{F:cm-stack-command}.
 \end{Verbatim}
 \vspace{-12pt}
 \caption{Commands to deploy the fingerprint $N_1$ stack}
+\TODO{Badi: stack commands to deploy the fingerprint N1 stack}
 %\end{figure}
 
 %\begin{figure}[htb]
