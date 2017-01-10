@@ -27,9 +27,17 @@ paths:
   # cluster
 
   /cluster:
-    get: List available cluster
-    post: Create and launch cluster
-    delete: Delete all clusters
+    get:
+      description: List available cluster
+      responses: [200, 404]
+      result: list of Cluster objects
+    post:
+      description: Create and launch cluster
+      responses: [201, 406]
+      result: 'Location' header stores the link to resource
+    delete:
+      description: Delete all clusters
+      responses: [200, 400]
 
   /cluster/{id}:
     get: View the cluster
