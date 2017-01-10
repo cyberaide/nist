@@ -62,7 +62,15 @@ paths:
       result: none
 
   /cluster/{id}/inventory:
-    get: Get the Ansible inventory for the cluster
+    description: |
+      This endpoing allows inventory files to be retreived for the
+      cluster.  The inventory files contains the IP address and log in
+      information for the cluster and may be used by configuration
+      managers such as Ansible to manage content on the cluster.
+    get:
+      description: Get the Ansible inventory for the cluster
+      responses: [200, 404]
+      result: string, the inventory
 
   ################################################################
   # stack
