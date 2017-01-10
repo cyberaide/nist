@@ -19,6 +19,7 @@ definitions:
   Stack: TBD
   Deployment: TBD
   Hpc: TBD
+  Linkage: TBD
 
 paths:
 
@@ -52,6 +53,19 @@ paths:
     put: Replace a composition
     patch: Modify a composition. Primarily intended to add/remove/modify layers
     delete: Delete a composition
+
+  ################################################################
+  # linkages
+
+  /stack/link:
+    get: List defined linkages
+    post: Create a new link
+    delete: Delete all linkages
+
+  /stack/link/{id}:
+    get: Retrieve a linkage
+    put: Replace a linkage
+    delete: Delete a linkage
 
   ################################################################
   # deployments
