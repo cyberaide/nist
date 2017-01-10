@@ -28,6 +28,7 @@ paths:
   # cluster
 
   /cluster:
+    description: This endpoint provides methods for operating on the full set of Clusters.
     get:
       description: List available cluster
       responses: [200, 404]
