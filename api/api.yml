@@ -43,10 +43,23 @@ paths:
       result: list of Cluster objects that were deleted
 
   /cluster/{id}:
-    get: View the cluster
-    delete: Destroy and delete the cluster
-    patch: Update components of the cluster. Useful for properties
-    put: Replace the definition of a cluster, by tearing down and relaunching
+    description: This endpoint provides methods for manipulating a single Cluster.
+    get:
+      description: View the cluster
+      responses: [200, 404]
+      result: a Cluster object
+    delete:
+      description: Destroy and delete the cluster
+      responses: [200, 404]
+      result: the Cluster object that as deleted
+    patch:
+      description: Update components of the cluster. Useful for properties
+      responses: [203, 406]
+      result: none
+    put:
+      description: Replace the definition of a cluster, by tearing down and relaunching
+      responses: [204, 404]
+      result: none
 
   /cluster/{id}/inventory:
     get: Get the Ansible inventory for the cluster
