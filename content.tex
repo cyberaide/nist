@@ -1,4 +1,5 @@
-\newcommand{\AUTHOR}{Gregor von Laszewski, Badi Abdul-Wahid, Fugang Wang, Hyungro Lee, Geoffrey C. Fox}
+\newcommand{\AUTHOR}{Gregor von Laszewski, Fugang Wang, Badi
+  Abdul-Wahid, Hyungro Lee, Geoffrey C. Fox}
 \newcommand{\TITLE}{Cloudmesh in support of the\\NIST Big Data Architecture Framework}
 
 
@@ -36,16 +37,16 @@ Wo Chang\\
   The National Institute of Standards and Technology (NIST) has
   provided a big data reference architecture and is currently
   attempting to validate that architecture. As part of our current
-  efforts we have developed cloudmesh client a tool that sets its goal
-  towards easily managing clouds, container, batch queues and bare
-  metal infrastructure. It also allows the integration of defined
+  efforts we are developin cloudmesh a tool that sets its goal towards
+  easily managing multiple clouds, container, batch queuesexposed as
+  services to its users. It also allows the integration of defined
   software stacks that can be used to deploy complex and
   state-of-the-art frameworks with devOps tools. Cloudmesh is on
   purpose designed to be vendor agnostic. We evaluate in this paper
   two aspects. First, based on our rich experience with clouds and
   other infrastructures, {\it can we verify the NIST reference
     architecture from our point of view?} Second, {\it which
-    limitations may exist in cloudmesh client that need to be
+    limitations may exist in cloudmesh that need to be
     addressed to potentially improve integration with the NIST
     efforts?}  We will see in this paper that cloudmesh validates the
   NIST big data architecture which itself motivated further
@@ -70,12 +71,12 @@ influencing this paper. This includes cloudmesh \cite{las12-cloud}
 \cite{github-cloudmesh-client} and the NIST Big Data Reference
 Architecture \cite{nist-bd}.  
 
-Our paper is structured as follows. We start by giving brief
-introductions to the National Institute of Standards (NIST) Big Data
+Our paper is structured as follows. We start by giving a brief
+introduction to the National Institute of Standards (NIST) Big Data
 Reference Architecture (Section~\ref{S:NBDarch}) followed by a brief
 introduction to Cloudmesh (Section~\ref{S:cmclient}).  We then provide
-a more in depth description of Cloudmesh while focussing on CLoudmesh
-abstractions useful for big data analysis (Section
+a more in depth description of Cloudmesh while focussing on Cloudmesh's
+abstraction which are useful for big data analysis (Section
 \ref{S:abstraction}). Next we investigate some usecases brought
 forward by the NIST Big Data Working Group and see how cloudmesh can
 help deploying and executing them (Section~\ref{S:usecases}) .
@@ -118,12 +119,12 @@ One of the desired tasks is to identify existing frameworks and to
 analyze how they correlate to the current reference architecture
 \cite{nist-bd}. This is conducted in order to validate and if needed
 to improve the architecture.  The current NIST big data reference
-architecture(NBDRA) is shown in Figure~\ref{F:NIST-arch}. However we have
-augmented the architecture with areas where cloudmesh interfaces with
-it. We will describe the offerings in relationship to this
+architecture(NBDRA) is shown in Figure~\ref{F:NIST-arch}. However we
+have augmented the architecture with areas where cloudmesh interfaces
+with it. We will describe the offerings in relationship to this
 architecture of cloudmesh in detail in Section~\ref{S:cm-nist}.  The
-NBDRA contains according to \cite{nist-bd} the following
-components and services:
+NBDRA contains according to \cite{nist-bd} the following components
+and services:
 
 \begin{figure}[hp]
   \centering
@@ -178,64 +179,66 @@ components and services:
   component that acts in behalf of the data scientist, or another data
   science service that would require a particular configuration.
 
-\item {\bf Data Provider} - provides abstraction of various types of 
-data sources (such as raw data or data previously transformed by another system) 
-and makes them available through different functional interfaces. This includes 
-transfer analytics codes to data sources for effective analytic processing.
+\item {\bf Data Provider} - provides abstraction of various types of
+  data sources (such as raw data or data previously transformed by
+  another system) and makes them available through different
+  functional interfaces. This includes transfer analytics codes to
+  data sources for effective analytic processing.
 
 
-\item {\bf Big Data Application Provider} - provides analytics processing 
-throughout the data lifecycle - acquisition, curation, analysis, visualization, 
-and access - to meet requirements established by the System Orchestrator.
+\item {\bf Big Data Application Provider} - provides analytics
+  processing throughout the data lifecycle - acquisition, curation,
+  analysis, visualization, and access - to meet requirements
+  established by the System Orchestrator.
 
 
-\item {\bf Big Data Framework Provider} - provides one or more instances 
-of computing environment to support general Big Data tools, distributed file systems, 
-and computing infrastructure - to meet requirements established by the Big Data 
-Application Provider.
+\item {\bf Big Data Framework Provider} - provides one or more
+  instances of computing environment to support general Big Data
+  tools, distributed file systems, and computing infrastructure - to
+  meet requirements established by the Big Data Application Provider.
 
 
-\item  {\bf Data Consumer} - provides interface to receive the value output 
-from this NBD-RA ecosystem.
+\item {\bf Data Consumer} - provides interface to receive the value
+  output from this NBD-RA ecosystem.
 
 
-\item  {\bf Security and Privacy Fabric} - provides System Orchestrator 
-the security and privacy interaction to the rest of the NBD-RA components to ensure 
-protection of data and their content.
+\item {\bf Security and Privacy Fabric} - provides System Orchestrator
+  the security and privacy interaction to the rest of the NBD-RA
+  components to ensure protection of data and their content.
 
 
-\item {\bf Management Fabric} - provides System Orchestrator the management 
-interaction to the rest of the NBD-RA components with versatile system and software 
-provisioning, resource and performance monitoring, while maintaining a high level 
-of data quality and secure accessibility.
+\item {\bf Management Fabric} - provides System Orchestrator the
+  management interaction to the rest of the NBD-RA components with
+  versatile system and software provisioning, resource and performance
+  monitoring, while maintaining a high level of data quality and
+  secure accessibility.
 
 \end{description}
 
 
 
 
-\section{Cloudmesh Client}
+\section{Cloudmesh}
 \label{S:cmclient}
 
-The cloudmesh client toolkit is a lightweight client interface of
-accessing heterogeneous clouds, clusters, and workstations right from
-the users computer. The user can manage her own set of resources she
-would like to utilize. Thus the user has the freedom to customize
-their cyber infrastructure they use. Cloudmesh client includes an API,
-a command-line client, and a command-line shell. It strives to abstract
+The cloudmesh is a lightweight client interface of accessing
+heterogeneous clouds, clusters, and workstations right from the users
+computer. The user can manage her own set of resources she would like
+to utilize. Thus the user has the freedom to customize their cyber
+infrastructure they use. Cloudmesh includes an API, a
+command-line client, and a command-line shell. It strives to abstract
 backends to databases that are used to manage the workflow utilizing
 the different infrastructure and also the services. Switching for
 example to stage virtual machines from OpenStack clouds to amazon is
-as simple as specifying the name of the cloud. Moreover, cloudmesh
-client can be installed on Linux, MacOSX, and in future
+as simple as specifying the name of the cloud. Moreover, cloudmesh can be installed on Linux, MacOSX, and in future
 Windows. Currently cloudmesh supports backends to SLURM, SSH,
 OpenStack, AWS, and Azure. In the past we supported AWS and Azure.
-Cloudmesh client allows to easily manage virtual machines, containers,
+Cloudmesh allows to easily manage virtual machines, containers,
 HPC tasks, through a convenient client and API. Hence cloudmesh is not
 only a multi-cloud, but a multi-hpc environment that allows also to
 use container technologies (under development). Additionally, we have
 an example code on how to create a Web based portal with the help of
-cloudmesh client.
+cloudmesh.
 
 \subsection{General Requirements and Goals}
 
@@ -301,7 +304,7 @@ previous versions of cloudmesh and our earlier work in this area.
 
 \begin{description}
 
-\item{\bf Client based.} Cloudmesh client as the name indicates is a
+\item{\bf Client based.} Cloudmesh is a
   client based toolkit that is installed and run on the users
   computers. An add on component to use the client within a portal is
   available. Thus we distinguish the client that contains most of the
@@ -320,7 +323,7 @@ client can easily be reused to implement such interfaces.\footnote{we
   have demonstrated that cloudmesh APIs can be used to implement REST
   interfaces in a variety of frameworkks such as Flask, Django, and Cherypy}
 
-\item{\bf Layered Architecture.} Cloudmesh client has a layered
+\item{\bf Layered Architecture.} Cloudmesh has a layered
 architecture that allows easy development of new features. This also
 allows contribution by the community while developing integrated and
 smaller sub components. Figure A depicts the various layers. A
@@ -331,7 +334,7 @@ reintegrating resources such as Azure, AWS, Maui, Moab, and others
 which we previously supported, as well as new resources such as
 docker).
 
-\item{\bf Management Framework.} Cloudmesh client contains a
+\item{\bf Management Framework.} Cloudmesh contains a
 management framework, and its components are depicted in Figure
 B. cloudmesh allows easy management of virtual machines, containers,
 and the data associated with them. We are currently developing a
@@ -369,7 +372,7 @@ by managing the credentials locally rather than on a server.
 exploratory project in place that looks at the use of Yubikeys for
 cloudmesh, client and cloudmesh portal.
 
-\item{\bf Cloudmesh Comet.} We are actively developing the client
+\item{\bf Cloudmesh Comet.} We have  developed the client
 interface for SDSC’s comet supercomputer allowing bare metal
 provisioning. The interface reuses cloudmesh components and
 technologies while interfacing with the comet cloud REST
@@ -416,7 +419,7 @@ directory name is appended with an increasing index. To run such a
 script we can on our client simply say
  
 \begin{Verbatim}
-    cm hpc run SCRIPT
+    cms hpc run SCRIPT
 \end{Verbatim}
 
 Some more details about out improved interfaces are given in
@@ -642,11 +645,16 @@ Switching between alternative services can be achieved by updating a
 single variable.
 
 Demonstrated usages of
-Comet                                                                                           (HPC integrated Cloud)
-FutureSystems, Chameleon, CloudLab, Bridges, Jetstream, …  (National Openstack Clouds)
-Cybera (CA), Karslruhe Openstack Cloud (KIT, Germany), …     (International)
-EC2, AWS, Azure                                                                          (Commercial Non Openstack)
-Devstack, Trystack, Virtualbox                                                       (Desktop Clouds)
+Comet
+(HPC integrated Cloud)
+FutureSystems, Chameleon, CloudLab, Bridges, Jetstream,
+(National Openstack Clouds)
+Cybera (CA), Karslruhe Openstack Cloud (KIT, Germany),
+(International)
+EC2, AWS, Azure
+(Commercial Non Openstack)
+Devstack, Trystack, Virtualbox
+(Desktop Clouds)
 A user could use all of them
 
 \subsubsection{Cloudmesh and Comet Cloud Virtual Cluster}
@@ -683,19 +691,19 @@ that showcase how easy the interaction with comet is shown in Table \ref{T:comet
 Command & Description\\
 \hline
 \hline
-cm comet cluster  ID
+cms comet cluster  ID
   &  Show the cluster details \\
-cm comet power on ID vm-ID -[0-3] --walltime=6h
+cms comet power on ID vm-ID -[0-3] --walltime=6h
   & Power 3 nodes on for 6 hours \\
-cm comet image attach image.iso ID vm-ID-0
+cms comet image attach image.iso ID vm-ID-0
   &  Attach an image \\
-cm comet boot ID vm-ID-0
+cms comet boot ID vm-ID-0
   & Boot node 0 \\
-cm comet console vc4
+cms comet console vc4
   & Start interactive console for vc4  \\
-cm var cloud=jetstream / bridges / aws / comet
+cms var cloud=jetstream / bridges / aws / comet
    & easy switching of infrastructure \\
-cm boot
+cms boot
    & booting of a virtual machine with default parameters\\
 \hline
 \end{tabular}
@@ -999,9 +1007,6 @@ different clouds and IaaS frameworks.
 
 \section{Conclusion}\label{S:conclusion}
 
-\TODO{add conclusion}
-
-\subsection{Conclusion}
 Ansible + Cloudmesh
 Will enable re-usable specification of Big Data Stack applications in 87 use cases and 62 unique roles from which NIST has 27
 BDS status
@@ -1010,8 +1015,10 @@ From this a total part of BDS are vetted (the most fundamental ones):
 6   Playbooks
 
 
+\section*{Acknowledgement}
 
-\subsection{Future Work}
+We woudl like to thank for his contributions to an
+earlier version of this paper
 
 \TODO{discuss additional work}
 
